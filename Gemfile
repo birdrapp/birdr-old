@@ -20,6 +20,13 @@ gem 'uglifier', '>= 1.3.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 
+# Authentication with Devise: https://github.com/plataformatec/devise
+gem 'devise', '~> 4.3'
+
+gem 'bootstrap', '~> 4.0.0.beta'
+gem 'jquery-rails', '~> 4.3'
+gem 'simple_form', '~> 3.5'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
