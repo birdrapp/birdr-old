@@ -1,3 +1,10 @@
 <header class="navbar navbar-light bg-light">
   <%= link_to 'Birdr', '/', class: 'navbar-brand' %>
+  <% if user_signed_in? %>
+  <span class="navbar-text">
+  <%= current_user %> | <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+  </span>
+  <%- else -%>
+  <%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %>
+  <%- end %>
 </header>
