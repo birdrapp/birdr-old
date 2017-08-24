@@ -2,7 +2,7 @@
 SimpleForm.setup do |config|
   config.error_notification_class = 'alert alert-danger'
   config.button_class = 'btn btn-primary'
-  config.boolean_label_class = nil
+  config.boolean_label_class = 'form-check-label'
 
   config.wrappers :vertical_form, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
@@ -32,13 +32,11 @@ SimpleForm.setup do |config|
     b.use :hint,  wrap_with: { tag: 'small', class: 'form-text text-muted' }
   end
 
-  config.wrappers :vertical_boolean, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+  config.wrappers :vertical_boolean, tag: 'div', class: 'form-check', error_class: 'has-error' do |b|
     b.use :html5
     b.optional :readonly
 
-    b.wrapper tag: 'div', class: 'checkbox' do |ba|
-      ba.use :label_input
-    end
+    b.use :label_input, class: 'form-check-input'
 
     b.use :error, wrap_with: { tag: 'small', class: 'form-text text-danger' }
     b.use :hint,  wrap_with: { tag: 'small', class: 'form-text text-muted' }
