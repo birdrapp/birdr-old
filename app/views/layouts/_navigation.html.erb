@@ -1,5 +1,7 @@
 <header class="navbar navbar-light bg-light">
-  <%= link_to 'Birdr', '/', class: 'navbar-brand' %>
+  <%= link_to '/', class: 'navbar-brand' do %>
+  <%= image_tag 'icon.svg', width: 40 %>
+  <%- end %>
   <% if user_signed_in? %>
   <span class="navbar-text">
   <%= current_user %> | <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
