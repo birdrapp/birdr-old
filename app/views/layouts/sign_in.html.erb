@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Birdr</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body class="sign_in">
+    <div class="gradient-primary page-wrap">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <%= image_tag 'logo-white.svg' %>
+          </div>
+        </div>
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

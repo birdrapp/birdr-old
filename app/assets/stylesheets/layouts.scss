@@ -1,0 +1,11 @@
+.gradient-primary {
+  @include gradient-y(lighten(theme-color("primary"), 3%), theme-color("primary"));
+}
+
+.page-wrap {
+  min-height: 100%;
+}
+
+.card-rounded {
+  border-radius: 3 * $border-radius;
+}

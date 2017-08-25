@@ -1,3 +1,8 @@
 @import 'variables';
 @import 'bootstrap';
 @import 'overrides';
+@import 'layouts';
+
+body {
+  height: 100%;
+}

@@ -27,7 +27,7 @@ $grays: map-merge((
   900: $gray-900
 ), $grays);
 
-$blue:    #007bff !default;
+$blue:    #2980B9 !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
 $pink:    #e83e8c !default;
@@ -69,3 +69,17 @@ $theme-colors: map-merge((
 
 // Set a specific jump point for requesting color jumps
 $theme-color-interval: 8% !default;
+
+//
+// Variables
+//
+$headings-font-weight: 300;
+$headings-color: $blue;
+
+//
+// Global options
+//
+$spacer: 1rem;
+$enable-rounded: true;
+$enable-gradients: true;
+$enable-shadows: false;

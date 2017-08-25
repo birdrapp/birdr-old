@@ -1,12 +1,25 @@
 <div class="row justify-content-center">
-  <div class="col-12 col-sm-10 col-md-6 col-lg-4">
-    <h2>Log in</h2>
-
-    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <%= f.input :email, autofocus: true %>
-      <%= f.input :password %>
-      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-      <%= f.button :submit, "Sign in" %>
-    <% end %>
+  <div class="col-12 col-sm-10 col-md-8 col-lg-5">
+    <div class="card card-rounded">
+      <div class="card-body">
+        <h4 class="card-title text-center my-4 font-weight-light">Sign in to your account</h4>
+        <div class="p-4">
+          <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <%= f.error_notification %>
+            <%= f.input :email, autofocus: true, label: false, placeholder: 'Email address' %>
+            <%= f.input :password, label: false, placeholder: 'Password' %>
+            <%= f.button :submit, "Sign in", class: 'btn-block py-2' %>
+          <% end %>
+        </div>
+      </div>
+      <div class="card-footer text-muted text-center py-3">
+        New to Birdr? <%= link_to 'Sign up', new_user_registration_path %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="col-auto my-4">
+    <%= link_to 'Forgot your password?', new_user_password_path, class: 'text-light bg-gray' %>
   </div>
 </div>
