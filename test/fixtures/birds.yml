@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  common_name: MyString
+  scientific_name: MyString
+  order: MyString
+  scientific_family_name: MyString
+  common_family_name: MyString
+  sort_position: 
+  species_id: one
+
+two:
+  common_name: MyString
+  scientific_name: MyString
+  order: MyString
+  scientific_family_name: MyString
+  common_family_name: MyString
+  sort_position: 
+  species_id: two
