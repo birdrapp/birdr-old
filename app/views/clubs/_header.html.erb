@@ -1,0 +1,9 @@
+<% if current_user.is_member_of(@club) %>
+  <%= link_to 'Member', club_membership_path(@club), class: 'btn btn-outline-success float-right' %>
+<% end %>
+
+<h1 class="mt-4"><%= @club.display_name %></h1>
+
+<% if @club.has_short_name %>
+  <p class="lead"><%= @club.name %></p>
+<% end %>

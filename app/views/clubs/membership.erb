@@ -1,0 +1,11 @@
+<%= render 'header' %>
+<%= render 'nav' %>
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <% if current_user.is_member_of(@club) %>
+      <h4 class="mb-4">You're a member</h4>
+      <%= button_to "Leave #{@club.display_name}", leave_club_path(@club), class: 'btn btn-outline-danger' %>
+    <% end %>
+  </div>
+</div>

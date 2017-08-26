@@ -1,0 +1,15 @@
+<div class="row mt-4">
+  <div class="col-md-6 mb-3">
+    <h4>About the club</h4>
+    <%= @club.description %>
+  </div>
+
+  <div class="col-md-6">
+    <% if !current_user.is_member_of(@club) %>
+      <div class="alert alert-primary">
+        <h4>Become a member</h4>
+        <%= button_to "Join #{@club.display_name}", join_club_path(@club), class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

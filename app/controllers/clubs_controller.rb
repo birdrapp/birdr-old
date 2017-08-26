@@ -74,6 +74,27 @@ class ClubsController < ApplicationController
     redirect_to action: :show
   end
 
+  # POST /clubs/1/leave
+  # POST /clubs/1/leave.json
+  def leave
+    @club = Club.find(params[:id])
+    ClubMembership.where({
+      user_id: current_user.id,
+      club_id: @club.id
+    }).destroy_all
+    redirect_to action: :show
+  end
+
+  # GET /clubs/1/members
+  def members
+    @club = Club.find(params[:id])
+  end
+
+  # GET /clubs/1/membership
+  def membership
+    @club = Club.find(params[:id])
+  end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def club_params
