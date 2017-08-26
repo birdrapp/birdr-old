@@ -12,10 +12,14 @@
           <h6 class="card-subtitle mb-2 text-muted"><%= club.name %></h6>
         <% end %>
         <p class="card-text"><%= club.description %></p>
-        <%= button_to "Join", join_club_path(club), class: "btn btn-primary" %>
+        <% if current_user.is_member_of(club) %>
+          <%= button_to "Member", club_path(club), method: :get, class: "btn btn-outline-success" %>
+        <% else %>
+          <%= button_to "Join", join_club_path(club), class: "btn btn-primary" %>
+        <% end %>
       </div>
     </div>
   <% end %>
 </div>
 
-<%= button_to "Create a Club", new_club_path, method: :get, class: "btn btn-outline-primary" %>
+<%= button_to "Create a Club", new_club_path, method: :get, class: "btn btn-outline-primary mb-4" %>

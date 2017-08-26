@@ -11,4 +11,8 @@ class User < ApplicationRecord
   def has_no_clubs
     clubs.length == 0
   end
+
+  def is_member_of club
+    clubs.exists?(club.id)
+  end
 end
