@@ -24,3 +24,14 @@ html, body {
     color: white;
   }
 }
+
+.dropdown-menu-account {
+  right: 8px;
+  top: 61px;
+  width: 240px;
+  left: auto;
+
+  a.dropdown-item {
+    color: theme-color("primary");
+  }
+}
