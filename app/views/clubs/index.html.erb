@@ -7,8 +7,10 @@
   <% @clubs.each do |club| %>
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title"><%= link_to club.short_name, club %></h4>
-        <h6 class="card-subtitle mb-2 text-muted"><%= club.name %></h6>
+        <h4 class="card-title"><%= link_to club.display_name, club %></h4>
+        <% if club.short_name %>
+          <h6 class="card-subtitle mb-2 text-muted"><%= club.name %></h6>
+        <% end %>
         <p class="card-text"><%= club.description %></p>
         <a href="#" class="btn btn-primary">Join</a>
       </div>
