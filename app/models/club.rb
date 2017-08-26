@@ -11,4 +11,8 @@ class Club < ApplicationRecord
   def has_short_name
     short_name != ""
   end
+
+  def members
+    users
+  end
 end

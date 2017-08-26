@@ -1,2 +1,19 @@
 <%= render 'header' %>
 <%= render 'nav' %>
+
+<table class="table table-stiped mt-4">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Member since</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @club.members.each do |member| %>
+    <tr>
+      <td><%= member.full_name %></td>
+      <td><%= member.member_since(@club).strftime("%d-%m-%Y") %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

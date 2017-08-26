@@ -4,8 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  def to_s
+  def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def to_s
+    full_name
   end
 
   def has_no_clubs
@@ -14,5 +18,13 @@ class User < ApplicationRecord
 
   def is_member_of club
     clubs.exists?(club.id)
+  end
+
+  def member_since club
+    membership = ClubMembership.where({
+      user_id: id,
+      club_id: club.id
+    }).first
+    membership.updated_at unless membership == nil
   end
 end
