@@ -1,5 +1,9 @@
+html, body {
+  height: 100%;
+}
+
 .gradient-primary {
-  @include gradient-y(lighten(theme-color("primary"), 3%), theme-color("primary"));
+  @include gradient-y(theme-color("primary"), darken(theme-color("primary"), 7%));
 }
 
 .page-wrap {
@@ -8,4 +12,15 @@
 
 .card-rounded {
   border-radius: 3 * $border-radius;
+}
+
+.card-square {
+  border-radius: 0;
+}
+
+.logo-white {
+  path {
+    fill: white;
+    color: white;
+  }
 }
