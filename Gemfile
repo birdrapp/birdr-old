@@ -27,6 +27,7 @@ gem 'bootstrap', '~> 4.0.0.beta'
 gem 'jquery-rails', '~> 4.3'
 gem 'simple_form', '~> 3.5'
 gem 'kaminari', '~> 1.0'
+gem 'gravatar_image_tag', '~> 1.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
