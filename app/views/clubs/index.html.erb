@@ -5,10 +5,10 @@
 
 <div class="mt-4 mb-4">
   <% @clubs.each do |club| %>
-    <div class="card">
+    <div class="card mb-2">
       <div class="card-body">
         <h4 class="card-title"><%= link_to club.display_name, club %></h4>
-        <% if club.short_name %>
+        <% if club.has_short_name %>
           <h6 class="card-subtitle mb-2 text-muted"><%= club.name %></h6>
         <% end %>
         <p class="card-text"><%= club.description %></p>

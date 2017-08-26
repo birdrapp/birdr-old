@@ -5,6 +5,10 @@ class Club < ApplicationRecord
   validates :description, :presence => true
 
   def display_name
-    short_name ? short_name : name
+    has_short_name ? short_name : name
+  end
+
+  def has_short_name
+    short_name != ""
   end
 end
