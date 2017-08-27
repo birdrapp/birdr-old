@@ -1,3 +1,66 @@
 // Place all the styles related to the Clubs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$desaturated: desaturate(theme-color("primary"), 20%);
+$backgroundColor: mix($desaturated, white, 5%);
+$borderColor: mix($desaturated, white, 15%);
+$linkColor: theme-color("secondary");
+$hoverLinkColor: darken($linkColor, 15%);
+$hoverBorderColor: darken($borderColor, 15%);
+$activeColor: theme-color("primary");
+$activeHoverColor: darken($activeColor, 15%);
+
+.club-header {
+  background-color: $backgroundColor;
+  border-bottom: 1px solid $borderColor;
+  margin-top: -1.5rem;
+  padding-top: 1.5rem;
+}
+
+.club-nav {
+  border-bottom: 1px solid $borderColor;
+
+  .nav-link {
+    padding: 1rem 0.5rem;
+    margin-right: 1rem;
+    color: $linkColor;
+    margin-bottom: -1px;
+    border-bottom: 1px solid $borderColor;
+
+    .badge {
+      background-color: $linkColor;
+    }
+
+    &:active,
+    &:hover,
+    &:focus {
+      color: $hoverLinkColor;
+      border-bottom-color: $hoverBorderColor;
+
+      .badge {
+        background-color: $hoverLinkColor;
+      }
+    }
+  }
+
+  .active {
+    border-bottom: 1px solid $activeColor;
+    margin-bottom: -1px;
+    color: $activeColor;
+
+    .badge {
+      background-color: $activeColor;
+    }
+
+    &:active,
+    &:hover,
+    &:focus {
+      color: $activeHoverColor;
+      border-bottom-color: $activeHoverColor;
+
+      .badge {
+        background-color: $activeHoverColor;
+      }
+    }
+  }
+}

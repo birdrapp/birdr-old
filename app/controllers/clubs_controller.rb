@@ -9,6 +9,7 @@ class ClubsController < ApplicationController
   # GET /clubs/1.json
   def show
     @club = Club.find(params[:id])
+    @container = false
   end
 
   # GET /clubs/new
@@ -19,6 +20,7 @@ class ClubsController < ApplicationController
   # GET /clubs/1/edit
   def edit
     @club = Club.find(params[:id])
+    @container = false
   end
 
   # POST /clubs
@@ -82,11 +84,13 @@ class ClubsController < ApplicationController
   # GET /clubs/1/members
   def members
     @club = Club.find(params[:id])
+    @container = false
   end
 
   # GET /clubs/1/membership
   def membership
     @club = Club.find(params[:id])
+    @container = false
   end
 
   private

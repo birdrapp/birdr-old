@@ -1,18 +1,33 @@
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <%= link_to 'Overview', club_path(@club), class: nav_link_class(club_path(@club)) %>
-  </li>
-  <li class="nav-item">
-    <%= link_to club_members_path(@club), class: nav_link_class(club_members_path(@club)) do %>
-      Members <span class="badge badge-secondary"><%= @club.members.length %></span>
-    <% end %>
-  </li>
-  <% if current_user.is_member_of?(@club) %>
-  <li class="nav-item">
-    <%= link_to 'Membership', club_membership_path(@club), class: nav_link_class(club_membership_path(@club)) %>
-  </li>
-  <% end %>
-  <li class="nav-item">
-    <%= link_to 'Settings', edit_club_path(@club), class: nav_link_class(edit_club_path(@club)) %>
-  </li>
-</ul>
+<nav class="club-nav">
+  <div class="container">
+    <ul class="nav justify-content-center justify-content-sm-start">
+      <li class="nav-item">
+        <%= link_to club_path(@club), class: nav_link_class(club_path(@club)) do %>
+          <span class="d-none d-sm-inline">Overview</span>
+          <span class="d-sm-none"><%= fa_icon 'home' %></span>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to club_members_path(@club), class: nav_link_class(club_members_path(@club)) do %>
+          <span class="d-none d-sm-inline">Members</span>
+          <span class="d-sm-none"><%= fa_icon 'users' %></span>
+          <span class="badge"><%= @club.members.length %></span>
+        <% end %>
+      </li>
+      <% if current_user.is_member_of?(@club) %>
+      <li class="nav-item">
+        <%= link_to club_membership_path(@club), class: nav_link_class(club_membership_path(@club)) do %>
+          <span class="d-none d-sm-inline">Membership</span>
+          <span class="d-sm-none"><%= fa_icon 'user' %></span>
+        <% end %>
+      </li>
+      <% end %>
+      <li class="nav-item">
+        <%= link_to edit_club_path(@club), class: nav_link_class(edit_club_path(@club)) do %>
+          <span class="d-none d-sm-inline">Settings</span>
+          <span class="d-sm-none"><%= fa_icon 'cog' %></span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</nav>
