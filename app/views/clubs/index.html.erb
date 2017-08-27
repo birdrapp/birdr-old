@@ -1,0 +1,12 @@
+<h1 class="mt-4">Clubs</h1>
+<% if current_user.has_no_clubs %>
+  <p class="lead">Join a club to get started with Birdr</p>
+<% end %>
+
+<div class="mt-4 mb-4">
+  <% @clubs.each do |club| %>
+    <%= render 'card', club: club %>
+  <% end %>
+</div>
+
+<%= button_to "Create a Club", new_club_path, method: :get, class: "btn btn-outline-primary mb-4" %>
