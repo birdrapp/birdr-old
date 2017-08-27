@@ -10,8 +10,6 @@
 
   <body>
     <%= render 'layouts/navigation' %>
-    <% if @container != false %><div class="container"><% end %>
     <%= yield %>
-    <% if @container != false %></div><% end %>
   </body>
 </html>
