@@ -1,0 +1,12 @@
+$desaturated: desaturate(theme-color("primary"), 20%);
+$backgroundColor: mix($desaturated, white, 5%);
+$borderColor: mix($desaturated, white, 15%);
+
+.page-header {
+  background-color: $backgroundColor;
+  border-bottom: 1px solid $borderColor;
+  margin-top: -1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}

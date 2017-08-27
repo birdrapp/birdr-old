@@ -1,4 +1,4 @@
-<div class="club-header">
+<div class="page-header">
   <div class="container">
     <% if current_user.is_member_of?(@club) %>
       <%= link_to 'Member', club_membership_path(@club), class: 'btn btn-outline-success float-right' %>
@@ -9,7 +9,7 @@
     <h1><%= @club.display_name %></h1>
 
     <% if @club.has_short_name %>
-      <p class="lead"><%= @club.name %></p>
+      <p class="lead mb-0"><%= @club.name %></p>
     <% end %>
   </div>
 </div>
