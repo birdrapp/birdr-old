@@ -7,7 +7,7 @@
       Members <span class="badge badge-secondary"><%= @club.members.length %></span>
     <% end %>
   </li>
-  <% if current_user.is_member_of(@club) %>
+  <% if current_user.is_member_of?(@club) %>
   <li class="nav-item">
     <%= link_to 'Membership', club_membership_path(@club), class: nav_link_class(club_membership_path(@club)) %>
   </li>

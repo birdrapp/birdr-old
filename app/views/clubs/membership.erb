@@ -3,7 +3,7 @@
 
 <div class="row mt-4">
   <div class="col-md-6">
-    <% if current_user.is_member_of(@club) %>
+    <% if current_user.is_member_of?(@club) %>
       <h4>You're a member</h4>
       <p>You've been a member of <%= @club.display_name %> since <%= current_user.member_since(@club).strftime("%d-%m-%Y") %>.</p>
       <%= button_to "Leave #{@club.display_name}", leave_club_path(@club), class: 'btn btn-outline-danger' %>
