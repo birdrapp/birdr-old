@@ -14,8 +14,12 @@
           <small class="text-muted"><%= current_user.email %></small>
         </p>
       </div>
-      <%= link_to 'Account Settings', edit_user_registration_path, class: 'dropdown-item border-left-0 border-right-0 border-bottom-0 border py-2' %>
-      <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'dropdown-item border-left-0 border-right-0 border-bottom-0 border py-2' %>
+      <%= link_to edit_user_registration_path, class: 'dropdown-item border-left-0 border-right-0 border-bottom-0 border p-2' do %>
+        <%= fa_icon 'sliders', class: 'px-2' %> Account Settings
+      <%- end -%>
+      <%= link_to destroy_user_session_path, method: :delete, class: 'dropdown-item border-left-0 border-right-0 border-bottom-0 border p-2' do %>
+        <%= fa_icon 'sign-out', class: 'px-2' %> Sign Out
+      <%- end %>
     </div>
   <%- else -%>
     <%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %>
