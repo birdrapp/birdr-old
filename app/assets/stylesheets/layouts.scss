@@ -27,11 +27,20 @@ html, body {
 
 .dropdown-menu-account {
   right: 8px;
-  top: 61px;
+  top: 62px;
   width: 240px;
   left: auto;
 
   a.dropdown-item {
     color: theme-color("primary");
+  }
+}
+
+.nav-block-link {
+  display: block;
+  &:hover {
+    text-decoration: none;
+    color: theme-color("primary");
+    background-color: theme-color("light");
   }
 }
