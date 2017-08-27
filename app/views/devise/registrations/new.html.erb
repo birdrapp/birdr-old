@@ -3,25 +3,23 @@
     <h1 class="text-white text-center mb-5">Sign up for free and<br> experience Birdr today</h1>
   </div>
 </div>
-<div class="row justify-content-center bg-white">
-  <div class="col-7">
-    <div class="p-2 m-5">
-      <h2>Too Jazzy</h2>
-      <p class="my-4">
-        Occaecat ad fugiat ut excepteur ea anim incididunt pariatur.
-      </p>
-      <h2>Club</h2>
-      <p class="my-4">
-        Id adipisicing aliqua voluptate exercitation mollit voluptate dolor adipisicing cupidatat.
-      </p>
-      <h2>Birds</h2>
-      <p class="my-4">
-        Amet do tempor culpa aliqua pariatur id nisi eu duis consequat irure.
-      </p>
-    </div>
+<div class="row justify-content-center bg-white p-5">
+  <div class="col-12 col-lg-7">
+    <h2>Too Jazzy</h2>
+    <p class="my-4">
+      Occaecat ad fugiat ut excepteur ea anim incididunt pariatur.
+    </p>
+    <h2>Club</h2>
+    <p class="my-4">
+      Id adipisicing aliqua voluptate exercitation mollit voluptate dolor adipisicing cupidatat.
+    </p>
+    <h2>Birds</h2>
+    <p class="my-4">
+      Amet do tempor culpa aliqua pariatur id nisi eu duis consequat irure.
+    </p>
   </div>
-  <div class="col-5">
-    <div class="bg-light border p-4 m-5">
+  <div class="col-lg-5 col-12">
+    <div class="bg-light border p-4 rounded">
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= f.input :first_name, placeholder: 'First Name', autofocus: true %>
         <%= f.input :last_name, placeholder: 'Last Name' %>
