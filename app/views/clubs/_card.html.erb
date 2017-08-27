@@ -5,7 +5,7 @@
       <h6 class="card-subtitle mb-2 text-muted"><%= club.name %></h6>
     <% end %>
     <p class="card-text"><%= club.description %></p>
-    <% if current_user.is_member_of(club) %>
+    <% if current_user.is_member_of?(club) %>
       <%= link_to "Member", club_path(club), class: "btn btn-outline-success" %>
     <% else %>
       <%= button_to "Join", join_club_path(club), class: "btn btn-primary" %>

@@ -12,19 +12,16 @@ class User < ApplicationRecord
     full_name
   end
 
-  def has_no_clubs
+  def has_no_clubs?
     clubs.length == 0
   end
 
-  def is_member_of club
+  def is_member_of? club
     clubs.exists?(club.id)
   end
 
   def member_since club
-    membership = ClubMembership.where({
-      user_id: id,
-      club_id: club.id
-    }).first
+    membership = club_memberships.where(club_id: club.id).first
     membership.updated_at unless membership == nil
   end
 end

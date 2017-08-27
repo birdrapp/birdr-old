@@ -67,10 +67,7 @@ class ClubsController < ApplicationController
   # POST /clubs/1/join.json
   def join
     @club = Club.find(params[:id])
-    ClubMembership.create({
-      user_id: current_user.id,
-      club_id: @club.id
-    })
+    @club.club_memberships.create! user_id: current_user.id
     redirect_to action: :show
   end
 
@@ -78,10 +75,7 @@ class ClubsController < ApplicationController
   # POST /clubs/1/leave.json
   def leave
     @club = Club.find(params[:id])
-    ClubMembership.where({
-      user_id: current_user.id,
-      club_id: @club.id
-    }).destroy_all
+    @club.club_memberships.where(user_id: current_user).destroy_all
     redirect_to action: :show
   end
 
