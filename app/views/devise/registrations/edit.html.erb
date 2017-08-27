@@ -1,27 +1,56 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
-
-    <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
-    <%= f.input :password_confirmation, required: false %>
-    <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-12">
+      <h5>Profile</h5>
+      <p>
+        Laboris do laborum reprehenderit exercitation non non non eiusmod cillum occaecat mollit duis mollit exercitation.
+      </p>
+    </div>
+    <div class="col-2">
+      <%= gravatar_image_tag current_user.email, gravatar: { size: 48 }, alt: current_user.to_s, class: 'rounded-circle mt-2 float-md-right' %>
+    </div>
+    <div class="col-md-5 col-10">
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= f.error_notification %>
+        <%= f.input :email, required: false, autofocus: true %>
+        <%= f.input :first_name, required: false, autocomplete: :off %>
+        <%= f.input :last_name, required: false %>
+        <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: false %>
+        <p>
+          <small>Manage your avatar using <%= link_to 'Gravatar', 'https://gravatar.com' %></small>
+        </p>
+        <%= f.button :submit, "Update Profile" %>
+      <% end %>
+    </div>
   </div>
+  <hr class="my-5" />
+  <div class="row">
+    <div class="col-md-5 col-12">
+      <h5>Password</h5>
+      <p>
+      Reprehenderit occaecat cillum fugiat sit dolore reprehenderit velit nulla excepteur in esse.
+      </p>
+    </div>
+    <div class="col-md-5 col-12">
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= f.input :current_password, required: false, placeholder: 'enter your current password' %>
+        <%= f.input :password, autocomplete: "off", required: false, placeholder: 'enter a new password' %>
+        <%= f.input :password_confirmation, required: false, placeholder: 'enter it again' %>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
+        <%= f.button :submit, "Update Password" %>
+      <% end %>
+    </div>
   </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+  <hr class="my-5" />
+  <div class="row">
+    <div class="col-md-5 col-12">
+      <h5 class="text-danger">Close Account</h5>
+      <p>
+      Occaecat do aliqua aliquip aliqua mollit.
+      </p>
+    </div>
+    <div class="col-md-5 col-12 mb-5">
+      <%= link_to "Close my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-outline-danger' %>
+    </div>
+  </div>
+</div>
