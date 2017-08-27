@@ -4,7 +4,7 @@
   <%- end %>
   <% if user_signed_in? %>
     <a href="#" role="button" data-toggle="dropdown" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false">
-      <%= gravatar_image_tag current_user.email, gravatar: { size: 30 }, alt: current_user.to_s, class: 'rounded-circle' %>
+      <%= user_avatar %>
     </a>
     <div class="dropdown-menu dropdown-menu-right dropdown-menu-account pb-0" aria-labelledby="dropdownMenuLink">
       <div class="text-center pt-2">
