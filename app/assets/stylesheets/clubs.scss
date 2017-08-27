@@ -7,6 +7,48 @@ $hoverBorderColor: darken($borderColor, 15%);
 $activeColor: theme-color("primary");
 $activeHoverColor: darken($activeColor, 15%);
 
+.club-header {
+  margin-bottom: 0;
+  position: relative;
+
+  &--with-cover-image {
+    padding-top: 25vh;
+
+    h1, p {
+      color: white;
+      text-shadow: 1px 1px 15px rgba(0,0,0,0.4);
+    }
+  }
+}
+
+.club-header-cover-image {
+  border-bottom: 1px solid $borderColor;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+}
+
+.club-header-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.2) 100%);
+}
+
+.club-header-main {
+  position: relative;
+  z-index: 2;
+}
+
 .club-nav {
   border-bottom: 1px solid $borderColor;
 

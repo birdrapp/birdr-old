@@ -61,6 +61,10 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (1.1.0)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
     childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
     concurrent-ruby (1.0.5)
@@ -220,6 +224,7 @@ DEPENDENCIES
   bootstrap (~> 4.0.0.beta)
   byebug
   capybara (~> 2.13)
+  carrierwave (~> 1.0)
   devise (~> 4.3)
   font-awesome-rails (~> 4.7)
   gravatar_image_tag (~> 1.2)

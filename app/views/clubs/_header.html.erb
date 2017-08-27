@@ -1,14 +1,18 @@
-<div class="page-header">
-  <div class="container">
+<div class="page-header club-header <% if @club.has_cover_image? %>club-header--with-cover-image<% end%>">
+  <% if @club.has_cover_image? %>
+    <div class="club-header-cover-image" style="background-image: url(<%= @club.cover_image %>)"></div>
+    <div class="club-header-gradient"></div>
+  <% end %>
+  <div class="container club-header-main">
     <% if current_user.is_member_of?(@club) %>
-      <%= link_to 'Member', club_membership_path(@club), class: 'btn btn-outline-success float-right' %>
+      <%= link_to 'Member', club_membership_path(@club), class: 'btn btn-success float-right' %>
     <% else %>
-      <%= button_to 'Join', join_club_path(@club), class: 'btn btn-outline-primary float-right' %>
+      <%= button_to 'Join', join_club_path(@club), class: 'btn btn-primary float-right' %>
     <% end %>
 
     <h1><%= @club.display_name %></h1>
 
-    <% if @club.has_short_name %>
+    <% if @club.has_short_name? %>
       <p class="lead mb-0"><%= @club.name %></p>
     <% end %>
   </div>
