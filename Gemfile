@@ -30,6 +30,8 @@ gem 'simple_form', '~> 3.5'
 gem 'kaminari', '~> 1.0'
 gem 'gravatar_image_tag', '~> 1.2'
 gem 'font-awesome-rails', '~> 4.7'
+gem 'carrierwave', '~> 1.0'
+gem 'fog-aws', '~> 1.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

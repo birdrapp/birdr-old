@@ -1,6 +1,53 @@
 <%= render 'header' %>
 <%= render 'nav' %>
 
-<div class="container">
-<%= render 'form' %>
+<div class="container my-4">
+  <div class="row">
+    <div class="col-md-3 col-12">
+      <h5>Basic info</h5>
+      <p>
+        <small>This is the information fellow Birdrs will see when they find your club.</small>
+      </p>
+    </div>
+    <div class="col-md-5 col-12">
+      <%= simple_form_for(@club) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+          <%= f.input :name %>
+          <%= f.input :short_name %>
+          <%= f.input :description %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.submit 'Save', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= horizontal_rule %>
+  <div class="row mb-5">
+    <div class="col-md-3 col-12">
+      <h5>Images</h5>
+      <p>
+        <small>Customise your club page's images.</small>
+      </p>
+    </div>
+    <div class="col-md-5 col-12">
+      <%= simple_form_for(@club) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+          <%= f.input :cover_image %>
+          <%= f.input :remove_cover_image, as: :boolean, label: 'Remove cover image' %>
+          <%= f.input :logo %>
+          <%= f.input :remove_logo, as: :boolean, label: 'Remove logo' %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.submit 'Save', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

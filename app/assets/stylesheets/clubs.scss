@@ -1,11 +1,72 @@
 // Place all the styles related to the Clubs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-$linkColor: theme-color("secondary");
+$linkColor: lighten(desaturate(theme-color("primary"), 50%), 10%);
 $hoverLinkColor: darken($linkColor, 15%);
 $hoverBorderColor: darken($borderColor, 15%);
 $activeColor: theme-color("primary");
 $activeHoverColor: darken($activeColor, 15%);
+
+.club-header {
+  margin-bottom: 0;
+  position: relative;
+  overflow: hidden;
+
+  &--with-cover-image {
+    padding-top: 15vh;
+
+    @include media-breakpoint-up(md) {
+      padding-top: 25vh;
+    }
+
+    h1, p {
+      color: white;
+      text-shadow: 1px 1px 15px rgba(0,0,0,0.5);
+    }
+  }
+}
+
+.club-header-cover-image {
+  border-bottom: 1px solid $borderColor;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+}
+
+.club-header-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.3) 100%);
+}
+
+.club-header-main {
+  position: relative;
+  z-index: 2;
+}
+
+.club-header-logo {
+  width: 86px;
+  height: 86px;
+  border-radius: 5px;
+  background-color: white;
+  overflow: hidden;
+  margin-right: 1rem;
+  border: 2px solid $borderColor;
+
+  img {
+    max-width: 100%;
+  }
+}
 
 .club-nav {
   border-bottom: 1px solid $borderColor;
