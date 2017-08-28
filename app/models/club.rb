@@ -4,6 +4,7 @@ class Club < ApplicationRecord
   validates :name, :presence => true
   validates :description, :presence => true
   mount_uploader :cover_image, CoverImageUploader
+  mount_uploader :logo, LogoUploader
 
   def display_name
     has_short_name? ? short_name : name
@@ -15,6 +16,10 @@ class Club < ApplicationRecord
 
   def has_cover_image?
     !cover_image.blank?
+  end
+
+  def has_logo?
+    !logo.blank?
   end
 
   def members

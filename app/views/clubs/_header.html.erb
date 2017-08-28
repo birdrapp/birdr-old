@@ -4,6 +4,12 @@
     <div class="club-header-gradient"></div>
   <% end %>
   <div class="container club-header-main">
+    <% if @club.has_logo? %>
+      <div class="club-header-logo mb-2 mb-sm-0 float-sm-left d-flex justfiy-content-center align-items-center">
+        <img src="<%= @club.logo %>" alt="<%= @club.display_name %>"/>
+      </div>
+    <% end %>
+
     <% if current_user.is_member_of?(@club) %>
       <%= link_to 'Member', club_membership_path(@club), class: 'btn btn-success float-right' %>
     <% else %>
