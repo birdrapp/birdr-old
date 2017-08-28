@@ -27,7 +27,7 @@ SimpleForm.setup do |config|
     b.optional :readonly
     b.use :label, class: 'form-control-label'
 
-    b.use :input
+    b.use :input, class: 'form-control-file'
     b.use :error, wrap_with: { tag: 'small', class: 'form-text text-danger' }
     b.use :hint,  wrap_with: { tag: 'small', class: 'form-text text-muted' }
   end
