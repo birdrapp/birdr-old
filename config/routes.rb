@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :trips
   resources :clubs
   post '/clubs/:id/join', to: 'clubs#join', as: 'join_club'
   post '/clubs/:id/leave', to: 'clubs#leave', as: 'leave_club'
