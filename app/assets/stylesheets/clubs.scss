@@ -1,7 +1,7 @@
 // Place all the styles related to the Clubs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-$linkColor: theme-color("secondary");
+$linkColor: lighten(desaturate(theme-color("primary"), 50%), 10%);
 $hoverLinkColor: darken($linkColor, 15%);
 $hoverBorderColor: darken($borderColor, 15%);
 $activeColor: theme-color("primary");
