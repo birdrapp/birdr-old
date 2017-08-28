@@ -3,11 +3,13 @@
 
 <div class="container my-4">
   <div class="row">
-    <div class="col-md-3">
-      <h4>Basic info</h3>
-      <p>This is the information fellow Birdrs will see when they find your club.</p>
+    <div class="col-md-3 col-12">
+      <h5>Basic info</h5>
+      <p>
+        <small>This is the information fellow Birdrs will see when they find your club.</small>
+      </p>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5 col-12">
       <%= simple_form_for(@club) do |f| %>
         <%= f.error_notification %>
 
@@ -23,13 +25,15 @@
       <% end %>
     </div>
   </div>
-  <hr class="my-4"/>
-  <div class="row">
-    <div class="col-md-3">
-      <h4>Images</h3>
-      <p>Customise your club page's images</p>
+  <%= horizontal_rule %>
+  <div class="row mb-5">
+    <div class="col-md-3 col-12">
+      <h5>Images</h5>
+      <p>
+        <small>Customise your club page's images.</small>
+      </p>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5 col-12">
       <%= simple_form_for(@club) do |f| %>
         <%= f.error_notification %>
 
