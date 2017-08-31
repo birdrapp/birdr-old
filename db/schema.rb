@@ -10,11 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828162659) do
+ActiveRecord::Schema.define(version: 20170831190659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "bird_records", force: :cascade do |t|
+    t.bigint "bird_id"
+    t.bigint "trip_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bird_id"], name: "index_bird_records_on_bird_id"
+    t.index ["trip_id"], name: "index_bird_records_on_trip_id"
+  end
 
   create_table "birds", force: :cascade do |t|
     t.string "common_name"
@@ -48,6 +57,14 @@ ActiveRecord::Schema.define(version: 20170828162659) do
     t.string "logo"
   end
 
+  create_table "trips", force: :cascade do |t|
+    t.date "date"
+    t.geography "location", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location"], name: "index_trips_on_location", using: :gist
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -67,4 +84,6 @@ ActiveRecord::Schema.define(version: 20170828162659) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bird_records", "birds"
+  add_foreign_key "bird_records", "trips"
 end

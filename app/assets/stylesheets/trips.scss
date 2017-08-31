@@ -1,0 +1,26 @@
+// Place all the styles related to the trips controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.trip-map {
+  height: 500px;
+}
+
+.search-box {
+  .search-box-icon {
+    display: inline-block;
+  }
+
+  .search-box-spinner {
+    display: none;
+  }
+
+  &.active {
+    .search-box-icon {
+      display: none;
+    }
+
+    .search-box-spinner {
+      display: inline-block;
+    }
+  }
+}

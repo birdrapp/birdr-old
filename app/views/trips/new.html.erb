@@ -1,0 +1,71 @@
+<div class="page-header">
+  <div class="container">
+    <h5 class="mb-0">Create a trip</h5>
+  </div>
+</div>
+
+<div class="container">
+  <%= simple_form_for(@trip) do |f| %>
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <h5>Date</h5>
+      <p>
+        <small>When did you go birding?</small>
+      </p>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.input :date, required: false, as: :string, label: false, input_html: { type: "date"} %>
+    </div>
+  </div>
+  <%= horizontal_rule %>
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <h5>Location</h5>
+      <p>
+        <small><b>Tip:</b> drag the marker for extra accuracy.</small>
+      </p>
+      <div class="input-group mb-2 search-box">
+        <input id="tripSearch" placeholder="Search for a location..." class="form-control" />
+        <span class="input-group-addon" id="basic-addon1">
+          <%= fa_icon :search, class: 'search-box-icon' %>
+          <%= fa_icon :spinner, class: 'fa-spin search-box-spinner' %>
+        </span>
+      </div>
+      <%= f.input :location, as: :hidden, label: false %>
+      <div id="tripSearchResults" class="trip-search-results"></div>
+    </div>
+    <div class="col-12 col-md-8">
+      <div id="tripMap" class="trip-map"></div>
+    </div>
+  </div>
+  <%= horizontal_rule %>
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <h5>Birds</h5>
+    </div>
+    <div class="col-12 col-md-8">
+      <%= f.association :birds, collection: @birds, label: false %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <%= f.button :submit, 'Create Trip', class: 'btn-primary mb-5 mt-4' %>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+<script type="text/x-handlebars-template" id="tripGeocodeResultsTemplate">
+  <div class="list-group mt-4">
+    {{#locations}}
+    <a href="#" data-latitude={{latitude}} data-longitude={{longitude}} class="list-group-item list-group-item-action flex-column align-items-start trip-geocode-result">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{name}}</h5>
+      </div>
+      <p class="mb-1 text-truncate">
+        <small>{{description}}</small>
+      </p>
+    </a>
+    {{/locations}}
+  </div>
+</script>
