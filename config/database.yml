@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: birdr_production
-  username: birdr
-  password: <%= ENV['BIRDR_DATABASE_PASSWORD'] %>
+  url: <%= ENV.fetch('DATABASE_URL', '').sub(/^postgres/, "postgis") %>
