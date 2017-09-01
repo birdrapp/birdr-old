@@ -1,4 +1,5 @@
 class Trip < ApplicationRecord
+  belongs_to :user
   has_many :bird_records
   has_many :birds, through: :bird_records
 

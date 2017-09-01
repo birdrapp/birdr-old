@@ -6,6 +6,7 @@
 
 <div class="container">
   <%= simple_form_for(@trip) do |f| %>
+  <%= f.association :user, as: :hidden, label: false, wrapper: false %>
   <div class="row">
     <div class="col-12 col-md-4">
       <h5>Date</h5>
@@ -31,7 +32,7 @@
           <%= fa_icon :spinner, class: 'fa-spin search-box-spinner' %>
         </span>
       </div>
-      <%= f.input :location, as: :hidden, label: false %>
+      <%= f.input :location, as: :hidden, label: false, wrapper: false %>
       <div id="tripSearchResults" class="trip-search-results"></div>
     </div>
     <div class="col-12 col-md-8">

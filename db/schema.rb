@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170831190659) do
+ActiveRecord::Schema.define(version: 20170901061957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,7 +62,9 @@ ActiveRecord::Schema.define(version: 20170831190659) do
     t.geography "location", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["location"], name: "index_trips_on_location", using: :gist
+    t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -86,4 +88,5 @@ ActiveRecord::Schema.define(version: 20170831190659) do
 
   add_foreign_key "bird_records", "birds"
   add_foreign_key "bird_records", "trips"
+  add_foreign_key "trips", "users"
 end

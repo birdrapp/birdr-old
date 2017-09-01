@@ -14,7 +14,7 @@ class TripsController < ApplicationController
   # GET /trips/new
   def new
     @birds = Bird.where('species_id is null').take(100)
-    @trip = Trip.new
+    @trip = current_user.trips.new
   end
 
   # GET /trips/1/edit
@@ -68,6 +68,6 @@ class TripsController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_params
-      params.require(:trip).permit(:date, :location, :bird_ids => [])
+      params.require(:trip).permit(:date, :location, :user_id, :bird_ids => [])
     end
 end
