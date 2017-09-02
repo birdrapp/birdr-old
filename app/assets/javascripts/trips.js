@@ -13,20 +13,23 @@ function handleSearchResultClick(e) {
   e.preventDefault();
   var latitude = $(this).data('latitude');
   var longitude = $(this).data('longitude');
+  var latLng = { lat: latitude, lng: longitude };
 
-  map.setView([latitude, longitude], 16);
-  moveMarker([latitude, longitude]);
+  map.panTo(latLng);
+  map.setZoom(17);
+  moveMarker(latLng);
 
   toggleSearchResultState($(this));
 }
 
 function updateLocation(latlng) {
-  var wkt = 'POINT(' + latlng.lng + ' ' + latlng.lat + ')';
+  var wkt = 'POINT(' + latlng.lng() + ' ' + latlng.lat() + ')';
   $('#trip_location').val(wkt);
 }
 
 function moveMarker(latLng) {
-  marker.setLatLng(latLng).addTo(map);
+  marker.setPosition(latLng)
+  marker.setMap(map);
 }
 
 function toggleSearchResultState(activeLink) {
@@ -39,26 +42,21 @@ function resetSearchResults() {
 }
 
 function init() {
-  var defaultLocation = [51.505, -0.09];
+  var defaultLocation = { lat: 51.505, lng: -0.09 };
 
-  map = L.map('tripMap', {
-    scrollWheelZoom: false
-  }).setView(defaultLocation, 7);
+  map = new google.maps.Map(document.getElementById('tripMap'), {
+    zoom: 10,
+    center: defaultLocation
+  });
 
-  marker = L.marker(defaultLocation, {
+  marker = new google.maps.Marker({
+    position: defaultLocation,
     draggable: true
   });
 
-  marker.on('move', function (data) {
-    updateLocation(data.latlng);
+  marker.addListener('position_changed', function (data) {
+    updateLocation(marker.getPosition());
   });
-
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox.outdoors',
-    accessToken: 'pk.eyJ1IjoibXJ3aWxsaWhvZyIsImEiOiJjajJhaXljMTUwMDEyMnFuMmVhY3RyMHJpIn0.lsj1oePERlB9Xsa3E1jvJQ'
-  }).addTo(map);
 
   $('#tripSearch').on('keyup', function () {
     var $this = $(this);

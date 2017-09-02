@@ -14,6 +14,5 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
-//= require leaflet
 //= require handlebars/dist/handlebars
 //= require_tree .
