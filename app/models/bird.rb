@@ -8,6 +8,6 @@ class Bird < ApplicationRecord
   end
 
   def to_s
-    common_name
+    "#{common_name} (#{scientific_name})"
   end
 end

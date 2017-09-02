@@ -24,7 +24,7 @@
               <td><%= bird.common_name %></td>
               <td><%= bird.scientific_name %></td>
               <td><%= bird.common_family_name %></td>
-              <td><%= bird.species %></td>
+              <td><%= bird.species.common_name unless bird.species.nil? %></td>
               <td>
               <%= link_to 'Show', [:admin, bird], class: 'text-dark' %> |
               <%= link_to 'Edit', [:edit, :admin, bird], class: 'text-dark' %> |
