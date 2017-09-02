@@ -1,0 +1,9 @@
+<%= simple_form_for(@trip) do |f| %>
+  <%= f.error_notification %>
+
+    <%= f.input :date %>
+    <%= f.input :location, as: :string %>
+    <%= f.association :user %>
+
+  <%= f.button :submit %>
+<% end %>
