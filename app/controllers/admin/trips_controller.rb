@@ -24,7 +24,7 @@ class Admin::TripsController < ApplicationController
     @trip = Trip.new(trip_params)
 
     if @trip.save
-      redirect_to trips_url, notice: 'Trip was successfully created.'
+      redirect_to admin_trips_url, notice: 'Trip was successfully created.'
     else
       render :new
     end
@@ -35,7 +35,7 @@ class Admin::TripsController < ApplicationController
     @trip = Trip.find(params[:id])
 
     if @trip.update(trip_params)
-      redirect_to trips_url, notice: 'Trip was successfully updated.'
+      redirect_to admin_trips_url, notice: 'Trip was successfully updated.'
     else
       render :edit
     end
@@ -46,7 +46,7 @@ class Admin::TripsController < ApplicationController
     @trip = Trip.find(params[:id])
 
     @trip.destroy
-    redirect_to trips_url, notice: 'Trip was successfully destroyed.'
+    redirect_to admin_trips_url, notice: 'Trip was successfully destroyed.'
   end
 
   private
