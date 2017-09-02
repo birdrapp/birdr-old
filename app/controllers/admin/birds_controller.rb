@@ -2,7 +2,7 @@ class Admin::BirdsController < ApplicationController
   # GET /admin/birds
   # GET /admin/birds.json
   def index
-    @birds = Bird.all.page(params[:page])
+    @birds = Bird.includes(:species).all.page(params[:page])
   end
 
   # GET /admin/birds/1
