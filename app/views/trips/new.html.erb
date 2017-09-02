@@ -45,7 +45,7 @@
       <h5>Birds</h5>
     </div>
     <div class="col-12 col-md-8">
-      <%= f.association :birds, collection: @birds, label: false %>
+      <%= f.association :birds, collection: @birds, label: false, value_method: :bird_id %>
     </div>
   </div>
   <div class="row">
