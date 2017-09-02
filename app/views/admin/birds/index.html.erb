@@ -26,9 +26,9 @@
               <td><%= bird.common_family_name %></td>
               <td><%= bird.species %></td>
               <td>
-              <%= link_to 'Show', admin_bird_path(bird), class: 'text-dark' %> |
-              <%= link_to 'Edit', edit_admin_bird_path(bird), class: 'text-dark' %> |
-              <%= link_to 'Destroy', admin_bird_path(bird), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+              <%= link_to 'Show', [:admin, bird], class: 'text-dark' %> |
+              <%= link_to 'Edit', [:edit, :admin, bird], class: 'text-dark' %> |
+              <%= link_to 'Destroy', [:admin, bird], method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
               </td>
             </tr>
           <% end %>

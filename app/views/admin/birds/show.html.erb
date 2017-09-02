@@ -28,12 +28,12 @@
 
         <% if @bird.subspecies? %>
           <dt class="col-sm-3">Subspecies of:</dt>
-          <dd class="col-sm-9"><%= link_to @bird.species, admin_bird_path(@bird.species) %></dd>
+          <dd class="col-sm-9"><%= link_to @bird.species, [:admin, @bird.species] %></dd>
         <% else %>
           <dt class="col-sm-3">Subspecies:</dt>
           <dd class="col-sm-9">
           <% @bird.subspecies.each do |subspecies| %>
-            <%= link_to subspecies.scientific_name, admin_bird_path(subspecies) %><br >
+            <%= link_to subspecies.scientific_name, [:admin, subspecies] %><br >
           <% end %>
           </dd>
         <% end %>
@@ -42,8 +42,8 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <%= link_to 'Edit', edit_admin_bird_path(@bird), class: 'btn btn-outline-dark' %>
-      <%= link_to 'Destroy', admin_bird_path(@bird), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+      <%= link_to 'Edit', [:edit, :admin, @bird], class: 'btn btn-outline-dark' %>
+      <%= link_to 'Destroy', [:admin, @bird], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
     </div>
   </div>
 </div>
