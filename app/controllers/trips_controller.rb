@@ -13,7 +13,7 @@ class TripsController < ApplicationController
 
   # GET /trips/new
   def new
-    @birds = Bird.where('species_id is null').take(100)
+    @birds = RegionalBirdList.first.birds
     @trip = current_user.trips.new
   end
 

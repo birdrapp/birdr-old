@@ -1,3 +1,4 @@
+require 'csv'
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -5,52 +6,35 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-require 'nokogiri'
 
-sort = 1
-ioc = File.open("db/lists/master_ioc-names_xml.xml") { |f| Nokogiri::XML(f) }
+#
+# Canonical Bird List
+#
+connection = ActiveRecord::Base.connection()
+ioc_path = "#{Rails.root}/db/lists/ioc.csv"
+connection.execute("COPY birds(\"common_name\", \"scientific_name\", \"order\", scientific_family_name, common_family_name, sort_position, species_id, created_at, updated_at) FROM '#{ioc_path}' CSV HEADER")
 
-def import_bird(params)
-  bird = Bird.create!(params)
-  puts "Imported #{bird}"
-  bird.id
-end
+#
+# Rarities
+#
+unknown = Rarity.find_or_create_by! name: 'Unknown'
+common = Rarity.find_or_create_by! name: 'Common'
 
-ioc.xpath("//order").each do |order_elem|
-  order = order_elem.xpath('latin_name').text
-  order_elem.xpath('family').each do |family_elem|
-    latin_family = family_elem.xpath('latin_name').text
-    english_family = family_elem.xpath('english_name').text
-    family_elem.xpath('genus').each do |genus_elem|
-      genus = genus_elem.xpath('latin_name').text
-      genus_elem.xpath('species').each do |species_elem|
-        species = species_elem.xpath('latin_name').text
-        english_name = species_elem.xpath('english_name').text
-        bird_params = {
-          common_name: english_name,
-          scientific_name: "#{genus} #{species}",
-          order: order,
-          scientific_family_name: latin_family,
-          common_family_name: english_family,
-          sort_position: sort
-        }
-        species_id = import_bird(bird_params)
-        sort += 1
-        species_elem.xpath('subspecies').each do |subspecies_elem|
-          subspecies = subspecies_elem.xpath('latin_name').text
-          bird_params = {
-            common_name: english_name,
-            scientific_name: "#{genus} #{species} #{subspecies}",
-            order: order,
-            scientific_family_name: latin_family,
-            common_family_name: english_family,
-            sort_position: sort,
-            species_id: species_id
-          }
-          import_bird(bird_params)
-          sort += 1
-        end
-      end
-    end
+#
+# Regional Bird Lists
+#
+the_british_list = RegionalBirdList.find_or_create_by! name: 'The British List'
+
+sort_position = 0
+CSV.foreach("#{Rails.root}/db/lists/the-british-list.csv", headers: true) do |csv|
+  sort_position += 1
+  bird = Bird
+    .where(scientific_name: csv['scientific_name'])
+    .or(Bird.where(scientific_name: csv['ioc_scientific_name']))
+    .first
+  if bird.nil?
+    puts "#{csv['name']} #{csv['scientific_name']} not found"
+    next
   end
+  LocalizedBird.find_or_create_by! name: csv['name'], bird: bird, regional_bird_list: the_british_list, rarity: unknown, sort_position: sort_position
 end

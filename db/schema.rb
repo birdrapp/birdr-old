@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170901061957) do
+ActiveRecord::Schema.define(version: 20170902080816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,31 @@ ActiveRecord::Schema.define(version: 20170901061957) do
     t.string "logo"
   end
 
+  create_table "localized_birds", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "sort_position", null: false
+    t.bigint "rarity_id"
+    t.bigint "bird_id"
+    t.bigint "regional_bird_list_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bird_id"], name: "index_localized_birds_on_bird_id"
+    t.index ["rarity_id"], name: "index_localized_birds_on_rarity_id"
+    t.index ["regional_bird_list_id"], name: "index_localized_birds_on_regional_bird_list_id"
+  end
+
+  create_table "rarities", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "regional_bird_lists", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "trips", force: :cascade do |t|
     t.date "date"
     t.geography "location", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
@@ -88,5 +113,8 @@ ActiveRecord::Schema.define(version: 20170901061957) do
 
   add_foreign_key "bird_records", "birds"
   add_foreign_key "bird_records", "trips"
+  add_foreign_key "localized_birds", "birds"
+  add_foreign_key "localized_birds", "rarities"
+  add_foreign_key "localized_birds", "regional_bird_lists"
   add_foreign_key "trips", "users"
 end
