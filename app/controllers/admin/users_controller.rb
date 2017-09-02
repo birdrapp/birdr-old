@@ -1,25 +1,25 @@
 class Admin::UsersController < ApplicationController
-  # GET /users
+  # GET /admin/users
   def index
     @users = User.all.page(params[:page])
   end
 
-  # GET /users/1
+  # GET /admin/users/1
   def show
     @user = User.find(params[:id])
   end
 
-  # GET /users/new
+  # GET /admin/users/new
   def new
     @user = User.new
   end
 
-  # GET /users/1/edit
+  # GET /admin/users/1/edit
   def edit
     @user = User.find(params[:id])
   end
 
-  # POST /users
+  # POST /admin/users
   def create
     @user = User.new(user_params)
 
@@ -30,7 +30,7 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1
+  # PATCH/PUT /admin/users/1
   def update
     @user = User.find(params[:id])
 
@@ -41,7 +41,7 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
+  # DELETE /admin/users/1
   def destroy
     @user = User.find(params[:id])
 

@@ -1,0 +1,53 @@
+<div class="page-header">
+  <div class="container">
+    <h5 class="mb-0">Clubs</h5>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Short name</th>
+            <th>Description</th>
+            <th>Cover image</th>
+            <th>Logo</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @clubs.each do |club| %>
+            <tr>
+              <td><%= club.name %></td>
+              <td><%= club.short_name %></td>
+              <td><%= club.description %></td>
+              <td><%= club.has_cover_image? %></td>
+              <td><%= club.has_logo? %></td>
+              <td class="text-right">
+              <%= link_to 'Show', admin_club_path(club), class: 'text-dark' %> |
+              <%= link_to 'Edit', edit_admin_club_path(club), class: 'text-dark' %> |
+              <%= link_to 'Destroy', admin_club_path(club), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= paginate @clubs %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <%= link_to 'Create New Club', new_admin_club_path, class: 'btn btn-outline-primary' %>
+    </div>
+  </div>
+</div>

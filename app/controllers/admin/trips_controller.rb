@@ -1,25 +1,25 @@
 class Admin::TripsController < ApplicationController
-  # GET /trips
+  # GET /admin/trips
   def index
     @trips = Trip.all.page(params[:page])
   end
 
-  # GET /trips/1
+  # GET /admin/trips/1
   def show
     @trip = Trip.find(params[:id])
   end
 
-  # GET /trips/new
+  # GET /admin/trips/new
   def new
     @trip = Trip.new
   end
 
-  # GET /trips/1/edit
+  # GET /admin/trips/1/edit
   def edit
     @trip = Trip.find(params[:id])
   end
 
-  # POST /trips
+  # POST /admin/trips
   def create
     @trip = Trip.new(trip_params)
 
@@ -30,7 +30,7 @@ class Admin::TripsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /trips/1
+  # PATCH/PUT /admin/trips/1
   def update
     @trip = Trip.find(params[:id])
 
@@ -41,7 +41,7 @@ class Admin::TripsController < ApplicationController
     end
   end
 
-  # DELETE /trips/1
+  # DELETE /admin/trips/1
   def destroy
     @trip = Trip.find(params[:id])
 

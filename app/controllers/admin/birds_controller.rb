@@ -1,28 +1,28 @@
 class Admin::BirdsController < ApplicationController
-  before_action :set_bird, only: [:show, :edit, :update, :destroy]
-
-  # GET /birds
-  # GET /birds.json
+  # GET /admin/birds
+  # GET /admin/birds.json
   def index
     @birds = Bird.all.page(params[:page])
   end
 
-  # GET /birds/1
-  # GET /birds/1.json
+  # GET /admin/birds/1
+  # GET /admin/birds/1.json
   def show
+    @bird = Bird.find(params[:id])
   end
 
-  # GET /birds/new
+  # GET /admin/birds/new
   def new
     @bird = Bird.new
   end
 
-  # GET /birds/1/edit
+  # GET /admin/birds/1/edit
   def edit
+    @bird = Bird.find(params[:id])
   end
 
-  # POST /birds
-  # POST /birds.json
+  # POST /admin/birds
+  # POST /admin/birds.json
   def create
     @bird = Bird.new(bird_params)
 
@@ -37,9 +37,11 @@ class Admin::BirdsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /birds/1
-  # PATCH/PUT /birds/1.json
+  # PATCH/PUT /admin/birds/1
+  # PATCH/PUT /admin/birds/1.json
   def update
+    @bird = Bird.find(params[:id])
+
     respond_to do |format|
       if @bird.update(bird_params)
         format.html { redirect_to admin_birds_path, notice: 'Bird was successfully updated.' }
@@ -51,9 +53,11 @@ class Admin::BirdsController < ApplicationController
     end
   end
 
-  # DELETE /birds/1
-  # DELETE /birds/1.json
+  # DELETE /admin/birds/1
+  # DELETE /admin/birds/1.json
   def destroy
+    @bird = Bird.find(params[:id])
+
     @bird.destroy
     respond_to do |format|
       format.html { redirect_to admin_birds_path, notice: 'Bird was successfully destroyed.' }
@@ -62,11 +66,6 @@ class Admin::BirdsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_bird
-      @bird = Bird.find(params[:id])
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def bird_params
       params.require(:bird).permit(:common_name, :scientific_name, :order, :scientific_family_name, :common_family_name, :sort_position, :species_id_id)
