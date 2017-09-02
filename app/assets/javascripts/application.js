@@ -15,4 +15,3 @@
 //= require popper
 //= require bootstrap
 //= require handlebars/dist/handlebars
-//= require_tree .
