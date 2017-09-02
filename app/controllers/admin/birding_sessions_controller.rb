@@ -1,4 +1,4 @@
-class Admin::BirdingSessionController < ApplicationController
+class Admin::BirdingSessionsController < ApplicationController
   # GET /admin/birding_sessions
   def index
     @birding_sessions = BirdingSession.all.page(params[:page])
