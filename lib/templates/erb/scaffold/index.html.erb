@@ -1,0 +1,43 @@
+<div class="page-header">
+  <div class="container">
+    <h5 class="mb-0"><%= plural_table_name.titleize %></h5>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+          <% attributes.each do |attribute| -%>
+            <th><%= attribute.human_name %></th>
+          <% end -%>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+            <tr>
+            <% attributes.each do |attribute| -%>
+              <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+            <% end -%>
+              <td class="text-right">
+                <%%= link_to 'Show', <%= singular_table_name %>, class: 'text-dark' %> |
+                <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: 'text-dark' %> |
+                <%%= link_to 'Destroy', <%= singular_table_name %>, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+              </td>
+            </tr>
+          <%% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <%%= link_to 'Create New <%= singular_table_name.titleize %>', new_<%= singular_table_name %>_path, class: 'btn btn-outline-primary' %>
+    </div>
+  </div>
+</div>

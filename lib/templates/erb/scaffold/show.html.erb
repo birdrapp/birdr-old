@@ -1,0 +1,27 @@
+<div class="page-header">
+  <div class="container">
+    <h5 class="mb-0"><%%= @<%= singular_table_name.to_s %> %></h5>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <% attributes.reject(&:password_digest?).each do |attribute| -%>
+      <dl class="row">
+        <dt class="col-sm-3"><%= attribute.human_name %></dt>
+        <dd class="col-sm-9"><%%= @<%= singular_table_name %>.<%= attribute.name %> %></dd>
+      </dl>
+      <% end -%>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), class: 'btn btn-outline-dark' %>
+      <%%= link_to 'Destroy', @<%= singular_table_name %>, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>
+
+
+
