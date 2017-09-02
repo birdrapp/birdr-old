@@ -24,9 +24,9 @@
               <td><%= trip.location %></td>
               <td><%= trip.user %></td>
               <td class="text-right">
-              <%= link_to 'Show', admin_trip_path(trip), class: 'text-dark' %> |
-              <%= link_to 'Edit', edit_admin_trip_path(trip), class: 'text-dark' %> |
-              <%= link_to 'Destroy', admin_trip_path(trip), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+              <%= link_to 'Show', [:admin ,trip], class: 'text-dark' %> |
+              <%= link_to 'Edit', [:edit, :admin ,trip], class: 'text-dark' %> |
+              <%= link_to 'Destroy', [:admin ,trip], method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
               </td>
             </tr>
           <% end %>
