@@ -1,33 +1,30 @@
 var Geocoder = function () {
-  this.url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/';
-  this.accessToken = 'pk.eyJ1IjoibXJ3aWxsaWhvZyIsImEiOiJjajJhaXljMTUwMDEyMnFuMmVhY3RyMHJpIn0.lsj1oePERlB9Xsa3E1jvJQ';
+  this.url = 'https://maps.googleapis.com/maps/api/geocode/json';
+  this.apiKey = 'AIzaSyCC3Ebzxe2VKuB54kd9baaW-7ztMxyRDA4';
 }
 
-Geocoder.prototype._buildUrl = function (address) {
-  return this.url + address + '.json?access_token=' + this.accessToken
-}
-
-Geocoder.prototype._parseResults = function (data) {
-  var locations = data.features.map(function (feature) {
-    return {
-      name: feature.text,
-      description: feature.place_name,
-      latitude: feature.center[1],
-      longitude: feature.center[0]
-    }
-  });
-
+Geocoder.prototype._parseResult = function (result) {
   return {
-    locations: locations
-  };
+    name: result.address_components[0].short_name,
+    description: result.formatted_address,
+    latitude: result.geometry.location.lat,
+    longitude: result.geometry.location.lng
+  }
+}
+
+Geocoder.prototype._parseResults = function (results) {
+  return results.map(this._parseResult);
 }
 
 Geocoder.prototype.geocode = function(address) {
   var self = this;
 
   return new Promise(function (resolve, reject) {
-    $.getJSON(self._buildUrl(address), function (data) {
-      resolve(self._parseResults(data));
+    $.getJSON(self.url, {
+      key: self.apiKey,
+      address: address
+    }, function (response) {
+      resolve(self._parseResults(response.results));
     });
   });
 }

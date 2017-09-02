@@ -58,15 +58,15 @@
 
 <script type="text/x-handlebars-template" id="tripGeocodeResultsTemplate">
   <div class="list-group mt-4">
-    {{#locations}}
+    {{#.}}
     <a href="#" data-latitude={{latitude}} data-longitude={{longitude}} class="list-group-item list-group-item-action flex-column align-items-start trip-geocode-result">
       <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{name}}</h5>
+        <h6 class="mb-1">{{name}}</h6>
       </div>
       <p class="mb-1 text-truncate">
         <small>{{description}}</small>
       </p>
     </a>
-    {{/locations}}
+    {{/.}}
   </div>
 </script>
