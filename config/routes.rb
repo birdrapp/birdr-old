@@ -15,7 +15,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: 'welcome#index'
+
     resources :birds
+    resources :club_memberships
     resources :clubs
     resources :trips
     resources :users

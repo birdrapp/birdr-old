@@ -1,0 +1,9 @@
+<%= simple_form_for([:admin, @club_membership]) do |f| %>
+  <%= f.error_notification %>
+
+    <%= f.association :user %>
+    <%= f.association :club %>
+    <%= f.input :status %>
+
+  <%= f.button :submit %>
+<% end %>

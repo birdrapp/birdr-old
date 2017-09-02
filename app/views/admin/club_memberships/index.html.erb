@@ -1,0 +1,49 @@
+<div class="page-header">
+  <div class="container">
+    <h5 class="mb-0">Club Memberships</h5>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Club</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @club_memberships.each do |club_membership| %>
+            <tr>
+              <td><%= club_membership.user %></td>
+              <td><%= club_membership.club %></td>
+              <td><%= club_membership.status %></td>
+              <td class="text-right">
+              <%= link_to 'Show', admin_club_membership_path(club_membership), class: 'text-dark' %> |
+              <%= link_to 'Edit', edit_admin_club_membership_path(club_membership), class: 'text-dark' %> |
+              <%= link_to 'Destroy', admin_club_membership_path(club_membership), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= paginate @club_memberships %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <%= link_to 'Create New Club Membership', new_admin_club_membership_path, class: 'btn btn-outline-primary' %>
+    </div>
+  </div>
+</div>
