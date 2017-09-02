@@ -1,4 +1,4 @@
-class BirdsController < ApplicationController
+class Admin::BirdsController < ApplicationController
   before_action :set_bird, only: [:show, :edit, :update, :destroy]
 
   # GET /birds
@@ -28,8 +28,8 @@ class BirdsController < ApplicationController
 
     respond_to do |format|
       if @bird.save
-        format.html { redirect_to @bird, notice: 'Bird was successfully created.' }
-        format.json { render :show, status: :created, location: @bird }
+        format.html { redirect_to admin_birds_path, notice: 'Bird was successfully created.' }
+        format.json { render :show, status: :created, location: admin_bird_path(@bird) }
       else
         format.html { render :new }
         format.json { render json: @bird.errors, status: :unprocessable_entity }
@@ -42,8 +42,8 @@ class BirdsController < ApplicationController
   def update
     respond_to do |format|
       if @bird.update(bird_params)
-        format.html { redirect_to @bird, notice: 'Bird was successfully updated.' }
-        format.json { render :show, status: :ok, location: @bird }
+        format.html { redirect_to admin_birds_path, notice: 'Bird was successfully updated.' }
+        format.json { render :show, status: :ok, location: admin_bird_path(@bird) }
       else
         format.html { render :edit }
         format.json { render json: @bird.errors, status: :unprocessable_entity }
@@ -56,7 +56,7 @@ class BirdsController < ApplicationController
   def destroy
     @bird.destroy
     respond_to do |format|
-      format.html { redirect_to birds_url, notice: 'Bird was successfully destroyed.' }
+      format.html { redirect_to admin_birds_path, notice: 'Bird was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

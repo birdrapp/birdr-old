@@ -1,0 +1,11 @@
+<%= simple_form_for([:admin, @bird]) do |f| %>
+  <%= f.input :common_name %>
+  <%= f.input :scientific_name %>
+  <%= f.input :order %>
+  <%= f.input :scientific_family_name %>
+  <%= f.input :common_family_name %>
+  <%= f.input :sort_position %>
+  <%= f.association :species, required: false %>
+
+  <%= f.button :submit %>
+<% end %>

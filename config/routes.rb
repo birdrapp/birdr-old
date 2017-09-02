@@ -6,12 +6,15 @@ Rails.application.routes.draw do
   get '/clubs/:id/members', to: 'clubs#members', as: 'club_members'
   get '/clubs/:id/membership', to: 'clubs#membership', as: 'club_membership'
 
-  resources :birds
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions',
     passwords: 'users/passwords'
   }
+
+  namespace :admin do
+    resources :birds
+  end
 
   root to: 'welcome#index'
 end

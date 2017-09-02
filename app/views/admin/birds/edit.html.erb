@@ -1,13 +1,13 @@
 <div class="page-header">
   <div class="container">
-    <h5 class="mb-0">New <%= singular_table_name.titleize %></h5>
+    <h5 class="mb-0">Editing <%= @bird.to_s %></h5>
   </div>
 </div>
 
 <div class="container">
   <div class="row">
     <div class="col-4">
-      <%%= render 'form', <%= singular_table_name %>: @<%= singular_table_name %> %>
+      <%= render 'form', bird: @bird %>
     </div>
   </div>
 </div>

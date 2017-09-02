@@ -1,0 +1,51 @@
+<div class="page-header">
+  <div class="container">
+    <h5 class="mb-0">Birds</h5>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th>Common name</th>
+            <th>Scientific name</th>
+            <th>Common family name</th>
+            <th>Species</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @birds.each do |bird| %>
+            <tr>
+              <td><%= bird.common_name %></td>
+              <td><%= bird.scientific_name %></td>
+              <td><%= bird.common_family_name %></td>
+              <td><%= bird.species %></td>
+              <td>
+              <%= link_to 'Show', admin_bird_path(bird), class: 'text-dark' %> |
+              <%= link_to 'Edit', edit_admin_bird_path(bird), class: 'text-dark' %> |
+              <%= link_to 'Destroy', admin_bird_path(bird), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= paginate @birds %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <%= link_to 'Create New Bird', new_admin_bird_path, class: 'btn btn-outline-primary' %>
+    </div>
+  </div>
+</div>
