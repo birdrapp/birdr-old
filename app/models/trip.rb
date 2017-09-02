@@ -5,4 +5,8 @@ class Trip < ApplicationRecord
 
   validates :location, presence: true
   validates :date, presence: true
+
+  def to_s
+    "#{date} - #{location}"
+  end
 end

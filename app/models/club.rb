@@ -25,4 +25,8 @@ class Club < ApplicationRecord
   def members
     users
   end
+
+  def to_s
+    display_name
+  end
 end

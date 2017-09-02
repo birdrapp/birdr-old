@@ -11,10 +11,6 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  def to_s
-    full_name
-  end
-
   def has_no_clubs?
     clubs.length == 0
   end
@@ -26,5 +22,9 @@ class User < ApplicationRecord
   def member_since club
     membership = club_memberships.where(club_id: club.id).first
     membership.updated_at unless membership == nil
+  end
+
+  def to_s
+    full_name
   end
 end
