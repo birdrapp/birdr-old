@@ -1,0 +1,23 @@
+<div class="page-header">
+  <div class="container">
+    <h5 class="mb-0">Administration</h5>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <div class="list-group">
+        <%= link_to admin_birds_path, class: 'list-group-item' do %>
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Birds</h5>
+            <small><%= number_with_delimiter Bird.count %></small>
+          </div>
+          <p class="mb-1">
+            <small class="text-muted">Edit the canonical list of birds within Birdr.</small>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -16,6 +16,11 @@
           </p>
         </div>
       <%- end %>
+      <% if current_user.admin? %>
+        <%= link_to admin_root_path, class: 'dropdown-item border-left-0 border-right-0 border-bottom-0 border p-2' do %>
+          <%= fa_icon :shield, class: 'px-2' %> Administration
+        <% end %>
+      <% end %>
       <%= link_to edit_user_registration_path, class: 'dropdown-item border-left-0 border-right-0 border-bottom-0 border p-2' do %>
         <%= fa_icon 'sliders', class: 'px-2' %> Account Settings
       <%- end -%>
