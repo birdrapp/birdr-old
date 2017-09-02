@@ -1,0 +1,8 @@
+<%= simple_form_for([:admin, @bird_record]) do |f| %>
+  <%= f.error_notification %>
+
+    <%= f.association :bird %>
+    <%= f.association :trip %>
+
+  <%= f.button :submit %>
+<% end %>
