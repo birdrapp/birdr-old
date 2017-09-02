@@ -9,11 +9,11 @@
     <div class="col-12">
       <dl class="row">
         <dt class="col-sm-3">User</dt>
-        <dd class="col-sm-9"><%= link_to @club_membership.user, admin_user_path(@club_membership.user) %></dd>
+        <dd class="col-sm-9"><%= link_to @club_membership.user, [:admin, @club_membership.user] %></dd>
       </dl>
       <dl class="row">
         <dt class="col-sm-3">Club</dt>
-        <dd class="col-sm-9"><%= link_to @club_membership.club, admin_club_path(@club_membership.club) %></dd>
+        <dd class="col-sm-9"><%= link_to @club_membership.club, [:admin, @club_membership.club] %></dd>
       </dl>
       <dl class="row">
         <dt class="col-sm-3">Status</dt>
@@ -23,8 +23,8 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <%= link_to 'Edit', edit_admin_club_membership_path(@club_membership), class: 'btn btn-outline-dark' %>
-      <%= link_to 'Destroy', admin_club_membership_path(@club_membership), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+      <%= link_to 'Edit', [:edit, :admin, @club_membership], class: 'btn btn-outline-dark' %>
+      <%= link_to 'Destroy', [:admin, @club_membership], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
     </div>
   </div>
 </div>

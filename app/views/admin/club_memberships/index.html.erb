@@ -24,9 +24,9 @@
               <td><%= club_membership.club %></td>
               <td><%= club_membership.status %></td>
               <td class="text-right">
-              <%= link_to 'Show', admin_club_membership_path(club_membership), class: 'text-dark' %> |
-              <%= link_to 'Edit', edit_admin_club_membership_path(club_membership), class: 'text-dark' %> |
-              <%= link_to 'Destroy', admin_club_membership_path(club_membership), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+              <%= link_to 'Show', [:admin, club_membership], class: 'text-dark' %> |
+              <%= link_to 'Edit', [:edit, :admin, club_membership], class: 'text-dark' %> |
+              <%= link_to 'Destroy', [:admin, club_membership], method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
               </td>
             </tr>
           <% end %>
