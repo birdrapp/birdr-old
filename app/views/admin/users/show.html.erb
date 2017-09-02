@@ -1,0 +1,69 @@
+<div class="page-header">
+  <div class="container">
+    <h5 class="mb-0"><%= @user %></h5>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <dl class="row">
+        <dt class="col-sm-3">First Name</dt>
+        <dd class="col-sm-9"><%= @user.first_name %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Last Name</dt>
+        <dd class="col-sm-9"><%= @user.last_name %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">E-mail</dt>
+        <dd class="col-sm-9"><%= @user.email %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Reset Password Token</dt>
+        <dd class="col-sm-9"><%= @user.reset_password_token %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Reset Password Sent At</dt>
+        <dd class="col-sm-9"><%= @user.reset_password_sent_at %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Remember Created At</dt>
+        <dd class="col-sm-9"><%= @user.remember_created_at %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Sign In Count</dt>
+        <dd class="col-sm-9"><%= @user.sign_in_count %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Current Sign In At</dt>
+        <dd class="col-sm-9"><%= @user.current_sign_in_at %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Last Sign In At</dt>
+        <dd class="col-sm-9"><%= @user.last_sign_in_at %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Current Sign In IP</dt>
+        <dd class="col-sm-9"><%= @user.current_sign_in_ip %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Last Sign In IP</dt>
+        <dd class="col-sm-9"><%= @user.last_sign_in_ip %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Admin?</dt>
+        <dd class="col-sm-9"><%= @user.admin? %></dd>
+      </dl>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <%= link_to 'Edit', edit_admin_user_path(@user), class: 'btn btn-outline-dark' %>
+      <%= link_to 'Destroy', admin_user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,55 @@
+<div class="page-header">
+  <div class="container">
+    <h5 class="mb-0">Users</h5>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>E-Mail</th>
+            <th>Sign In Count</th>
+            <th>Signed In At</th>
+            <th>Admin?</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.first_name %></td>
+              <td><%= user.last_name %></td>
+              <td><%= user.email %></td>
+              <td><%= user.sign_in_count %></td>
+              <td><%= user.current_sign_in_at %></td>
+              <td><%= user.admin? %></td>
+              <td class="text-right">
+              <%= link_to 'Show', admin_user_path(user), class: 'text-dark' %> |
+              <%= link_to 'Edit', edit_admin_user_path(user), class: 'text-dark' %> |
+              <%= link_to 'Destroy', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= paginate @users %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <%= link_to 'Create New User', new_admin_user_path, class: 'btn btn-outline-primary' %>
+    </div>
+  </div>
+</div>

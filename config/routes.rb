@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :trips
+
   resources :clubs
   post '/clubs/:id/join', to: 'clubs#join', as: 'join_club'
   post '/clubs/:id/leave', to: 'clubs#leave', as: 'leave_club'
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
     root to: 'welcome#index'
     resources :birds
     resources :trips
+    resources :users
   end
 
   root to: 'welcome#index'

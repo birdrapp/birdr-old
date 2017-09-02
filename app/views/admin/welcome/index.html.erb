@@ -26,6 +26,15 @@
             <small class="text-muted">Administer user's trips.</small>
           </p>
         <% end %>
+        <%= link_to admin_users_path, class: 'list-group-item' do %>
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Users</h5>
+            <small><%= number_with_delimiter User.count %></small>
+          </div>
+          <p class="mb-1">
+            <small class="text-muted">Administer Birdr users.</small>
+          </p>
+        <% end %>
       </div>
     </div>
   </div>
