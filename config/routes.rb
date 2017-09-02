@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :trips
+  resources :birding_sessions
 
   resources :clubs
   post '/clubs/:id/join', to: 'clubs#join', as: 'join_club'
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :birds
     resources :club_memberships
     resources :clubs
-    resources :trips
+    resources :birding_sessions
     resources :users
   end
 

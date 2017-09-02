@@ -11,7 +11,7 @@
         <thead>
           <tr>
             <th>Bird</th>
-            <th>Trip</th>
+            <th>Birding Session</th>
             <th></th>
           </tr>
         </thead>
@@ -20,7 +20,7 @@
           <% @bird_records.each do |bird_record| %>
             <tr>
               <td><%= bird_record.bird %></td>
-              <td><%= bird_record.trip %></td>
+              <td><%= bird_record.birding_session %></td>
               <td class="text-right">
               <%= link_to 'Show', [:admin, bird_record], class: 'text-dark' %> |
               <%= link_to 'Edit', edit_admin_bird_record_path(bird_record), class: 'text-dark' %> |

@@ -1,16 +1,16 @@
 <% content_for :js do %>
   <%= javascript_include_tag :geocoder %>
-  <%= javascript_include_tag :new_trip %>
+  <%= javascript_include_tag :add_bird_records %>
 <% end %>
 
 <div class="page-header">
   <div class="container">
-    <h5 class="mb-0">Create a trip</h5>
+    <h5 class="mb-0">Add bird records</h5>
   </div>
 </div>
 
 <div class="container">
-  <%= simple_form_for(@trip) do |f| %>
+  <%= simple_form_for(@birding_session) do |f| %>
   <%= f.association :user, as: :hidden, label: false, wrapper: false %>
   <div class="row">
     <div class="col-12 col-md-4">
@@ -31,17 +31,17 @@
         <small><b>Tip:</b> drag the marker for extra accuracy.</small>
       </p>
       <div class="input-group mb-2 search-box">
-        <input id="tripSearch" placeholder="Search for a location..." class="form-control" />
+        <input id="search" placeholder="Search for a location..." class="form-control" />
         <span class="input-group-addon" id="basic-addon1">
           <%= fa_icon :search, class: 'search-box-icon' %>
           <%= fa_icon :spinner, class: 'fa-spin search-box-spinner' %>
         </span>
       </div>
       <%= f.input :location, as: :hidden, label: false, wrapper: false %>
-      <div id="tripSearchResults" class="trip-search-results"></div>
+      <div id="geocodeSearchResults" class="birding_session-search-results"></div>
     </div>
     <div class="col-12 col-md-8">
-      <div id="tripMap" class="trip-map"></div>
+      <div id="map" class="birding-session-map"></div>
     </div>
   </div>
   <%= horizontal_rule %>
@@ -55,16 +55,16 @@
   </div>
   <div class="row">
     <div class="col-12 col-md-4">
-      <%= f.button :submit, 'Create Trip', class: 'btn-primary mb-5 mt-4' %>
+      <%= f.button :submit, 'Save Bird Records', class: 'btn-primary mb-5 mt-4' %>
     </div>
   </div>
   <% end %>
 </div>
 
-<script type="text/x-handlebars-template" id="tripGeocodeResultsTemplate">
+<script type="text/x-handlebars-template" id="geocodeResultsTemplate">
   <div class="list-group mt-4">
     {{#.}}
-    <a href="#" data-latitude={{latitude}} data-longitude={{longitude}} class="list-group-item list-group-item-action flex-column align-items-start trip-geocode-result">
+    <a href="#" data-latitude={{latitude}} data-longitude={{longitude}} class="list-group-item list-group-item-action flex-column align-items-start geocode-result">
       <div class="d-flex w-100 justify-content-between">
         <h6 class="mb-1">{{name}}</h6>
       </div>

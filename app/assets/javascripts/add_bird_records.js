@@ -24,7 +24,7 @@ function handleSearchResultClick(e) {
 
 function updateLocation(latlng) {
   var wkt = 'POINT(' + latlng.lng() + ' ' + latlng.lat() + ')';
-  $('#trip_location').val(wkt);
+  $('#birding_session_location').val(wkt);
 }
 
 function moveMarker(latLng) {
@@ -33,18 +33,18 @@ function moveMarker(latLng) {
 }
 
 function toggleSearchResultState(activeLink) {
-  $('.trip-geocode-result').removeClass('active');
+  $('.geocode-result').removeClass('active');
   activeLink.addClass('active');
 }
 
 function resetSearchResults() {
-  $('#tripSearchResults').empty();
+  $('#geocodeSearchResults').empty();
 }
 
 function init() {
   var defaultLocation = { lat: 51.505, lng: -0.09 };
 
-  map = new google.maps.Map(document.getElementById('tripMap'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     zoom: 10,
     center: defaultLocation
   });
@@ -58,7 +58,7 @@ function init() {
     updateLocation(marker.getPosition());
   });
 
-  $('#tripSearch').on('keyup', function () {
+  $('#search').on('keyup', function () {
     var $this = $(this);
     delay(function () {
       var val = $this.val();
@@ -70,9 +70,9 @@ function init() {
     }, 500);
   });
 
-  $('#tripSearchResults').on('click', '.trip-geocode-result', handleSearchResultClick);
+  $('#geocodeSearchResults').on('click', '.geocode-result', handleSearchResultClick);
 
-  resultsTemplate = Handlebars.compile($('#tripGeocodeResultsTemplate').html());
+  resultsTemplate = Handlebars.compile($('#geocodeResultsTemplate').html());
 };
 
 function geocode(address) {
@@ -89,7 +89,7 @@ function geocode(address) {
 }
 
 function renderResults(results) {
-  $('#tripSearchResults').html(resultsTemplate(results));
+  $('#geocodeSearchResults').html(resultsTemplate(results));
 }
 
 $(document).ready(init);

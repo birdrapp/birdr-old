@@ -1,8 +1,8 @@
 class BirdRecord < ApplicationRecord
   belongs_to :bird
-  belongs_to :trip
+  belongs_to :birding_session
 
   def to_s
-    "#{bird} - #{trip}"
+    "#{bird} - #{birding_session}"
   end
 end

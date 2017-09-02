@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   has_many :club_memberships
   has_many :clubs, :through => :club_memberships
-  has_many :trips
-  has_many :bird_records, :through => :trips
+  has_many :birding_sessions
+  has_many :bird_records, :through => :birding_sessions
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

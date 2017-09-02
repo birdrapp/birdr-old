@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170902173334) do
+ActiveRecord::Schema.define(version: 20170902213256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,11 +18,21 @@ ActiveRecord::Schema.define(version: 20170902173334) do
 
   create_table "bird_records", force: :cascade do |t|
     t.bigint "bird_id"
-    t.bigint "trip_id"
+    t.bigint "birding_session_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["bird_id"], name: "index_bird_records_on_bird_id"
-    t.index ["trip_id"], name: "index_bird_records_on_trip_id"
+    t.index ["birding_session_id"], name: "index_bird_records_on_birding_session_id"
+  end
+
+  create_table "birding_sessions", force: :cascade do |t|
+    t.date "date"
+    t.geography "location", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["location"], name: "index_birding_sessions_on_location", using: :gist
+    t.index ["user_id"], name: "index_birding_sessions_on_user_id"
   end
 
   create_table "birds", force: :cascade do |t|
@@ -82,16 +92,6 @@ ActiveRecord::Schema.define(version: 20170902173334) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "trips", force: :cascade do |t|
-    t.date "date"
-    t.geography "location", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["location"], name: "index_trips_on_location", using: :gist
-    t.index ["user_id"], name: "index_trips_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -108,14 +108,18 @@ ActiveRecord::Schema.define(version: 20170902173334) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.boolean "admin", default: false
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bird_records", "birding_sessions"
   add_foreign_key "bird_records", "birds"
-  add_foreign_key "bird_records", "trips"
+  add_foreign_key "birding_sessions", "users"
   add_foreign_key "localized_birds", "birds"
   add_foreign_key "localized_birds", "rarities"
   add_foreign_key "localized_birds", "regional_bird_lists"
-  add_foreign_key "trips", "users"
 end
