@@ -28,9 +28,9 @@
               <td><%= club.has_cover_image? %></td>
               <td><%= club.has_logo? %></td>
               <td class="text-right">
-              <%= link_to 'Show', admin_club_path(club), class: 'text-dark' %> |
-              <%= link_to 'Edit', edit_admin_club_path(club), class: 'text-dark' %> |
-              <%= link_to 'Destroy', admin_club_path(club), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+              <%= link_to 'Show', [:admin, club], class: 'text-dark' %> |
+              <%= link_to 'Edit', [:edit, :admin, club], class: 'text-dark' %> |
+              <%= link_to 'Destroy', [:admin, club], method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
               </td>
             </tr>
           <% end %>
@@ -47,7 +47,7 @@
 
   <div class="row">
     <div class="col-12">
-      <%= link_to 'Create New Club', new_admin_club_path, class: 'btn btn-outline-primary' %>
+      <%= link_to 'Create New Club', new_admin_club_path,  class: 'btn btn-outline-primary' %>
     </div>
   </div>
 </div>
