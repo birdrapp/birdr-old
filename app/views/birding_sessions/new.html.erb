@@ -19,7 +19,12 @@
       </p>
     </div>
     <div class="col-12 col-md-4">
-      <%= f.input :date, required: false, as: :string, label: false %>
+      <div class="input-group">
+        <%= f.input_field :date, required: false, as: :string, label: false, class: 'form-control' %>
+        <span class="input-group-addon">
+          <%= fa_icon :calendar %>
+        </span>
+      </div>
     </div>
   </div>
   <%= horizontal_rule %>
@@ -31,9 +36,8 @@
       </p>
       <div class="input-group mb-2 search-box">
         <input id="search" placeholder="Search for a location..." class="form-control" />
-        <span class="input-group-addon" id="basic-addon1">
+        <span class="input-group-addon">
           <%= fa_icon :search, class: 'search-box-icon' %>
-          <%= fa_icon :spinner, class: 'fa-spin search-box-spinner' %>
         </span>
       </div>
       <%= f.input :location, as: :hidden, label: false, wrapper: false %>
