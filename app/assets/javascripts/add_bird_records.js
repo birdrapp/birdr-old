@@ -10,11 +10,17 @@ function placeChanged() {
   map.panTo(latLng);
   map.setZoom(17);
   moveMarker(latLng);
+
+  updateLocationName(place.name);
 }
 
 function updateLocation(latlng) {
   var wkt = 'POINT(' + latlng.lng() + ' ' + latlng.lat() + ')';
   $('#birding_session_location').val(wkt);
+}
+
+function updateLocationName(address) {
+  $('#birding_session_location_name').val(address);
 }
 
 function moveMarker(latLng) {

@@ -21,7 +21,7 @@
           <% @birding_sessions.each do |birding_session| %>
             <tr>
               <td><%= birding_session.date %></td>
-              <td><%= birding_session.location %></td>
+              <td><%= birding_session.location_name %></td>
               <td><%= birding_session.user %></td>
               <td class="text-right">
               <%= link_to 'Show', [:admin ,birding_session], class: 'text-dark' %> |

@@ -7,6 +7,6 @@ class BirdingSession < ApplicationRecord
   validates :date, presence: true
 
   def to_s
-    "#{date} - #{location}"
+    "#{date} - #{location_name}"
   end
 end
