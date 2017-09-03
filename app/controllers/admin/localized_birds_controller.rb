@@ -1,7 +1,7 @@
 class Admin::LocalizedBirdsController < ApplicationController
   # GET /localized_birds
   def index
-    @localized_birds = LocalizedBird.all.page(params[:page])
+    @localized_birds = LocalizedBird.includes(:bird).all.page(params[:page])
   end
 
   # GET /localized_birds/1

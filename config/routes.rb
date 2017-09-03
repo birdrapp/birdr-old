@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources :club_memberships
     resources :clubs
     resources :birding_sessions
+    resources :localized_birds
     resources :users
   end
 

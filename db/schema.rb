@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170903145049) do
+ActiveRecord::Schema.define(version: 20170903145743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,19 @@ ActiveRecord::Schema.define(version: 20170903145049) do
     t.string "logo"
   end
 
+  create_table "localized_birds", force: :cascade do |t|
+    t.string "common_name", null: false
+    t.string "locale", limit: 2, null: false
+    t.integer "sort_position", null: false
+    t.bigint "bird_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bird_id"], name: "index_localized_birds_on_bird_id"
+    t.index ["locale", "bird_id"], name: "index_localized_birds_on_locale_and_bird_id", unique: true
+    t.index ["locale", "common_name"], name: "index_localized_birds_on_locale_and_common_name", unique: true
+    t.index ["locale", "sort_position"], name: "index_localized_birds_on_locale_and_sort_position", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -95,4 +108,5 @@ ActiveRecord::Schema.define(version: 20170903145049) do
   add_foreign_key "bird_records", "birding_sessions"
   add_foreign_key "bird_records", "birds"
   add_foreign_key "birding_sessions", "users"
+  add_foreign_key "localized_birds", "birds"
 end
