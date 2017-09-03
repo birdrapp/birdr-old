@@ -34,17 +34,17 @@
       <p>
         <small><b>Tip:</b> drag the marker for extra accuracy.</small>
       </p>
+      <%= f.input :location, as: :hidden, label: false, wrapper: false %>
+      <%= f.input :location_name, as: :hidden, label: false, wrapper: false %>
+      <div id="geocodeSearchResults" class="birding_session-search-results"></div>
+    </div>
+    <div class="col-12 col-md-8">
       <div class="input-group mb-2 search-box">
         <input id="search" placeholder="Search for a location..." class="form-control" />
         <span class="input-group-addon">
           <%= fa_icon :search, class: 'search-box-icon' %>
         </span>
       </div>
-      <%= f.input :location, as: :hidden, label: false, wrapper: false %>
-      <%= f.input :location_name, as: :hidden, label: false, wrapper: false %>
-      <div id="geocodeSearchResults" class="birding_session-search-results"></div>
-    </div>
-    <div class="col-12 col-md-8">
       <div id="map" class="birding-session-map"></div>
     </div>
   </div>
