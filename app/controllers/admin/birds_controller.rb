@@ -2,7 +2,8 @@ class Admin::BirdsController < ApplicationController
   # GET /admin/birds
   # GET /admin/birds.json
   def index
-    @birds = Bird.includes(:species).all.page(params[:page])
+    # Explicitly override the default scope which is to localize birds
+    @birds = Bird.unscoped.includes(:species).all.page(params[:page])
   end
 
   # GET /admin/birds/1
