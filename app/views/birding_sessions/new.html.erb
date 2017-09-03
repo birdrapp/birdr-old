@@ -52,7 +52,7 @@
   <div class="row">
     <div class="col-12 col-md-4">
       <h5>Birds</h5>
-      <%= select_tag :birds, options_from_collection_for_select(@birds, :id, :common_name), include_blank: 'Select a bird', class: 'form-control', id: 'birdSearch' %>
+      <%= select_tag :birds, options_from_collection_for_select(@birds, :id, :localized_name), include_blank: 'Select a bird', class: 'form-control', id: 'birdSearch' %>
     </div>
     <div class="col-12 col-md-4">
       <ul class="list-group" id="birdRecords"></ul>

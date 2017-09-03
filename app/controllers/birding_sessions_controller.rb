@@ -1,7 +1,7 @@
 class BirdingSessionsController < ApplicationController
   # GET /birding_sessions/new
   def new
-    @birds = Bird.where('species_id is null').take(100)
+    @birds = Bird.all
     @birding_session = current_user.birding_sessions.new
   end
 
@@ -15,7 +15,7 @@ class BirdingSessionsController < ApplicationController
         format.html { redirect_to root_path, notice: 'Bird records were successfully created.' }
         format.json { render :show, status: :created, location: root_path }
       else
-        @birds = Bird.where('species_id is null').take(100)
+        @birds = Bird.all
         format.html { render :new }
         format.json { render json: @birding_session.errors, status: :unprocessable_entity }
       end
