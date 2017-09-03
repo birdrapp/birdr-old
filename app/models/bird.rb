@@ -6,9 +6,6 @@ class Bird < ApplicationRecord
 
   scope :localized, -> (locale = I18n.locale) { includes(:localized_birds).where(localized_birds: { locale: locale }) }
 
-  # Important: only return localized birds unless explicitly told otherwise
-  default_scope { localized }
-
   # TODO: this method assumes the birds have been loaded using the localized scope above.
   # This is the default scope of the model so we have to actively override using it.
   # I'm not sure how this will behave once we have multiple locales but it works for now.
