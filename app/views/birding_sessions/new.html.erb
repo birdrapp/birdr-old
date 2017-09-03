@@ -1,5 +1,4 @@
 <% content_for :js do %>
-  <%= javascript_include_tag :geocoder %>
   <%= javascript_include_tag :add_bird_records %>
 <% end %>
 
@@ -60,18 +59,3 @@
   </div>
   <% end %>
 </div>
-
-<script type="text/x-handlebars-template" id="geocodeResultsTemplate">
-  <div class="list-group mt-4">
-    {{#.}}
-    <a href="#" data-latitude={{latitude}} data-longitude={{longitude}} class="list-group-item list-group-item-action flex-column align-items-start geocode-result">
-      <div class="d-flex w-100 justify-content-between">
-        <h6 class="mb-1">{{name}}</h6>
-      </div>
-      <p class="mb-1 text-truncate">
-        <small>{{description}}</small>
-      </p>
-    </a>
-    {{/.}}
-  </div>
-</script>

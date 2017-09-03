@@ -1,25 +1,15 @@
 var map;
 var marker;
+var autocomplete;
 
-var delay = (function(){
-  var timer = 0;
-  return function(callback, ms){
-    clearTimeout (timer);
-    timer = setTimeout(callback, ms);
-  };
-})();
+function placeChanged() {
+  var place = autocomplete.getPlace();
 
-function handleSearchResultClick(e) {
-  e.preventDefault();
-  var latitude = $(this).data('latitude');
-  var longitude = $(this).data('longitude');
-  var latLng = { lat: latitude, lng: longitude };
+  var latLng = place.geometry.location;
 
   map.panTo(latLng);
   map.setZoom(17);
   moveMarker(latLng);
-
-  toggleSearchResultState($(this));
 }
 
 function updateLocation(latlng) {
@@ -30,15 +20,6 @@ function updateLocation(latlng) {
 function moveMarker(latLng) {
   marker.setPosition(latLng)
   marker.setMap(map);
-}
-
-function toggleSearchResultState(activeLink) {
-  $('.geocode-result').removeClass('active');
-  activeLink.addClass('active');
-}
-
-function resetSearchResults() {
-  $('#geocodeSearchResults').empty();
 }
 
 function init() {
@@ -58,38 +39,9 @@ function init() {
     updateLocation(marker.getPosition());
   });
 
-  $('#search').on('keyup', function () {
-    var $this = $(this);
-    delay(function () {
-      var val = $this.val();
-      if (val === '') {
-        resetSearchResults();
-      } else {
-        geocode($this.val());
-      }
-    }, 500);
-  });
+  autocomplete = new google.maps.places.Autocomplete(document.getElementById('search'), {});
 
-  $('#geocodeSearchResults').on('click', '.geocode-result', handleSearchResultClick);
-
-  resultsTemplate = Handlebars.compile($('#geocodeResultsTemplate').html());
+  autocomplete.addListener('place_changed', placeChanged);
 };
-
-function geocode(address) {
-  var geocoder = new Geocoder();
-
-  var searchBox = $('.search-box');
-  searchBox.toggleClass('active');
-
-  geocoder.geocode(address)
-    .then(renderResults)
-    .then(function () {
-      searchBox.toggleClass('active');
-    });
-}
-
-function renderResults(results) {
-  $('#geocodeSearchResults').html(resultsTemplate(results));
-}
 
 $(document).ready(init);

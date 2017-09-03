@@ -1,0 +1,13 @@
+.pac-container {
+  border-radius: $border-radius;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
+  .pac-item {
+    padding: 0.5rem 1rem;
+
+    .pac-icon {
+      display: none;
+    }
+  }
+}
