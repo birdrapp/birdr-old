@@ -10,9 +10,15 @@ require 'csv'
 #
 # Canonical Bird List
 #
-connection = ActiveRecord::Base.connection()
-ioc_path = "#{Rails.root}/db/lists/ioc.csv"
-connection.execute("COPY birds(\"common_name\", \"scientific_name\", \"order\", scientific_family_name, common_family_name, sort_position, species_id, created_at, updated_at) FROM '#{ioc_path}' CSV HEADER")
+CSV.foreach("#{Rails.root}/db/lists/ioc.csv", headers: true) do |csv|
+  Bird.create! common_name: csv['common_name'],
+               scientific_name: csv['scientific_name'],
+               order: csv['order'],
+               scientific_family_name: csv['scientific_family_name'],
+               common_family_name: csv['common_family_name'],
+               sort_position: csv['sort_position'],
+               species_id: csv['species_id']
+end
 
 sort_position = 0
 CSV.foreach("#{Rails.root}/db/lists/the-british-list.csv", headers: true) do |csv|
