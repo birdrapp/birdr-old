@@ -17,8 +17,11 @@
   </head>
 
   <body>
+    <%= flash_messages %>
     <%= render 'layouts/navigation' %>
-    <%= yield %>
+    <div class="mt-4">
+      <%= yield %>
+    </div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC3Ebzxe2VKuB54kd9baaW-7ztMxyRDA4&libraries=places"></script>
   </body>
 </html>
