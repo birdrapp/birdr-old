@@ -15,3 +15,4 @@
 //= require popper
 //= require bootstrap
 //= require bootstrap-datepicker
+//= require handlebars/dist/handlebars

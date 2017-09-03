@@ -15,6 +15,7 @@ class BirdingSessionsController < ApplicationController
         format.html { redirect_to root_path, notice: 'Bird records were successfully created.' }
         format.json { render :show, status: :created, location: root_path }
       else
+        @birds = Bird.where('species_id is null').take(100)
         format.html { render :new }
         format.json { render json: @birding_session.errors, status: :unprocessable_entity }
       end
@@ -24,6 +25,6 @@ class BirdingSessionsController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def birding_session_params
-      params.require(:birding_session).permit(:date, :location, :location_name, :user_id, :bird_ids => [])
+      params.require(:birding_session).permit(:date, :location, :location_name, :user_id, :bird_records_attributes => [:id, :bird_id])
     end
 end

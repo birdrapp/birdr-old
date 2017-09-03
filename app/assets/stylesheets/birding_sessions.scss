@@ -5,22 +5,14 @@
   height: 500px;
 }
 
-.search-box {
-  .search-box-icon {
-    display: inline-block;
-  }
-
-  .search-box-spinner {
+.birding-session-bird-result {
+  .remove-bird {
     display: none;
   }
 
-  &.active {
-    .search-box-icon {
-      display: none;
-    }
-
-    .search-box-spinner {
-      display: inline-block;
+  &:hover {
+    .remove-bird {
+      display: inline;
     }
   }
 }

@@ -1,6 +1,8 @@
 var map;
 var marker;
 var autocomplete;
+var birdResultTemplate;
+
 
 function placeChanged() {
   var place = autocomplete.getPlace();
@@ -26,6 +28,14 @@ function updateLocationName(address) {
 function moveMarker(latLng) {
   marker.setPosition(latLng)
   marker.setMap(map);
+}
+
+function addBird(e) {
+  e.preventDefault();
+  var id = $(this).val();
+  var name = $(this).find(':selected').text();
+  $('#birdRecords').prepend(birdResultTemplate({ id: id, name: name, index: +(new Date()) }))
+  $(this).prop('selectedIndex',0)
 }
 
 function init() {
@@ -58,6 +68,16 @@ function init() {
     maxViewMode: 'days',
     showWeekDays: false,
     weekStart: 1
+  });
+
+  birdResultTemplate = Handlebars.compile($("#birdRecordResultTemplate").html());
+
+  $('#birdSearch').on('change', addBird);
+
+  $('#birdRecords').on('click', '.remove-bird', function (e) {
+    e.preventDefault();
+
+    $(this).closest('.list-group-item').remove();
   });
 };
 

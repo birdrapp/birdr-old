@@ -52,9 +52,10 @@
   <div class="row">
     <div class="col-12 col-md-4">
       <h5>Birds</h5>
+      <%= select_tag :birds, options_from_collection_for_select(@birds, :id, :common_name), include_blank: 'Select a bird', class: 'form-control', id: 'birdSearch' %>
     </div>
-    <div class="col-12 col-md-8">
-      <%= f.association :birds, collection: @birds, label: false %>
+    <div class="col-12 col-md-4">
+      <ul class="list-group" id="birdRecords"></ul>
     </div>
   </div>
   <div class="row">
@@ -64,3 +65,13 @@
   </div>
   <% end %>
 </div>
+
+<script id="birdRecordResultTemplate" type="text/x-handlebars-template">
+  <li id="{{id}}" class="list-group-item justify-content-right birding-session-bird-result">
+    {{name}}
+    <input value="{{id}}" class="form-control hidden" type="hidden" name="birding_session[bird_records_attributes][{{index}}][bird_id]" id="birding_session_bird_records_attributes_{{index}}_bird_id">
+    <a href="#" class="remove-bird text-danger">
+      <span aria-hidden="true" class="float-right">&times;</span>
+    </a>
+  </li>
+</script>
