@@ -42,6 +42,17 @@ function init() {
   autocomplete = new google.maps.places.Autocomplete(document.getElementById('search'), {});
 
   autocomplete.addListener('place_changed', placeChanged);
+
+  $('#birding_session_date').datepicker({
+    todayHighlight: true,
+    autoclose: true,
+    assumeNearbyYear: true,
+    endDate: new Date(),
+    format: 'dd/mm/yyyy',
+    maxViewMode: 'days',
+    showWeekDays: false,
+    weekStart: 1
+  });
 };
 
 $(document).ready(init);
