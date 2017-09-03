@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :birding_sessions
+  get '/add_bird_records', to: 'birding_sessions#new'
+  resources :birding_sessions, only: [:new, :create]
 
   resources :clubs
   post '/clubs/:id/join', to: 'clubs#join', as: 'join_club'

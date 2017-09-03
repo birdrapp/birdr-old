@@ -12,8 +12,8 @@ class BirdingSessionsController < ApplicationController
 
     respond_to do |format|
       if @birding_session.save
-        format.html { redirect_to @birding_session, notice: 'Bird records were successfully created.' }
-        format.json { render :show, status: :created, location: @birding_session }
+        format.html { redirect_to root_path, notice: 'Bird records were successfully created.' }
+        format.json { render :show, status: :created, location: root_path }
       else
         format.html { render :new }
         format.json { render json: @birding_session.errors, status: :unprocessable_entity }
