@@ -79,6 +79,45 @@ function init() {
 
     $(this).closest('.list-group-item').remove();
   });
+
+  $('#birdRecords').on('click', '.remove-bird-record', function (e) {
+    e.preventDefault();
+    $(this).closest('.birding-session-bird-result').remove();
+  })
+
+  $('#birdRecordModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var birdName = button.data('name');
+    var modal = $(this)
+    modal.data('index', button.data('index'));
+
+    modal.find('.modal-title').text('Editing ' + birdName);
+    modal.find('#modalCount').val(button.data('count'));
+    modal.find('#modalNotes').val(button.data('notes'));
+  });
+
+  $('#birdRecordModal').on('click', '#modalUpdate', function (event) {
+    var modal = $('#birdRecordModal');
+
+    // Get values to update
+    var index = modal.data('index');
+    var notes = modal.find('#modalNotes').val();
+    var count = modal.find('#modalCount').val();
+
+    // Update form
+    $('input[name="birding_session[bird_records_attributes][' + index + '][count]"]').val(count);
+    $('input[name="birding_session[bird_records_attributes][' + index + '][notes]"]').val(notes);
+
+    // Update data attributes
+    $('#edit_' + index).data('count', count);
+    $('#edit_' + index).data('notes', notes);
+
+    // Update the UI
+    if (count) $('#count_' + index).text(count + ' x ');
+    $('#notes_' + index).text(notes);
+
+    modal.modal('hide');
+  });
 };
 
 $(document).ready(init);

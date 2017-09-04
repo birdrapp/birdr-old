@@ -1,0 +1,23 @@
+<script id="birdRecordResultTemplate" type="text/x-handlebars-template">
+  <div id="{{index}}" class="list-group-item birding-session-bird-result d-flex justify-content-between align-items-center">
+    <div>
+      <span id="count_{{index}}"></span>{{name}}<br/>
+      <small class="text-muted text-truncated" id="notes_{{index}}"></small>
+    </div>
+    <input value="{{id}}" class="form-control hidden" type="hidden" name="birding_session[bird_records_attributes][{{index}}][bird_id]" id="birding_session_bird_records_attributes_{{index}}_bird_id">
+    <input value="" class="form-control hidden" type="hidden" name="birding_session[bird_records_attributes][{{index}}][count]" id="birding_session_bird_records_attributes_{{index}}_count">
+    <input value="" class="form-control hidden" type="hidden" name="birding_session[bird_records_attributes][{{index}}][notes]" id="birding_session_bird_records_attributes_{{index}}_notes">
+    <div class="actions">
+      <%= link_to '#', id: 'edit_{{index}}', class: 'btn btn-outline-primary btn-sm', data: {
+        toggle: 'modal',
+        target: '#birdRecordModal',
+        id: '{{id}}',
+        name: '{{name}}',
+        index: '{{index}}'
+      } do %>
+        <%= fa_icon :pencil %>
+      <% end %>
+      <a href="#" class="btn btn-outline-danger btn-sm remove-bird-record" data-confirm="Are you sure you want to remove {{name}} from your list?" ><%= fa_icon :trash %></a>
+    </div>
+  </div>
+</script>
