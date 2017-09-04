@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170903145743) do
+ActiveRecord::Schema.define(version: 20170904201744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20170903145743) do
     t.bigint "birding_session_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "count"
+    t.string "notes"
     t.index ["bird_id"], name: "index_bird_records_on_bird_id"
     t.index ["birding_session_id"], name: "index_bird_records_on_birding_session_id"
   end

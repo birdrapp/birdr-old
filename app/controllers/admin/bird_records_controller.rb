@@ -52,6 +52,6 @@ class Admin::BirdRecordsController < ApplicationController
   private
     # Only allow a trusted parameter "white list" through.
     def bird_record_params
-      params.require(:bird_record).permit(:bird_id, :birding_session_id)
+      params.require(:bird_record).permit(:bird_id, :birding_session_id, :count, :notes)
     end
 end

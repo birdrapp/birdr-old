@@ -8,8 +8,16 @@
   <div class="row">
     <div class="col-12">
       <dl class="row">
+        <dt class="col-sm-3">Count</dt>
+        <dd class="col-sm-9"><%= @bird_record.count %></dd>
+      </dl>
+      <dl class="row">
         <dt class="col-sm-3">Bird</dt>
         <dd class="col-sm-9"><%= link_to @bird_record.bird, [:admin, @bird_record.bird] %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Notes</dt>
+        <dd class="col-sm-9"><%= @bird_record.notes %></dd>
       </dl>
       <dl class="row">
         <dt class="col-sm-3">Birding Session</dt>

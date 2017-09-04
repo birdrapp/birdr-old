@@ -10,7 +10,9 @@
       <table class="table table-responsive">
         <thead>
           <tr>
+            <th>Count</th>
             <th>Bird</th>
+            <th>Notes</th>
             <th>Birding Session</th>
             <th></th>
           </tr>
@@ -19,7 +21,9 @@
         <tbody>
           <% @bird_records.each do |bird_record| %>
             <tr>
+              <td><%= bird_record.count %></td>
               <td><%= bird_record.bird %></td>
+              <td><%= bird_record.notes %></td>
               <td><%= bird_record.birding_session %></td>
               <td class="text-right">
               <%= link_to 'Show', [:admin, bird_record], class: 'text-dark' %> |
