@@ -13,7 +13,7 @@ function placeChanged() {
   map.setZoom(17);
   moveMarker(latLng);
 
-  updateLocationName(place.name);
+  updateLocationName(place.name, place.formatted_address);
 }
 
 function updateLocation(latlng) {
@@ -21,8 +21,9 @@ function updateLocation(latlng) {
   $('#birding_session_location').val(wkt);
 }
 
-function updateLocationName(address) {
-  $('#birding_session_location_name').val(address);
+function updateLocationName(name, address) {
+  $('#birding_session_location_name').val(name);
+  $('#birding_session_location_address').val(address);
 }
 
 function moveMarker(latLng) {

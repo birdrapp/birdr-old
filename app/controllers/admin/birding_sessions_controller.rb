@@ -52,6 +52,6 @@ class Admin::BirdingSessionsController < ApplicationController
   private
     # Only allow a trusted parameter "white list" through.
     def birding_session_params
-      params.require(:birding_session).permit(:date, :location, :location_name, :user_id)
+      params.require(:birding_session).permit(:date, :location, :location_name, :location_address, :user_id)
     end
 end

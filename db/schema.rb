@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170904201744) do
+ActiveRecord::Schema.define(version: 20170905195213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20170904201744) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.string "location_name", null: false
+    t.string "location_address"
     t.index ["location"], name: "index_birding_sessions_on_location", using: :gist
     t.index ["user_id"], name: "index_birding_sessions_on_user_id"
   end
