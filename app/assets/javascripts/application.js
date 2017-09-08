@@ -14,5 +14,5 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
-//= require bootstrap-datepicker
+//= require flatpickr/dist/flatpickr
 //= require handlebars/dist/handlebars

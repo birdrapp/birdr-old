@@ -60,15 +60,9 @@ function init() {
 
   autocomplete.addListener('place_changed', placeChanged);
 
-  $('#birding_session_date').datepicker({
-    todayHighlight: true,
-    autoclose: true,
-    assumeNearbyYear: true,
-    endDate: new Date(),
-    format: 'dd/mm/yyyy',
-    maxViewMode: 'days',
-    showWeekDays: false,
-    weekStart: 1
+  $('#birding_session_date').flatpickr({
+    altInput: true,
+    maxDate: new Date()
   });
 
   birdResultTemplate = Handlebars.compile($("#birdRecordResultTemplate").html());

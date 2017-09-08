@@ -19,8 +19,8 @@
       </p>
     </div>
     <div class="col-12 col-md-4">
-      <div class="input-group">
-        <%= f.input_field :date, required: false, as: :string, label: false, class: 'form-control' %>
+      <div class="input-group flatpickr">
+        <%= f.input_field :date, required: false, as: :string, class: 'form-control', data: { input: true } %>
         <span class="input-group-addon">
           <%= fa_icon :calendar %>
         </span>

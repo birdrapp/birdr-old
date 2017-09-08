@@ -52,8 +52,6 @@ GEM
       autoprefixer-rails (>= 6.0.3)
       popper_js (~> 1.11.1)
       sass (>= 3.4.19)
-    bootstrap-datepicker-rails (1.7.1.1)
-      railties (>= 3.0)
     builder (3.2.3)
     byebug (9.1.0)
     capybara (2.15.1)
@@ -253,7 +251,6 @@ PLATFORMS
 DEPENDENCIES
   activerecord-postgis-adapter (~> 5.0)
   bootstrap (~> 4.0.0.beta)
-  bootstrap-datepicker-rails (~> 1.7)
   byebug
   capybara (~> 2.13)
   carrierwave (~> 1.0)
@@ -284,4 +281,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.15.4
+   1.16.0.pre.1

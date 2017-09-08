@@ -1,81 +1,35 @@
-$datepicker-cell-size: 40px;
-$desaturated: desaturate(theme-color("primary"), 20%);
-$datepicker-hover-bg: mix($desaturated, white, 15%);
+$datepicker-primary-color: theme-color('primary');
 
-.datepicker {
-  border-radius: $border-radius;
-  padding: .35rem;
+.flatpickr-month, .flatpickr-weekdays {
+  color: white;
+  background-color: $datepicker-primary-color;
+}
 
-  table {
-    td, th {
-      text-align: center;
+.flatpickr-prev-month, .flatpickr-next-month {
+  color: white;
+  fill: white;
+}
 
-      &:hover {
-        cursor: pointer;
-      }
+.flatpickr-prev-month:hover svg, .flatpickr-next-month:hover svg {
+  fill: theme-color('secondary');
+}
 
-      span {
-        width: 23%;
-        margin: 1%;
-        height: 80px;
-        line-height: 80px;
-        float: left;
-        border-radius: $border-radius;
+.flatpickr-calendar.arrowTop:before {
+  border-bottom-color: rgba(72,72,72,0.2);
+}
 
-        &:hover {
-          background-color: $datepicker-hover-bg;
-        }
-      }
-    }
-  }
+.flatpickr-calendar.arrowTop:after {
+  border-bottom-color: $datepicker-primary-color;
+}
 
-  .datepicker-switch, .prev, .next {
-    border-radius: $border-radius;
-    padding: .5rem;
+.flatpickr-day {
+  &.selected {
+    background-color: $datepicker-primary-color;
+    border-color: $datepicker-primary-color;
 
     &:hover {
-      background-color: $datepicker-hover-bg;
-    }
-  }
-
-  .day {
-    width: $datepicker-cell-size;
-    height: $datepicker-cell-size;
-    border-radius: 50%;
-    text-align: center;
-
-    &.old, &.new {
-      color: $text-muted;
-    }
-
-    &.today {
-      background-color: theme-color('secondary');
-      color: white;
-
-      &:hover {
-        background-color: darken(theme-color('secondary'), 10%);
-      }
-    }
-
-    &.active {
-      background-color: $component-active-bg;
-      color: $component-active-color;
-
-      &:hover {
-        background-color: darken($component-active-bg, 10%);
-      }
-    }
-
-    &:hover {
-      background-color: $datepicker-hover-bg;
-    }
-
-    &.disabled {
-      color: $text-muted;
-      &:hover {
-        background-color: white;
-        cursor: default;
-      }
+      background-color: $datepicker-primary-color;
+      border-color: $datepicker-primary-color;
     }
   }
 }

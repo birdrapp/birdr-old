@@ -35,7 +35,6 @@ gem 'font-awesome-rails', '~> 4.7'
 gem 'carrierwave', '~> 1.0'
 gem 'fog-aws', '~> 1.4'
 gem 'mini_magick', '~> 4.8'
-gem 'bootstrap-datepicker-rails', '~> 1.7'
 gem 'webpacker', '~> 3.0'
 
 group :development, :test do
