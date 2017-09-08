@@ -1,5 +1,9 @@
 $datepicker-primary-color: theme-color('primary');
 
+.flatpickr-input[readonly] {
+  background-color: white;
+}
+
 .flatpickr-month, .flatpickr-weekdays {
   color: white;
   background-color: $datepicker-primary-color;
