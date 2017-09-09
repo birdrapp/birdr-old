@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: clubs
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  short_name  :string
+#  description :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  cover_image :string
+#  logo        :string
+#
+
 class Club < ApplicationRecord
   has_many :club_memberships
   has_many :users, through: :club_memberships

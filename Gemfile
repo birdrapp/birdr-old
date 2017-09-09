@@ -55,4 +55,5 @@ group :development do
   gem 'rack-mini-profiler', '~> 0.10'
   gem 'rubocop', '~> 0.49', require: false
   gem 'brakeman', '~> 3.7', require: false
+  gem 'annotate', '~> 2.7', require: false
 end
