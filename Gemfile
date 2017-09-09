@@ -53,4 +53,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rack-mini-profiler', '~> 0.10'
+  gem 'rubocop', '~> 0.49', require: false
+  gem 'brakeman', '~> 3.7', require: false
 end
