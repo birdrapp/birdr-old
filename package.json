@@ -6,6 +6,7 @@
     "babel-preset-react": "^6.24.1",
     "dropzone": "^5.1.1",
     "flatpickr": "^3.0.7",
+    "google-map-react": "^0.24.0",
     "handlebars": "^4.0.10",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
