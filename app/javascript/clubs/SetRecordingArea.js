@@ -1,20 +1,29 @@
-import React from 'react';
-import GoogleMapReact from 'google-map-react';
+import React, { Component } from 'react';
+import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import SearchBox from 'react-google-maps/lib/places/SearchBox';
 
-const defaultLocation = { lat: 51.505, lng: -0.09 };
+const defaultCenter = { lat: 51.505, lng: -0.09 };
 const defaultZoom = 10;
-const apiKey = 'AIzaSyCC3Ebzxe2VKuB54kd9baaW-7ztMxyRDA4';
 
-const SetRecordingArea = () => {
+const RecordingAreaMap = withGoogleMap(props => {
   return (
-    <div style={{ width: '100%', height: '500px' }}>
-      <GoogleMapReact
-        defaultCenter={defaultLocation}
-        defaultZoom={defaultZoom}
-        bootstrapURLKeys={{ key: apiKey }}
-      />
-    </div>
+    <GoogleMap
+      ref={props.onMapLoad}
+      defaultZoom={defaultZoom}
+      defaultCenter={defaultCenter}
+    />
   );
-};
+});
+
+class SetRecordingArea extends Component {
+  render() {
+    return (
+      <RecordingAreaMap
+        containerElement={<div style={{ height: '500px' }} />}
+        mapElement={<div style={{ height: '100%' }} />}
+      />
+    );
+  }
+}
 
 export default SetRecordingArea;
