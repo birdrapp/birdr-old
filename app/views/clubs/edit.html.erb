@@ -28,6 +28,15 @@
   <%= horizontal_rule %>
   <div class="row mb-5">
     <div class="col-md-3 col-12">
+      <h5>Recording area</h5>
+    </div>
+    <div class="col-md-5 col-12">
+      <div id="recording-area-map"></div>
+    </div>
+  </div>
+  <%= horizontal_rule %>
+  <div class="row mb-5">
+    <div class="col-md-3 col-12">
       <h5>Images</h5>
       <p>
         <small>Customise your club page's images.</small>
@@ -51,3 +60,5 @@
     </div>
   </div>
 </div>
+
+<%= javascript_pack_tag 'edit_club_settings' %>
