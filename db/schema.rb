@@ -71,19 +71,6 @@ ActiveRecord::Schema.define(version: 20170905195213) do
     t.string "logo"
   end
 
-  create_table "localized_birds", force: :cascade do |t|
-    t.string "common_name", null: false
-    t.string "locale", limit: 2, null: false
-    t.integer "sort_position", null: false
-    t.bigint "bird_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["bird_id"], name: "index_localized_birds_on_bird_id"
-    t.index ["locale", "bird_id"], name: "index_localized_birds_on_locale_and_bird_id", unique: true
-    t.index ["locale", "common_name"], name: "index_localized_birds_on_locale_and_common_name", unique: true
-    t.index ["locale", "sort_position"], name: "index_localized_birds_on_locale_and_sort_position", unique: true
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -100,10 +87,6 @@ ActiveRecord::Schema.define(version: 20170905195213) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.boolean "admin", default: false
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -111,5 +94,4 @@ ActiveRecord::Schema.define(version: 20170905195213) do
   add_foreign_key "bird_records", "birding_sessions"
   add_foreign_key "bird_records", "birds"
   add_foreign_key "birding_sessions", "users"
-  add_foreign_key "localized_birds", "birds"
 end

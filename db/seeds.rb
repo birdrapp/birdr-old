@@ -20,16 +20,16 @@ CSV.foreach("#{Rails.root}/db/lists/ioc.csv", headers: true) do |csv|
                species_id: csv['species_id']
 end
 
-sort_position = 0
-CSV.foreach("#{Rails.root}/db/lists/the-british-list.csv", headers: true) do |csv|
-  sort_position += 1
-  bird = Bird
-    .where(scientific_name: csv['scientific_name'])
-    .or(Bird.where(scientific_name: csv['ioc_scientific_name']))
-    .first
-  if bird.nil?
-    puts "#{csv['name']} #{csv['scientific_name']} not found"
-    next
-  end
-  LocalizedBird.find_or_create_by! common_name: csv['name'], locale: 'en', bird: bird, sort_position: sort_position
-end
+# sort_position = 0
+# CSV.foreach("#{Rails.root}/db/lists/the-british-list.csv", headers: true) do |csv|
+#   sort_position += 1
+#   bird = Bird
+#     .where(scientific_name: csv['scientific_name'])
+#     .or(Bird.where(scientific_name: csv['ioc_scientific_name']))
+#     .first
+#   if bird.nil?
+#     puts "#{csv['name']} #{csv['scientific_name']} not found"
+#     next
+#   end
+#   LocalizedBird.find_or_create_by! common_name: csv['name'], locale: 'en', bird: bird, sort_position: sort_position
+# end
