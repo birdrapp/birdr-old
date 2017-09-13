@@ -1,0 +1,29 @@
+<div class="page-header">
+  <div class="container">
+    <h5 class="mb-0"><%= @bird_list %></h5>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <dl class="row">
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9"><%= @bird_list.name %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Country code</dt>
+        <dd class="col-sm-9"><%= @bird_list.country_code %></dd>
+      </dl>
+          </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <%= link_to 'Edit', [:edit, :admin, @bird_list], class: 'btn btn-outline-dark' %>
+      <%= link_to 'Destroy', [:admin, @bird_list], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>
+
+
+

@@ -36,6 +36,7 @@ gem 'carrierwave', '~> 1.0'
 gem 'fog-aws', '~> 1.4'
 gem 'mini_magick', '~> 4.8'
 gem 'webpacker', '~> 3.0'
+gem 'country_select', '~> 3.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

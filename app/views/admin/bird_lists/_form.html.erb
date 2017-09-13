@@ -1,0 +1,8 @@
+<%= simple_form_for([:admin, @bird_list]) do |f| %>
+  <%= f.error_notification %>
+
+    <%= f.input :name %>
+    <%= f.input :country_code %>
+
+  <%= f.button :submit %>
+<% end %>

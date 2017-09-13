@@ -10,11 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170905195213) do
+ActiveRecord::Schema.define(version: 20170913194733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "bird_lists", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "country_code", limit: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "bird_records", force: :cascade do |t|
     t.bigint "bird_id"
@@ -69,6 +76,13 @@ ActiveRecord::Schema.define(version: 20170905195213) do
     t.datetime "updated_at", null: false
     t.string "cover_image"
     t.string "logo"
+  end
+
+  create_table "national_bird_lists", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "country_code", limit: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
