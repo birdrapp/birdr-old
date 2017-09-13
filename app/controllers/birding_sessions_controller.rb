@@ -1,7 +1,7 @@
 class BirdingSessionsController < ApplicationController
   # GET /birding_sessions/new
   def new
-    @birds = Bird.localized.all
+    @birds = BirdList.first.birds.all
     @birding_session = current_user.birding_sessions.new
   end
 

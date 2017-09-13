@@ -60,7 +60,7 @@
     <div class="col-12 col-md-6">
       <div class="card bird-list">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <%= select_tag :birds, options_from_collection_for_select(@birds, :id, :localized_name), include_blank: 'Add a bird to your list...', class: 'form-control', id: 'birdSearch' %>
+          <%= select_tag :birds, options_from_collection_for_select(@birds, :id, :common_name), include_blank: 'Add a bird to your list...', class: 'form-control', id: 'birdSearch' %>
         </div>
         <div class="list-group list-group-flush" id="birdRecords"></div>
       </div>

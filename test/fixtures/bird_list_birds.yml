@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bird: one
+  bird_list: one
+  rarity: one
+
+two:
+  bird: two
+  bird_list: two
+  rarity: two

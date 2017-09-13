@@ -10,26 +10,28 @@ require 'csv'
 #
 # Canonical Bird List
 #
-CSV.foreach("#{Rails.root}/db/lists/ioc.csv", headers: true) do |csv|
-  Bird.create! common_name: csv['common_name'],
-               scientific_name: csv['scientific_name'],
-               order: csv['order'],
-               scientific_family_name: csv['scientific_family_name'],
-               common_family_name: csv['common_family_name'],
-               sort_position: csv['sort_position'],
-               species_id: csv['species_id']
-end
-
-# sort_position = 0
-# CSV.foreach("#{Rails.root}/db/lists/the-british-list.csv", headers: true) do |csv|
-#   sort_position += 1
-#   bird = Bird
-#     .where(scientific_name: csv['scientific_name'])
-#     .or(Bird.where(scientific_name: csv['ioc_scientific_name']))
-#     .first
-#   if bird.nil?
-#     puts "#{csv['name']} #{csv['scientific_name']} not found"
-#     next
-#   end
-#   LocalizedBird.find_or_create_by! common_name: csv['name'], locale: 'en', bird: bird, sort_position: sort_position
+# CSV.foreach("#{Rails.root}/db/lists/ioc.csv", headers: true) do |csv|
+#   Bird.create! common_name: csv['common_name'],
+#                scientific_name: csv['scientific_name'],
+#                order: csv['order'],
+#                scientific_family_name: csv['scientific_family_name'],
+#                common_family_name: csv['common_family_name'],
+#                sort_position: csv['sort_position'],
+#                species_id: csv['species_id']
 # end
+
+uk = BirdList.find_or_create_by! name: "The British List", country_code: "GB"
+common = Rarity.find_or_create_by! name: "Common", level: 1
+CSV.foreach("#{Rails.root}/db/lists/the-british-list.csv", headers: true) do |csv|
+  bird = Bird
+    .where(scientific_name: csv['scientific_name'])
+    .or(Bird.where(scientific_name: csv['ioc_scientific_name']))
+    .first
+
+  if bird.nil?
+    puts "#{csv['name']} #{csv['scientific_name']} not found"
+    next
+  end
+
+  BirdListBird.create! bird_id: bird.id, rarity_id: common.id, bird_list_id: uk.id
+end

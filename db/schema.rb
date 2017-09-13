@@ -10,11 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170913200637) do
+ActiveRecord::Schema.define(version: 20170913201728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "bird_list_birds", force: :cascade do |t|
+    t.bigint "bird_id"
+    t.bigint "bird_list_id"
+    t.bigint "rarity_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bird_id"], name: "index_bird_list_birds_on_bird_id"
+    t.index ["bird_list_id"], name: "index_bird_list_birds_on_bird_list_id"
+    t.index ["rarity_id"], name: "index_bird_list_birds_on_rarity_id"
+  end
 
   create_table "bird_lists", force: :cascade do |t|
     t.string "name", null: false
@@ -112,6 +123,9 @@ ActiveRecord::Schema.define(version: 20170913200637) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bird_list_birds", "bird_lists"
+  add_foreign_key "bird_list_birds", "birds"
+  add_foreign_key "bird_list_birds", "rarities"
   add_foreign_key "bird_records", "birding_sessions"
   add_foreign_key "bird_records", "birds"
   add_foreign_key "birding_sessions", "users"
