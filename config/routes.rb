@@ -19,11 +19,11 @@ Rails.application.routes.draw do
 
     resources :bird_lists
     resources :bird_records
-    resources :birds
-    resources :club_memberships
-    resources :clubs
     resources :birding_sessions
-    resources :localized_birds
+    resources :birds
+    resources :clubs
+    resources :club_memberships
+    resources :rarities
     resources :users
   end
 
