@@ -30,18 +30,45 @@ const RecordingAreaMap = withGoogleMap(props => {
             zIndex: 1
           }
         }}
+        onPolygonComplete={props.onPolygonComplete}
       />
     </GoogleMap>
   );
 });
 
 class SetRecordingArea extends Component {
+  state = {
+    recordingArea: this.props.recordingArea
+  };
+
+  onPolygonComplete = e => {
+    const latLngs = e.getPath().getArray();
+    const points = latLngs
+      .concat(latLngs[0])
+      .map(l => `${l.lat()} ${l.lng()}`)
+      .join(',');
+
+    const wkt = `POLYGON((${points}))`;
+
+    this.setState({ recordingArea: wkt });
+  };
+
   render() {
+    const current = this.props.recordingArea;
+
     return (
-      <RecordingAreaMap
-        containerElement={<div style={{ height: '500px' }} />}
-        mapElement={<div style={{ height: '100%' }} />}
-      />
+      <div>
+        <input
+          type="hidden"
+          name="club[recording_area]"
+          value={this.state.recordingArea}
+        />
+        <RecordingAreaMap
+          onPolygonComplete={this.onPolygonComplete}
+          containerElement={<div style={{ height: '500px' }} />}
+          mapElement={<div style={{ height: '100%' }} />}
+        />
+      </div>
     );
   }
 }

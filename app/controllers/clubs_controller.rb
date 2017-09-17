@@ -94,7 +94,7 @@ class ClubsController < ApplicationController
     def club_params
       params.require(:club).permit(
         :name, :short_name, :description,
-        :cover_image, :remove_cover_image, :logo, :remove_logo
+        :cover_image, :remove_cover_image, :logo, :remove_logo, :recording_area
       )
     end
 end
