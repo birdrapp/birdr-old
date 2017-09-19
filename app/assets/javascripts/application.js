@@ -16,3 +16,4 @@
 //= require bootstrap
 //= require flatpickr/dist/flatpickr
 //= require handlebars/dist/handlebars
+//= require dropzone/dist/dropzone

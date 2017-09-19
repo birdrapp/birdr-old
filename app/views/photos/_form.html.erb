@@ -1,8 +1,6 @@
-<div class="mt-4 col-lg-6">
-  <%= simple_form_for(@photo, format: :json, remote: true) do |f| %>
-    <%= f.error_notification %>
-
-    <%= f.input :image %>
-    <%= f.button :submit %>
-  <% end %>
-</div>
+<%= simple_form_for(@photo, format: :json, html: { class: 'dropzone d-flex align-items-center justify-content-center flex-column p-4' }) do |f| %>
+  <div class="icon">
+    <%= fa_icon :camera %>
+  </div>
+  <div class="card-deck dz-previews"></div>
+<% end %>
