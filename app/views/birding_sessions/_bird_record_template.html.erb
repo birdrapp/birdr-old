@@ -1,5 +1,6 @@
 <script id="birdRecordResultTemplate" type="text/x-handlebars-template">
-  <div id="{{index}}" class="list-group-item birding-session-bird-result d-flex justify-content-between align-items-center">
+  <div id="{{index}}" class="list-group-item birding-session-bird-result d-flex justify-content-start align-items-center">
+    <div id="photo_{{index}}" class="bird-list-image"></div>
     <div>
       <span id="count_{{index}}"></span>{{name}}<br/>
       <small class="text-muted text-truncated" id="notes_{{index}}"></small>
@@ -7,7 +8,8 @@
     <input value="{{id}}" class="form-control hidden" type="hidden" name="birding_session[bird_records_attributes][{{index}}][bird_id]" id="birding_session_bird_records_attributes_{{index}}_bird_id">
     <input value="" class="form-control hidden" type="hidden" name="birding_session[bird_records_attributes][{{index}}][count]" id="birding_session_bird_records_attributes_{{index}}_count">
     <input value="" class="form-control hidden" type="hidden" name="birding_session[bird_records_attributes][{{index}}][notes]" id="birding_session_bird_records_attributes_{{index}}_notes">
-    <div class="actions">
+    <div id="photo_fields_{{index}}" class="d-none"></div>
+    <div class="actions ml-auto">
       <%= link_to '#', id: 'edit_{{index}}', class: 'btn btn-outline-primary btn-sm', data: {
         toggle: 'modal',
         target: '#birdRecordModal',

@@ -15,6 +15,8 @@ class BirdRecord < ApplicationRecord
   belongs_to :bird
   belongs_to :birding_session
 
+  has_many :photos, as: :photographable
+
   def to_s
     "#{bird} - #{birding_session}"
   end

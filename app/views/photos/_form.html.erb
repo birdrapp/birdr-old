@@ -1,6 +1,11 @@
-<%= simple_form_for(@photo, format: :json, html: { class: 'dropzone d-flex align-items-center justify-content-center flex-column p-4' }) do |f| %>
+<%= simple_form_for(@photo, format: :json, html: { class: 'photo-upload d-flex align-items-center justify-content-center flex-column p-4 mt-3' }) do |f| %>
   <div class="icon">
-    <%= fa_icon :camera %>
+    <%= fa_icon :plus %>
   </div>
-  <div class="card-deck dz-previews"></div>
+  <span class="dz-message">
+    Add Photos
+  </span>
+  <small class="mt-2">
+    <strong>Tip:</strong> you can drag &amp; drop your photos onto here.
+  </small>
 <% end %>

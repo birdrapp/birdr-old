@@ -2,6 +2,7 @@ var map;
 var marker;
 var autocomplete;
 var birdResultTemplate;
+var dropzone;
 
 
 function placeChanged() {
@@ -37,6 +38,95 @@ function addBird(e) {
   var name = $(this).find(':selected').text();
   $('#birdRecords').prepend(birdResultTemplate({ id: id, name: name, index: +(new Date()) }))
   $(this).prop('selectedIndex',0)
+}
+
+function updateModal(e) {
+  var modal = $('#birdRecordModal');
+
+  // Get values to update
+  var index = modal.data('index');
+  var notes = modal.find('#modalNotes').val();
+  var count = modal.find('#modalCount').val();
+  var photoFields = modal.find('#modalPhotos input');
+
+  // Update form
+  $('input[name="birding_session[bird_records_attributes][' + index + '][count]"]').val(count);
+  $('input[name="birding_session[bird_records_attributes][' + index + '][notes]"]').val(notes);
+  $('#photo_fields_' + index).append(photoFields);
+
+  // Update data attributes
+  $('#edit_' + index).data('count', count);
+  $('#edit_' + index).data('notes', notes);
+
+  // Update the UI
+  if (count) $('#count_' + index).text(count + ' x ');
+  $('#notes_' + index).text(notes);
+
+  var thumbnails = modal.find('.dz-preview');
+  // if we have photos
+  if (thumbnails.length) {
+    // use the first as the thumbnail
+    var first = thumbnails.first();
+    $('#photo_' + index).empty().append($('<img />', {
+      src: first.find('img').attr('src'),
+      class: 'rounded-circle mr-3'
+    }));
+
+    // Store all photos for later use
+    var $photoContainer = $('#photos_' + index);
+
+    if (!$photoContainer.length) {
+      $photoContainer = $('<div />', {
+        id: 'photos_' + index
+      }).appendTo($('#photo_fields_' + index));
+    }
+
+    $photoContainer.html($('#photos-container').html());
+  }
+
+  modal.modal('hide');
+}
+
+function showModal(e) {
+  var button = $(e.relatedTarget); // Button that triggered the modal
+  var birdName = button.data('name');
+  var modal = $(this);
+  modal.data('index', button.data('index'));
+
+  modal.find('.modal-title').text('Editing ' + birdName);
+  modal.find('#modalCount').val(button.data('count'));
+  modal.find('#modalNotes').val(button.data('notes'));
+  // find any existing thumbnails
+  var photos = $('#photos_' + button.data('index'));
+  modal.find('#photos-container').empty().html(photos.html());
+}
+
+function fileAdded(file) {
+  $('#modalUpdate').attr('disabled', true);
+}
+
+function queueComplete() {
+  $('#modalUpdate').attr('disabled', false).text('Update');
+}
+
+function updateProgress(uploadProgress, totalBytes, totalBytesSent) {
+  $('#modalUpdate').text('Uploading ' + Math.round(uploadProgress) + '%');
+}
+
+function photoUploaded(file, response) {
+  // Get the index
+  var modal = $('#birdRecordModal');
+  var index = modal.data('index');
+  // create a new hidden input
+  var $photoInput = $('<input></input>', {
+    value: response.id,
+    type: 'hidden',
+    name: 'birding_session[bird_records_attributes][' + index + '][photo_ids][]',
+    class: 'form-control hidden photo-field'
+  });
+
+  // append the input to the modal
+  $photoInput.appendTo($('#modalPhotos'));
 }
 
 function init() {
@@ -80,39 +170,22 @@ function init() {
     $(this).closest('.birding-session-bird-result').remove();
   })
 
-  $('#birdRecordModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var birdName = button.data('name');
-    var modal = $(this)
-    modal.data('index', button.data('index'));
+  $('#birdRecordModal').on('show.bs.modal', showModal);
+  $('#birdRecordModal').on('click', '#modalUpdate', updateModal);
 
-    modal.find('.modal-title').text('Editing ' + birdName);
-    modal.find('#modalCount').val(button.data('count'));
-    modal.find('#modalNotes').val(button.data('notes'));
+  dropzone = new Dropzone('.photo-upload', {
+    paramName: "photo[image]",
+    previewsContainer: ".photos-container",
+    thumbnailWidth: 300,
+    thumbnailHeight: 300,
+    autoProcessQueue: true,
+    previewTemplate: '<div class="dz-preview col-6 col-md-3 my-2"><img data-dz-thumbnail class="img-thumbnail" /><div class="progress dz-upload mt-2"><div class="progress-bar dz-upload" role="progressbar" data-dz-uploadprogress></div></div></div>'
   });
 
-  $('#birdRecordModal').on('click', '#modalUpdate', function (event) {
-    var modal = $('#birdRecordModal');
-
-    // Get values to update
-    var index = modal.data('index');
-    var notes = modal.find('#modalNotes').val();
-    var count = modal.find('#modalCount').val();
-
-    // Update form
-    $('input[name="birding_session[bird_records_attributes][' + index + '][count]"]').val(count);
-    $('input[name="birding_session[bird_records_attributes][' + index + '][notes]"]').val(notes);
-
-    // Update data attributes
-    $('#edit_' + index).data('count', count);
-    $('#edit_' + index).data('notes', notes);
-
-    // Update the UI
-    if (count) $('#count_' + index).text(count + ' x ');
-    $('#notes_' + index).text(notes);
-
-    modal.modal('hide');
-  });
+  dropzone.on('queuecomplete', queueComplete);
+  dropzone.on('totaluploadprogress', updateProgress);
+  dropzone.on('addedfile', fileAdded);
+  dropzone.on('success', photoUploaded);
 };
 
 $(document).ready(init);
