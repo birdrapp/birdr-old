@@ -130,26 +130,6 @@ function photoUploaded(file, response) {
 }
 
 function init() {
-  var defaultLocation = { lat: 51.505, lng: -0.09 };
-
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 10,
-    center: defaultLocation
-  });
-
-  marker = new google.maps.Marker({
-    position: defaultLocation,
-    draggable: true
-  });
-
-  marker.addListener('position_changed', function (data) {
-    updateLocation(marker.getPosition());
-  });
-
-  autocomplete = new google.maps.places.Autocomplete(document.getElementById('search'), {});
-
-  autocomplete.addListener('place_changed', placeChanged);
-
   $('#birding_session_date').flatpickr({
     altInput: true,
     maxDate: new Date()
@@ -187,5 +167,27 @@ function init() {
   dropzone.on('addedfile', fileAdded);
   dropzone.on('success', photoUploaded);
 };
+
+function initMap() {
+  var defaultLocation = { lat: 51.505, lng: -0.09 };
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 10,
+    center: defaultLocation
+  });
+
+  marker = new google.maps.Marker({
+    position: defaultLocation,
+    draggable: true
+  });
+
+  marker.addListener('position_changed', function (data) {
+    updateLocation(marker.getPosition());
+  });
+
+  autocomplete = new google.maps.places.Autocomplete(document.getElementById('search'), {});
+
+  autocomplete.addListener('place_changed', placeChanged);
+}
 
 $(document).ready(init);
