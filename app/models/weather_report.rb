@@ -24,5 +24,8 @@
 #
 
 class WeatherReport < ApplicationRecord
-  has_many :birding_sessions
+  has_many :birding_sessions, dependent: :nullify
+
+  scope :kilometres_from, -> (kilometres, location) { where('ST_DWithin(location, Geography(ST_MakePoint(?, ?)), ?)', location.lon, location.lat, kilometres * 1000) }
+  scope :around_time, -> (datetime) { where('time BETWEEN ? AND ?', datetime - 30.minutes, datetime + 30.minutes) }
 end

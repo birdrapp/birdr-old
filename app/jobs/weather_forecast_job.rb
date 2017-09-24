@@ -2,12 +2,11 @@ class WeatherForecastJob < ApplicationJob
   queue_as :default
 
   def perform(birding_session)
-    forecast = lookup_forecast(birding_session)
+    weather_report = lookup_forecast_from_database(birding_session) ||
+                     lookup_forecast_from_dark_sky(birding_session)
 
-    unless forecast.nil?
-      report = create_weather_report(forecast)
-
-      birding_session.weather_report = report
+    unless weather_report.nil?
+      birding_session.weather_report = weather_report
       birding_session.save!
     end
   end
@@ -17,7 +16,7 @@ class WeatherForecastJob < ApplicationJob
   def create_weather_report(forecast)
     current = forecast.currently
     WeatherReport.create!(
-      apparent_temperature: current.apparent_temperature,
+      apparent_temperature: current.apparentTemperature,
       cloud_cover: current.cloudCover,
       dew_point: current.dewPoint,
       humidity: current.humidity,
@@ -36,8 +35,14 @@ class WeatherForecastJob < ApplicationJob
     )
   end
 
-  def lookup_forecast(birding_session)
-    ForecastIO.forecast(
+  def lookup_forecast_from_database(birding_session)
+    WeatherReport.kilometres_from(5, birding_session.location)
+      .around_time(birding_session.datetime)
+      .first
+  end
+
+  def lookup_forecast_from_dark_sky(birding_session)
+    forecast = ForecastIO.forecast(
       birding_session.latitude,
       birding_session.longitude,
       time: birding_session.datetime,
@@ -45,5 +50,7 @@ class WeatherForecastJob < ApplicationJob
         units: "uk",
         exclude: "hourly,minutely,daily,flags"
       })
+
+    create_weather_report(forecast)
   end
 end
