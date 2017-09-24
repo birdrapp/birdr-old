@@ -38,6 +38,7 @@ gem 'mini_magick', '~> 4.8'
 gem 'webpacker', '~> 3.0'
 gem 'country_select', '~> 3.1'
 gem 'forecast_io', '~> 2.0'
+gem 'resque', '~> 1.27'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
