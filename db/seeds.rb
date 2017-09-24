@@ -10,15 +10,15 @@ require 'csv'
 #
 # Canonical Bird List
 #
-# CSV.foreach("#{Rails.root}/db/lists/ioc.csv", headers: true) do |csv|
-#   Bird.create! common_name: csv['common_name'],
-#                scientific_name: csv['scientific_name'],
-#                order: csv['order'],
-#                scientific_family_name: csv['scientific_family_name'],
-#                common_family_name: csv['common_family_name'],
-#                sort_position: csv['sort_position'],
-#                species_id: csv['species_id']
-# end
+CSV.foreach("#{Rails.root}/db/lists/ioc.csv", headers: true) do |csv|
+  Bird.create! common_name: csv['common_name'],
+               scientific_name: csv['scientific_name'],
+               order: csv['order'],
+               scientific_family_name: csv['scientific_family_name'],
+               common_family_name: csv['common_family_name'],
+               sort_position: csv['sort_position'],
+               species_id: csv['species_id']
+end
 
 uk = BirdList.find_or_create_by! name: "The British List", country_code: "GB"
 common = Rarity.find_or_create_by! name: "Common", level: 1
