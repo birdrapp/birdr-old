@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170924112837) do
+ActiveRecord::Schema.define(version: 20170924162756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20170924112837) do
     t.datetime "updated_at", null: false
     t.integer "count"
     t.string "notes"
+    t.geography "location", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.index ["bird_id"], name: "index_bird_records_on_bird_id"
     t.index ["birding_session_id"], name: "index_bird_records_on_birding_session_id"
   end
