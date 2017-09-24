@@ -13,6 +13,9 @@ class BirdingSessionsController < ApplicationController
 
     respond_to do |format|
       if @birding_session.save
+        # Lookup the weather for this birding session
+        WeatherForecastJob.perform_later @birding_session
+
         format.html { redirect_to root_path, notice: 'Bird records were successfully created.' }
         format.json { render :show, status: :created, location: root_path }
       else
