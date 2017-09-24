@@ -81,6 +81,11 @@ function updateModal(e) {
   // Update the UI
   if (count) $('#count_' + index).text(count + ' x ');
   $('#notes_' + index).text(notes);
+  if (location !== $('#birding_session_location').val()) {
+    $('#marker_' + index).removeClass('d-none');
+  } else {
+    $('#marker_' + index).addClass('d-none');
+  }
 
   var thumbnails = modal.find('.dz-preview');
   // if we have photos

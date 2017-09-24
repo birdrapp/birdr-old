@@ -2,7 +2,8 @@
   <div id="{{index}}" class="list-group-item birding-session-bird-result d-flex justify-content-start align-items-center">
     <div id="photo_{{index}}" class="bird-list-image"></div>
     <div>
-      <span id="count_{{index}}"></span>{{name}}<br/>
+      <span id="count_{{index}}"></span>{{name}}<span id="marker_{{index}}" class="custom-location d-none ml-2"><%= fa_icon 'map-marker' %></span><br/>
+
       <small class="text-muted text-truncated" id="notes_{{index}}"></small>
     </div>
     <input value="{{id}}" class="form-control hidden" type="hidden" name="birding_session[bird_records_attributes][{{index}}][bird_id]" id="birding_session_bird_records_attributes_{{index}}_bird_id">
