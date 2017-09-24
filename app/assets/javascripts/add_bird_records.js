@@ -135,6 +135,18 @@ function init() {
     maxDate: new Date()
   });
 
+  $('#birding_session_start_time, #birding_session_end_time').flatpickr({
+    enableTime: true,
+    noCalendar: true,
+
+    enableSeconds: false, // disabled by default
+
+    time_24hr: true, // AM/PM time picker is used by default
+
+    // default format
+    dateFormat: "H:i"
+  })
+
   birdResultTemplate = Handlebars.compile($("#birdRecordResultTemplate").html());
 
   $('#birdSearch').on('change', addBird);

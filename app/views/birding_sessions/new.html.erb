@@ -14,18 +14,25 @@
   <%= f.association :user, as: :hidden, label: false, wrapper: false %>
   <div class="row">
     <div class="col-12 col-md-4">
-      <h5>Date</h5>
+      <h5>Date & Time</h5>
       <p>
-        <small>When did you go birding?</small>
+        <small><strong>Tip:</strong> you don't need to specify an end time.</small>
       </p>
     </div>
     <div class="col-12 col-md-4">
-      <div class="input-group flatpickr">
-        <%= f.input_field :date, required: false, as: :string, class: 'form-control', data: { input: true } %>
-        <span class="input-group-addon">
-          <%= fa_icon :calendar %>
-        </span>
+      <div class="form-group">
+        <%= f.label :date, required: false, class: 'form-control-label' %>
+        <div class="input-group flatpickr">
+          <%= f.input_field :date, as: :string, class: 'form-control', data: { input: true } %>
+          <span class="input-group-addon">
+            <%= fa_icon :calendar %>
+          </span>
+        </div>
       </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <%= f.input :start_time, required: false, as: :string, class: 'form-control flatpickr' %>
+      <%= f.input :end_time, required: false, as: :string, class: 'form-control flatpickr', hint: '(Optional)' %>
     </div>
   </div>
   <%= horizontal_rule %>
