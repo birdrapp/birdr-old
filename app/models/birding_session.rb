@@ -11,6 +11,8 @@
 #  location_name     :string           not null
 #  location_address  :string
 #  weather_report_id :integer
+#  start_time        :time
+#  end_time          :time
 #
 
 class BirdingSession < ApplicationRecord
