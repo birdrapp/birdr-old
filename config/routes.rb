@@ -1,3 +1,5 @@
+require 'resque/server'
+
 Rails.application.routes.draw do
   get '/add_bird_records', to: 'birding_sessions#new'
   resources :birding_sessions, only: [:new, :create]
@@ -27,6 +29,8 @@ Rails.application.routes.draw do
     resources :club_memberships
     resources :rarities
     resources :users
+
+    mount Resque::Server.new, :at => "/resque"
   end
 
   root to: 'welcome#index'
