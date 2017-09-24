@@ -26,6 +26,14 @@ $datepicker-primary-color: theme-color('primary');
   border-bottom-color: $datepicker-primary-color;
 }
 
+.flatpickr-calendar.noCalendar.arrowTop:before {
+  border-bottom-color: white;
+}
+
+.flatpickr-calendar.noCalendar.arrowTop:after {
+  border-bottom-color: white;
+}
+
 .flatpickr-day {
   &.selected {
     background-color: $datepicker-primary-color;
