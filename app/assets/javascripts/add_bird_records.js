@@ -132,7 +132,8 @@ function photoUploaded(file, response) {
 function init() {
   $('#birding_session_date').flatpickr({
     altInput: true,
-    maxDate: new Date()
+    maxDate: new Date(),
+    defaultDate: new Date()
   });
 
   $('#birding_session_start_time, #birding_session_end_time').flatpickr({
@@ -144,7 +145,9 @@ function init() {
     time_24hr: true, // AM/PM time picker is used by default
 
     // default format
-    dateFormat: "H:i"
+    dateFormat: "H:i",
+
+    defaultDate: new Date(Math.round((new Date()).getTime() / 300000) * 300000)
   })
 
   birdResultTemplate = Handlebars.compile($("#birdRecordResultTemplate").html());
