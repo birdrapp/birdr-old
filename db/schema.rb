@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 20170924060406) do
     t.string "summary"
     t.decimal "temperature"
     t.datetime "time"
-    t.integer "uvIndex"
+    t.integer "uv_index"
     t.decimal "visibility"
     t.integer "wind_bearing"
     t.decimal "wind_speed"
