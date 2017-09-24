@@ -1,5 +1,7 @@
 var map;
+var modalMap;
 var marker;
+var modalMarker;
 var autocomplete;
 var birdResultTemplate;
 var dropzone;
@@ -17,9 +19,16 @@ function placeChanged() {
   updateLocationName(place.name, place.formatted_address);
 }
 
-function updateLocation(latlng) {
-  var wkt = 'POINT(' + latlng.lng() + ' ' + latlng.lat() + ')';
-  $('#birding_session_location').val(wkt);
+function wkt(latlng) {
+  return 'POINT(' + latlng.lng() + ' ' + latlng.lat() + ')';
+}
+
+function updateSessionLocation(latlng) {
+  $('#birding_session_location').val(wkt(latlng));
+}
+
+function updateRecordLocation(latlng) {
+  $('#modalLocation').val(wkt(latlng));
 }
 
 function updateLocationName(name, address) {
@@ -36,8 +45,15 @@ function addBird(e) {
   e.preventDefault();
   var id = $(this).val();
   var name = $(this).find(':selected').text();
-  $('#birdRecords').prepend(birdResultTemplate({ id: id, name: name, index: +(new Date()) }))
-  $(this).prop('selectedIndex',0)
+  $('#birdRecords').prepend(birdResultTemplate({
+    id: id,
+    name: name,
+    index: +(new Date()),
+    latitude: marker.getPosition().lat(),
+    longitude: marker.getPosition().lng()
+  }));
+
+  $(this).prop('selectedIndex',0);
 }
 
 function updateModal(e) {
@@ -47,16 +63,20 @@ function updateModal(e) {
   var index = modal.data('index');
   var notes = modal.find('#modalNotes').val();
   var count = modal.find('#modalCount').val();
+  var location = modal.find('#modalLocation').val();
   var photoFields = modal.find('#modalPhotos input');
 
   // Update form
   $('input[name="birding_session[bird_records_attributes][' + index + '][count]"]').val(count);
   $('input[name="birding_session[bird_records_attributes][' + index + '][notes]"]').val(notes);
+  $('input[name="birding_session[bird_records_attributes][' + index + '][location]"]').val(location);
   $('#photo_fields_' + index).append(photoFields);
 
   // Update data attributes
   $('#edit_' + index).data('count', count);
   $('#edit_' + index).data('notes', notes);
+  $('#edit_' + index).data('latitude', modalMarker.getPosition().lat());
+  $('#edit_' + index).data('longitude', modalMarker.getPosition().lng());
 
   // Update the UI
   if (count) $('#count_' + index).text(count + ' x ');
@@ -99,6 +119,28 @@ function showModal(e) {
   // find any existing thumbnails
   var photos = $('#photos_' + button.data('index'));
   modal.find('#photos-container').empty().html(photos.html());
+}
+
+function modalShown(e) {
+  var button = $(e.relatedTarget); // Button that triggered the modal
+  // Reset map
+  var latLng = {
+    lat: button.data('latitude'),
+    lng: button.data('longitude')
+  };
+
+  if (!modalMap) {
+    modalMap = new google.maps.Map(document.getElementById('modalMap'), {
+      zoom: 17,
+      center: latLng
+    });
+  } else {
+    modalMap.panTo(latLng);
+    modalMap.setZoom(17);
+  }
+
+  modalMarker.setPosition(latLng)
+  modalMarker.setMap(modalMap);
 }
 
 function fileAdded(file) {
@@ -168,6 +210,7 @@ function init() {
   })
 
   $('#birdRecordModal').on('show.bs.modal', showModal);
+  $('#birdRecordModal').on('shown.bs.modal', modalShown);
   $('#birdRecordModal').on('click', '#modalUpdate', updateModal);
 
   dropzone = new Dropzone('.photo-upload', {
@@ -198,8 +241,17 @@ function initMap() {
     draggable: true
   });
 
+  modalMarker = new google.maps.Marker({
+    position: defaultLocation,
+    draggable: true
+  });
+
   marker.addListener('position_changed', function (data) {
-    updateLocation(marker.getPosition());
+    updateSessionLocation(marker.getPosition());
+  });
+
+  modalMarker.addListener('position_changed', function (data) {
+    updateRecordLocation(modalMarker.getPosition());
   });
 
   autocomplete = new google.maps.places.Autocomplete(document.getElementById('search'), {});

@@ -7,6 +7,7 @@
     </div>
     <input value="{{id}}" class="form-control hidden" type="hidden" name="birding_session[bird_records_attributes][{{index}}][bird_id]" id="birding_session_bird_records_attributes_{{index}}_bird_id">
     <input value="" class="form-control hidden" type="hidden" name="birding_session[bird_records_attributes][{{index}}][count]" id="birding_session_bird_records_attributes_{{index}}_count">
+    <input value="" class="form-control hidden" type="hidden" name="birding_session[bird_records_attributes][{{index}}][location]" id="birding_session_bird_records_attributes_{{index}}_location">
     <input value="" class="form-control hidden" type="hidden" name="birding_session[bird_records_attributes][{{index}}][notes]" id="birding_session_bird_records_attributes_{{index}}_notes">
     <div id="photo_fields_{{index}}" class="d-none"></div>
     <div class="actions ml-auto">
@@ -15,7 +16,9 @@
         target: '#birdRecordModal',
         id: '{{id}}',
         name: '{{name}}',
-        index: '{{index}}'
+        index: '{{index}}',
+        latitude: '{{latitude}}',
+        longitude: '{{longitude}}'
       } do %>
         <%= fa_icon :pencil %>
       <% end %>
