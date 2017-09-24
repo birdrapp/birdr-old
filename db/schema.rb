@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918062143) do
+ActiveRecord::Schema.define(version: 20170924060406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,8 +53,10 @@ ActiveRecord::Schema.define(version: 20170918062143) do
     t.bigint "user_id"
     t.string "location_name", null: false
     t.string "location_address"
+    t.bigint "weather_report_id"
     t.index ["location"], name: "index_birding_sessions_on_location", using: :gist
     t.index ["user_id"], name: "index_birding_sessions_on_user_id"
+    t.index ["weather_report_id"], name: "index_birding_sessions_on_weather_report_id"
   end
 
   create_table "birds", force: :cascade do |t|
@@ -132,10 +134,32 @@ ActiveRecord::Schema.define(version: 20170918062143) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "weather_reports", force: :cascade do |t|
+    t.decimal "apparent_temperature"
+    t.decimal "cloud_cover"
+    t.decimal "dew_point"
+    t.decimal "humidity"
+    t.string "icon"
+    t.decimal "precipitation_intensity"
+    t.decimal "precipitation_probability"
+    t.decimal "pressure"
+    t.string "summary"
+    t.decimal "temperature"
+    t.datetime "time"
+    t.integer "uvIndex"
+    t.decimal "visibility"
+    t.integer "wind_bearing"
+    t.decimal "wind_speed"
+    t.geography "location", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "bird_list_birds", "bird_lists"
   add_foreign_key "bird_list_birds", "birds"
   add_foreign_key "bird_list_birds", "rarities"
   add_foreign_key "bird_records", "birding_sessions"
   add_foreign_key "bird_records", "birds"
   add_foreign_key "birding_sessions", "users"
+  add_foreign_key "birding_sessions", "weather_reports"
 end
