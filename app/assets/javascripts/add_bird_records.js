@@ -147,7 +147,9 @@ function init() {
 
   $('#birdRecords').on('click', '.remove-bird-record', function (e) {
     e.preventDefault();
-    $(this).closest('.birding-session-bird-result').remove();
+    var removeBird = confirm($(this).data('confirm-message'));
+
+    if (removeBird) $(this).closest('.birding-session-bird-result').remove();
   })
 
   $('#birdRecordModal').on('show.bs.modal', showModal);
