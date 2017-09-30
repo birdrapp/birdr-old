@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withGoogleMap, GoogleMap, Marker, Polygon } from 'react-google-maps';
+import { withGoogleMap, GoogleMap, Polygon } from 'react-google-maps';
 import DrawingManager from 'react-google-maps/lib/drawing/DrawingManager';
 import { Wkt } from 'wicket/wicket';
 
