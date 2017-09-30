@@ -1,62 +1,6 @@
 import React, { Component } from 'react';
-import { withGoogleMap, GoogleMap, Polygon } from 'react-google-maps';
-import DrawingManager from 'react-google-maps/lib/drawing/DrawingManager';
-import { Wkt } from 'wicket/wicket';
-
-const defaultCenter = { lat: 51.505, lng: -0.09 };
-const defaultZoom = 10;
-const polygonOptions = {
-  fillColor: '#2980B9',
-  strokeColor: '#222222',
-  fillOpacity: 0.5,
-  strokeWeight: 3,
-  clickable: false,
-  editable: true,
-  zIndex: 1
-};
-
-const pathsFromWkt = wkt => {
-  const w = new Wkt();
-  w.read(wkt);
-  const geoJSON = w.toJson();
-  return geoJSON.coordinates.map(a => {
-    return a.map(p => ({
-      lat: p[0],
-      lng: p[1]
-    }));
-  });
-};
-
-const RecordingAreaMap = withGoogleMap(props => {
-  const { initialRecordingArea } = props;
-
-  return (
-    <GoogleMap
-      ref={props.onMapLoad}
-      defaultZoom={defaultZoom}
-      defaultCenter={defaultCenter}
-    >
-      <DrawingManager
-        defaultDrawingMode={google.maps.drawing.OverlayType.POLYGON}
-        defaultOptions={{
-          drawingControl: true,
-          drawingControlOptions: {
-            position: google.maps.ControlPosition.TOP_CENTER,
-            drawingModes: [google.maps.drawing.OverlayType.POLYGON]
-          },
-          polygonOptions
-        }}
-        onPolygonComplete={props.onUpdate}
-      />
-      {initialRecordingArea && (
-        <Polygon
-          options={polygonOptions}
-          paths={pathsFromWkt(initialRecordingArea)}
-        />
-      )}
-    </GoogleMap>
-  );
-});
+import RecordingAreaMap from './RecordingAreaMap';
+import { pathToWkt } from './util';
 
 class SetRecordingArea extends Component {
   state = {
@@ -64,13 +8,7 @@ class SetRecordingArea extends Component {
   };
 
   onUpdate = e => {
-    const latLngs = e.getPath().getArray();
-    const points = latLngs
-      .concat(latLngs[0])
-      .map(l => `${l.lat()} ${l.lng()}`)
-      .join(',');
-
-    const wkt = `POLYGON((${points}))`;
+    const wkt = pathToWkt(e.getPath());
 
     this.setState({ recordingArea: wkt });
   };
