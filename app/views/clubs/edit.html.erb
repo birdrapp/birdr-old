@@ -26,6 +26,33 @@
     </div>
   </div>
   <%= horizontal_rule %>
+  <div class="row">
+    <div class="col-md-3 col-12">
+      <h5>Recording area</h5>
+      <p>
+        <small>Set your club's recording area.</small>
+      </p>
+    </div>
+    <div class="col-md-5 col-12">
+      <%= simple_form_for(@club) do |f| %>
+        <%= f.error_notification %>
+
+        <input
+          type="hidden"
+          name="club[recording_area]"
+          id="recording-area-input"
+          value="<%= @club.recording_area %>"
+        />
+
+        <div id="recording-area-map"></div>
+
+        <div class="form-actions">
+          <%= f.submit 'Save', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= horizontal_rule %>
   <div class="row mb-5">
     <div class="col-md-3 col-12">
       <h5>Images</h5>
