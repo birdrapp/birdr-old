@@ -28,6 +28,25 @@
   <%= horizontal_rule %>
   <div class="row mb-5">
     <div class="col-md-3 col-12">
+      <h5>Recording area</h5>
+      <p><small>Set your club's recording area.</small></p>
+    </div>
+    <div class="col-md-9 col-12">
+      <%= simple_form_for(@club) do |f| %>
+
+      <div style="height: 500px" id="recording-area-map" data-recording-area="<%= @club.recording_area %>"></div>
+      <br />
+
+      <div class="form-actions">
+        <%= f.submit 'Save', class: 'btn btn-primary' %>
+      </div>
+
+      <% end %>
+    </div>
+  </div>
+  <%= horizontal_rule %>
+  <div class="row mb-5">
+    <div class="col-md-3 col-12">
       <h5>Images</h5>
       <p>
         <small>Customise your club page's images.</small>
@@ -51,3 +70,5 @@
     </div>
   </div>
 </div>
+
+<%= javascript_pack_tag 'edit_club_settings' %>
