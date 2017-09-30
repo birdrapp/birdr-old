@@ -8,9 +8,9 @@
     "flatpickr": "^3.0.7",
     "handlebars": "^4.0.10",
     "jquery": "^3.2.1",
-    "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-select": "^1.0.0-rc.10"
   },
   "devDependencies": {
