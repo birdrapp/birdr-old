@@ -1,3 +1,8 @@
+<% content_for :js do %>
+  <%= google_maps('noop') %>
+  <%= javascript_include_tag :recording_area %>
+<% end %>
+
 <%= render 'header' %>
 <%= render 'nav' %>
 
@@ -33,7 +38,7 @@
         <small>Set your club's recording area.</small>
       </p>
     </div>
-    <div class="col-md-5 col-12">
+    <div class="col-md-9 col-12">
       <%= simple_form_for(@club) do |f| %>
         <%= f.error_notification %>
 
@@ -44,7 +49,7 @@
           value="<%= @club.recording_area %>"
         />
 
-        <div id="recording-area-map"></div>
+        <div id="recording-area-map" class="recording-area-map mb-2"></div>
 
         <div class="form-actions">
           <%= f.submit 'Save', class: 'btn btn-primary' %>
