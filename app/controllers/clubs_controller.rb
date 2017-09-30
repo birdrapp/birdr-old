@@ -41,9 +41,6 @@ class ClubsController < ApplicationController
   # PATCH/PUT /clubs/1.json
   def update
     @club = Club.find(params[:id])
-    puts "==="
-    club_params
-    puts "==="
 
     respond_to do |format|
       if @club.update(club_params)

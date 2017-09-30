@@ -23,7 +23,7 @@
       })
       .join(',');
 
-    return 'POLYGON(' + points + ')';
+    return 'POLYGON((' + points + '))';
   }
 
   function disableTools() {
