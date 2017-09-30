@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
 
+  get '/bird_lists/:country_code/birds', to: 'bird_lists#birds'
+
   namespace :admin do
     root to: 'welcome#index'
 
