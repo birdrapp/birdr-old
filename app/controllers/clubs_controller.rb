@@ -41,6 +41,10 @@ class ClubsController < ApplicationController
   # PATCH/PUT /clubs/1.json
   def update
     @club = Club.find(params[:id])
+    puts "==="
+    club_params
+    puts "==="
+
     respond_to do |format|
       if @club.update(club_params)
         format.html { redirect_to @club, notice: 'Club was successfully updated.' }
@@ -94,8 +98,7 @@ class ClubsController < ApplicationController
     def club_params
       params.require(:club).permit(
         :name, :short_name, :description,
-        :cover_image, :remove_cover_image, :logo, :remove_logo,
-        :recording_area
+        :cover_image, :remove_cover_image, :logo, :remove_logo, :recording_area
       )
     end
 end

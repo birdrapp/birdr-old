@@ -42,12 +42,7 @@
       <%= simple_form_for(@club) do |f| %>
         <%= f.error_notification %>
 
-        <input
-          type="hidden"
-          name="club[recording_area]"
-          id="recording-area-input"
-          value="<%= @club.recording_area %>"
-        />
+        <%= f.hidden_field :recording_area %>
 
         <div id="recording-area-map" class="recording-area-map mb-2"></div>
 
