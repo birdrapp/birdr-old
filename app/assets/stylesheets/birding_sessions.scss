@@ -33,3 +33,12 @@
     height: 300px;
   }
 }
+
+.bird-select.Select {
+  width: 100%;
+
+  .Select-option.is-focused {
+    background: theme-color('primary');
+    color: white;
+  }
+}

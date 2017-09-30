@@ -66,12 +66,9 @@
       </p>
     </div>
     <div class="col-12 col-md-8">
-      <div class="card bird-list">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <%= select_tag :birds, options_from_collection_for_select(@birds, :id, :common_name), include_blank: 'Add a bird to your list...', class: 'form-control', id: 'birdSearch' %>
-        </div>
+      <div id="bird_select"></div>
+        <%= javascript_pack_tag 'birding_sessions/new' %>
         <div class="list-group list-group-flush" id="birdRecords"></div>
-      </div>
     </div>
   </div>
   <div class="row">
