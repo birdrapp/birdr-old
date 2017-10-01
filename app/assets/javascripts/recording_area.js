@@ -2,10 +2,12 @@
   var inputEl;
   var saveButtonEl;
   var clearButtonEl;
+  var searchInputEl;
   var mapEl;
   var map;
   var drawingManager;
   var _polygon;
+  var autocomplete;
 
   var defaultLocation = { lat: 51.505, lng: -0.09 };
 
@@ -16,6 +18,7 @@
     mapEl = document.getElementById('recording-area-map');
     saveButtonEl = document.getElementById('recording-area-save');
     clearButtonEl = document.getElementById('recording-area-clear');
+    searchInputEl = document.getElementById('recording-area-search');
 
     clearButtonEl.addEventListener('click', clear);
   }
@@ -76,6 +79,14 @@
     updatePolygon(polygon);
   }
 
+  function onPlaceChanged() {
+    var place = autocomplete.getPlace();
+    var latLng = place.geometry.location;
+
+    map.panTo(latLng);
+    map.setZoom(13);
+  }
+
   function initMap() {
     // create map
     map = new google.maps.Map(mapEl, {
@@ -107,6 +118,10 @@
       'polygoncomplete',
       onPolygonComplete
     );
+
+    // initialize search
+    autocomplete = new google.maps.places.Autocomplete(searchInputEl, {});
+    autocomplete.addListener('place_changed', onPlaceChanged);
   }
 
   function init() {
