@@ -1,8 +1,11 @@
 (function() {
   var inputEl;
+  var saveButtonEl;
+  var clearButtonEl;
   var mapEl;
   var map;
   var drawingManager;
+  var _polygon;
 
   var defaultLocation = { lat: 51.505, lng: -0.09 };
 
@@ -11,9 +14,21 @@
   function initElements() {
     inputEl = document.querySelector('input[name="club[recording_area]"]');
     mapEl = document.getElementById('recording-area-map');
+    saveButtonEl = document.getElementById('recording-area-save');
+    clearButtonEl = document.getElementById('recording-area-clear');
+
+    clearButtonEl.addEventListener('click', clear);
+  }
+
+  function clear() {
+    if (_polygon) _polygon.setMap(null);
+    updatePolygon(null);
+    enableTools();
   }
 
   function polygonToWkt(polygon) {
+    if (!polygon) return '';
+
     var path = polygon.getPath();
     var points = path
       .getArray()
@@ -33,12 +48,32 @@
     });
   }
 
+  function enableTools() {
+    drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+    drawingManager.setOptions({
+      drawingControl: true
+    });
+  }
+
+  function enableSaveButton() {
+    $(saveButtonEl).attr('disabled', false);
+  }
+
+  function enableClearButton() {
+    $(clearButtonEl).attr('disabled', false);
+  }
+
+  function updatePolygon(polygon) {
+    _polygon = polygon;
+    var wkt = polygonToWkt(polygon);
+    $(inputEl).val(wkt);
+  }
+
   function onPolygonComplete(polygon) {
     disableTools();
-
-    var wkt = polygonToWkt(polygon);
-
-    $(inputEl).val(wkt);
+    enableSaveButton();
+    enableClearButton();
+    updatePolygon(polygon);
   }
 
   function initMap() {
