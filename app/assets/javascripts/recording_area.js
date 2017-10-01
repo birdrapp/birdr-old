@@ -34,17 +34,9 @@
 
   function polygonToWkt(polygon) {
     if (!polygon) return '';
-
-    var path = polygon.getPath();
-    var points = path
-      .getArray()
-      .concat(path.getAt(0)) // close the loop!
-      .map(function(point) {
-        return point.lng() + ' ' + point.lat();
-      })
-      .join(',');
-
-    return 'POLYGON((' + points + '))';
+    var wkt = new Wkt.Wkt();
+    wkt.fromObject(polygon);
+    return wkt.write();
   }
 
   function disableTools() {
