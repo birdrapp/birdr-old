@@ -21,7 +21,8 @@ class BirdSelect extends React.Component {
     super(props)
 
     this.state = {
-      options: []
+      options: [],
+      isLoading: true
     }
   }
 
@@ -30,7 +31,7 @@ class BirdSelect extends React.Component {
   }
 
   componentDidMount = () => {
-    fetchBirds().then((options) => { this.setState({ options }) })
+    fetchBirds().then((options) => { this.setState({ options, isLoading: false }) })
   }
 
   render() {
@@ -44,6 +45,7 @@ class BirdSelect extends React.Component {
             className="bird-select"
             clearable={false}
             onChange={this.addBird}
+            isLoading={this.state.isLoading}
           />
         </CardHeader>
         <ListGroup className="list-group-flush">
