@@ -35,6 +35,17 @@ const Notes = (props) => {
 const HiddenInput = (props) => <input value={props.value} className="form-control hidden" type="hidden" name={fieldName(props.attribute, props.index)} />
 
 class BirdSelectItem extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.handleEditClick = this.handleEditClick.bind(this)
+  }
+
+  handleEditClick = () => {
+    this.props.onEditClicked(this.props.bird, this.props.index)
+    return false
+  }
+
   render() {
     return (
       <ListGroupItem className="birding-session-bird-result d-flex justify-content-start align-items-center">
@@ -49,10 +60,10 @@ class BirdSelectItem extends React.Component {
         </div>
 
         <div className="actions ml-auto">
-          <Button outline size="sm" color="primary" className="mr-1" data-toggle="modal" data-target="#birdRecordModal">
+          <Button onClick={this.handleEditClick} outline size="sm" color="primary" className="mr-1">
             <i className="fa fa-pencil" />
           </Button>
-          <Button outline size="sm" color="danger" className="remove-bird-record" data-confirm-message="Are you sure you want to remove {{name}} from your list?">
+          <Button onClick={() => {}} outline size="sm" color="danger" className="remove-bird-record" data-confirm-message="Are you sure you want to remove {{name}} from your list?">
             <i className="fa fa-trash" />
           </Button>
         </div>

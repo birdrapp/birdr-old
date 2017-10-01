@@ -21,20 +21,12 @@ class BirdSelect extends React.Component {
     super(props)
 
     this.state = {
-      options: [],
-      birds: []
+      options: []
     }
   }
 
   addBird = (opt) => {
-    this.setState(prevState => ({
-      birds: [...prevState.birds, {
-        id: opt.value,
-        name: opt.label,
-        notes: null,
-        count: null
-      }]
-    }))
+    this.props.onAddBird(opt.value, opt.label);
   }
 
   componentDidMount = () => {
@@ -55,8 +47,8 @@ class BirdSelect extends React.Component {
           />
         </CardHeader>
         <ListGroup className="list-group-flush">
-          {this.state.birds.map((bird, i) => (
-            <BirdSelectItem key={i} bird={bird} index={i} />
+          {this.props.birds.map((bird, i) => (
+            <BirdSelectItem key={i} bird={bird} index={i} onEditClicked={this.props.onEditBirdItemClicked} />
           ))}
         </ListGroup>
       </Card>

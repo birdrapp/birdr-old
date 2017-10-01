@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import BirdSelect from '../components/bird_select'
+import EditableBirdList from '../components/editable_bird_list'
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <BirdSelect />,
+    <EditableBirdList />,
     document.getElementById('bird_select'),
   )
 })
