@@ -1,6 +1,7 @@
 import React from 'react'
 import Select from 'react-select'
 import BirdSelectItem from './bird_select_item'
+import { Card, CardHeader, ListGroup } from 'reactstrap'
 import $ from 'jquery'
 
 const fetchBirds = () => {
@@ -41,23 +42,25 @@ class BirdSelect extends React.Component {
   }
 
   render() {
-    return <div className="card bird-select">
-      <div className="card-header d-flex justify-content-between align-items-center">
-        <Select
-          name={this.props.name}
-          value="one"
-          options={this.state.options}
-          className="bird-select"
-          clearable={false}
-          onChange={this.addBird}
-        />
-      </div>
-      <div className="list-group list-group-flush">
-        {this.state.birds.map((bird, i) => (
-          <BirdSelectItem key={i} bird={bird} index={i} />
-        ))}
-      </div>
-    </div>
+    return (
+      <Card className="bird-select">
+        <CardHeader className="d-flex justify-content-between align-items-center">
+          <Select
+            name={this.props.name}
+            value="one"
+            options={this.state.options}
+            className="bird-select"
+            clearable={false}
+            onChange={this.addBird}
+          />
+        </CardHeader>
+        <ListGroup className="list-group-flush">
+          {this.state.birds.map((bird, i) => (
+            <BirdSelectItem key={i} bird={bird} index={i} />
+          ))}
+        </ListGroup>
+      </Card>
+    )
   }
 }
 

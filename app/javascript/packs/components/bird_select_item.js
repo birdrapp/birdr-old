@@ -1,4 +1,5 @@
 import React from 'react'
+import { ListGroupItem, Button } from 'reactstrap'
 
 const fieldName = (attribute, index) => "birding_session[bird_records_attributes][" + index + "][" + attribute + "]"
 
@@ -31,28 +32,32 @@ const Notes = (props) => {
   return null
 }
 
+const HiddenInput = (props) => <input value={props.value} className="form-control hidden" type="hidden" name={fieldName(props.attribute, props.index)} />
+
 class BirdSelectItem extends React.Component {
   render() {
-    return <div className="list-group-item birding-session-bird-result d-flex justify-content-start align-items-center">
-      <input value={this.props.bird.id} className="form-control hidden" type="hidden" name={fieldName("bird_id", this.props.index)} />
-      <input value="" className="form-control hidden" type="hidden" name={fieldName("count", this.props.index)} />
-      <input value="" className="form-control hidden" type="hidden" name={fieldName("location", this.props.index)} />
-      <input value="" className="form-control hidden" type="hidden" name={fieldName("notes", this.props.index)} />
+    return (
+      <ListGroupItem className="birding-session-bird-result d-flex justify-content-start align-items-center">
+        <HiddenInput value={this.props.bird.id} attribute="bird_id" index={this.props.index} />
+        <HiddenInput attribute="count" index={this.props.index} />
+        <HiddenInput attribute="notes" index={this.props.index} />
+        <HiddenInput attribute="location" index={this.props.index} />
 
-      <div>
-        <CountAndName count={this.props.bird.count} name={this.props.bird.name} />
-        <Notes notes={this.props.bird.notes} />
-      </div>
+        <div>
+          <CountAndName count={this.props.bird.count} name={this.props.bird.name} />
+          <Notes notes={this.props.bird.notes} />
+        </div>
 
-      <div className="actions ml-auto">
-        <a href="#" className="btn btn-outline-primary btn-sm mr-1" data-toggle="modal" data-target="#birdRecordModal">
-          <i className="fa fa-pencil" />
-        </a>
-        <a href="#" className="btn btn-outline-danger btn-sm remove-bird-record" data-confirm-message="Are you sure you want to remove {{name}} from your list?" >
-          <i className="fa fa-trash" />
-        </a>
-      </div>
-    </div>
+        <div className="actions ml-auto">
+          <Button outline size="sm" color="primary" className="mr-1" data-toggle="modal" data-target="#birdRecordModal">
+            <i className="fa fa-pencil" />
+          </Button>
+          <Button outline size="sm" color="danger" className="remove-bird-record" data-confirm-message="Are you sure you want to remove {{name}} from your list?">
+            <i className="fa fa-trash" />
+          </Button>
+        </div>
+      </ListGroupItem>
+    )
   }
 }
 
