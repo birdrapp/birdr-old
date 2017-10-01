@@ -73,11 +73,26 @@
     $(clearButtonEl).attr('disabled', false);
   }
 
+  function updateHiddenInput() {
+    var wkt = polygonToWkt(_polygon);
+    $(inputEl).val(wkt);
+  }
+
+  function onPolygonUpdate() {
+    updateHiddenInput();
+  }
+
+  function addEditListeners(polygon) {
+    ['set_at', 'insert_at', 'remove_at'].forEach(function(e) {
+      google.maps.event.addListener(polygon.getPath(), e, onPolygonUpdate);
+    });
+  }
+
   function updatePolygon(polygon) {
     _polygon = polygon;
-    var wkt = polygonToWkt(polygon);
-    $(inputEl).val(wkt);
+    updateHiddenInput();
     enableSaveButton();
+    if (polygon) addEditListeners(polygon);
   }
 
   function onPolygonComplete(polygon) {
