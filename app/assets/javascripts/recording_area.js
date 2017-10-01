@@ -5,8 +5,8 @@
   var mapEl;
   var map;
   var drawingManager;
-  var _polygon;
   var autocomplete;
+  var _polygon;
 
   var defaultLocation = { lat: 51.505, lng: -0.09 };
 
