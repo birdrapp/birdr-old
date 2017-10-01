@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def google_maps(init = 'initMap')
-    javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyCC3Ebzxe2VKuB54kd9baaW-7ztMxyRDA4&libraries=places,drawing&callback=#{init}", defer: 'defer', async: 'async'
+    javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyCC3Ebzxe2VKuB54kd9baaW-7ztMxyRDA4&libraries=places&callback=#{init}", defer: 'defer', async: 'async'
   end
 
   def horizontal_rule
