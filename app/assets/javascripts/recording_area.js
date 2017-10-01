@@ -77,11 +77,11 @@
     _polygon = polygon;
     var wkt = polygonToWkt(polygon);
     $(inputEl).val(wkt);
+    enableSaveButton();
   }
 
   function onPolygonComplete(polygon) {
     disableTools();
-    enableSaveButton();
     enableClearButton();
     updatePolygon(polygon);
   }
