@@ -1,6 +1,5 @@
 (function() {
   var inputEl;
-  var saveButtonEl;
   var clearButtonEl;
   var searchInputEl;
   var mapEl;
@@ -24,16 +23,13 @@
   function initElements() {
     inputEl = document.querySelector('input[name="club[recording_area]"]');
     mapEl = document.getElementById('recording-area-map');
-    saveButtonEl = document.getElementById('recording-area-save');
     clearButtonEl = document.getElementById('recording-area-clear');
     searchInputEl = document.getElementById('recording-area-search');
     clearButtonEl.addEventListener('click', clear);
   }
 
   function clear() {
-    if (_polygon) _polygon.setMap(null);
-    updatePolygon(null);
-    enableTools();
+    setPolygon(null);
   }
 
   function polygonToWkt(polygon) {
@@ -65,12 +61,12 @@
     });
   }
 
-  function enableSaveButton() {
-    $(saveButtonEl).attr('disabled', false);
-  }
-
   function enableClearButton() {
     $(clearButtonEl).attr('disabled', false);
+  }
+
+  function disableClearButton() {
+    $(clearButtonEl).attr('disabled', true);
   }
 
   function updateHiddenInput() {
@@ -88,17 +84,27 @@
     });
   }
 
-  function updatePolygon(polygon) {
+  function setPolygon(polygon) {
+    if (!polygon && _polygon) {
+      // remove existing polygon from the map
+      _polygon.setMap(null);
+    }
+
     _polygon = polygon;
     updateHiddenInput();
-    enableSaveButton();
-    if (polygon) addEditListeners(polygon);
+
+    if (polygon) {
+      addEditListeners(polygon);
+      disableTools();
+      enableClearButton();
+    } else {
+      disableClearButton();
+      enableTools();
+    }
   }
 
   function onPolygonComplete(polygon) {
-    disableTools();
-    enableClearButton();
-    updatePolygon(polygon);
+    setPolygon(polygon);
   }
 
   function onPlaceChanged() {
@@ -110,22 +116,28 @@
   }
 
   function initializeExistingArea() {
+    var existing = $(inputEl).val();
+
+    if (!existing) return;
+
+    // parse wkt
     var wkt = new Wkt.Wkt();
-    wkt.read($(inputEl).val());
+    wkt.read(existing);
     var polygon = wkt.toObject();
+
+    // add polygon to map
     polygon.setOptions(polygonOptions);
     polygon.setMap(map);
 
+    // update map bounds to fit the polygon
     var bounds = new google.maps.LatLngBounds();
     polygon.getPath().forEach(function(point) {
       bounds.extend(point);
     });
-
     map.fitBounds(bounds);
 
-    disableTools();
-    updatePolygon(polygon);
-    enableClearButton();
+    // set the polygon
+    setPolygon(polygon);
   }
 
   function initMap() {
@@ -155,17 +167,12 @@
       'polygoncomplete',
       onPolygonComplete
     );
-
-    // initialize existing recording area
-    var existing = $(inputEl).val();
-    if (existing != '') {
-      initializeExistingArea();
-    }
   }
 
   function init() {
     initElements();
     initMap();
+    initializeExistingArea();
   }
 
   $(document).ready(init);
