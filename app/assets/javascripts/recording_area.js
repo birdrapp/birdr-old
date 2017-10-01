@@ -11,7 +11,15 @@
 
   var defaultLocation = { lat: 51.505, lng: -0.09 };
 
-  function noop() {}
+  var polygonOptions = {
+    fillColor: '#427FB4',
+    fillOpacity: 0.5,
+    strokeColor: '#427FB4',
+    strokeWeight: 3,
+    clickable: false,
+    editable: true,
+    zIndex: 1
+  };
 
   function initElements() {
     inputEl = document.querySelector('input[name="club[recording_area]"]');
@@ -19,7 +27,6 @@
     saveButtonEl = document.getElementById('recording-area-save');
     clearButtonEl = document.getElementById('recording-area-clear');
     searchInputEl = document.getElementById('recording-area-search');
-
     clearButtonEl.addEventListener('click', clear);
   }
 
@@ -87,12 +94,35 @@
     map.setZoom(13);
   }
 
+  function initializeExistingArea() {
+    var wkt = new Wkt.Wkt();
+    wkt.read($(inputEl).val());
+    var polygon = wkt.toObject();
+    polygon.setOptions(polygonOptions);
+    polygon.setMap(map);
+
+    var bounds = new google.maps.LatLngBounds();
+    polygon.getPath().forEach(function(point) {
+      bounds.extend(point);
+    });
+
+    map.fitBounds(bounds);
+
+    disableTools();
+    updatePolygon(polygon);
+    enableClearButton();
+  }
+
   function initMap() {
     // create map
     map = new google.maps.Map(mapEl, {
       zoom: 10,
       center: defaultLocation
     });
+
+    // initialize search
+    autocomplete = new google.maps.places.Autocomplete(searchInputEl, {});
+    autocomplete.addListener('place_changed', onPlaceChanged);
 
     // initialize drawing manager
     drawingManager = new google.maps.drawing.DrawingManager({
@@ -102,15 +132,7 @@
         position: google.maps.ControlPosition.TOP_CENTER,
         drawingModes: ['polygon']
       },
-      polygonOptions: {
-        fillColor: '#427FB4',
-        fillOpacity: 0.5,
-        strokeColor: '#427FB4',
-        strokeWeight: 3,
-        clickable: false,
-        editable: true,
-        zIndex: 1
-      }
+      polygonOptions: polygonOptions
     });
     drawingManager.setMap(map);
     google.maps.event.addListener(
@@ -119,18 +141,17 @@
       onPolygonComplete
     );
 
-    // initialize search
-    autocomplete = new google.maps.places.Autocomplete(searchInputEl, {});
-    autocomplete.addListener('place_changed', onPlaceChanged);
+    // initialize existing recording area
+    var existing = $(inputEl).val();
+    if (existing != '') {
+      initializeExistingArea();
+    }
   }
 
   function init() {
     initElements();
     initMap();
   }
-
-  // export
-  window.noop = noop;
 
   $(document).ready(init);
 })();
