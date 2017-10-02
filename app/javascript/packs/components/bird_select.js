@@ -50,7 +50,12 @@ class BirdSelect extends React.Component {
         </CardHeader>
         <ListGroup className="list-group-flush">
           {this.props.birds.map((bird, i) => (
-            <BirdSelectItem key={i} bird={bird} index={i} onEditClicked={this.props.onEditBirdItemClicked} />
+            <BirdSelectItem
+              key={i}
+              bird={bird}
+              index={i}
+              onEditClicked={this.props.onEditBirdItemClicked}
+              onRemoveClicked={this.props.onRemoveBirdItemClicked} />
           ))}
         </ListGroup>
       </Card>

@@ -16,28 +16,30 @@ class EditableBirdList extends React.Component {
 
     this.toggle = this.toggle.bind(this)
     this.handleEditBirdItemClick = this.handleEditBirdItemClick.bind(this);
+    this.handleRemoveBirdItemClick = this.handleRemoveBirdItemClick.bind(this);
     this.handleBirdUpdate = this.handleBirdUpdate.bind(this);
     this.addBirdToList = this.addBirdToList.bind(this);
   }
 
-  toggle = () => {
+  toggle() {
     this.setState(prevState => ({
       editing: !prevState.editing
     }))
   }
 
-  addBirdToList = (id, name) => {
+  addBirdToList(id, name) {
     this.setState(prevState => ({
       birds: [...prevState.birds, {
         id,
         name,
         notes: "",
-        count: ""
+        count: "",
+        photos: []
       }]
     }))
   }
 
-  handleEditBirdItemClick = (bird, index) => {
+  handleEditBirdItemClick(bird, index) {
     this.setState({
       editing: true,
       birdBeingEdited: bird,
@@ -45,10 +47,20 @@ class EditableBirdList extends React.Component {
     })
   }
 
-  handleBirdUpdate = (bird) => {
+  handleRemoveBirdItemClick(index) {
+    // Need to confirm this is the correct syntax
+    const birds = update(this.state.birds, {
+      $splice: [[index, 1]]
+    })
+    this.setState({
+      birds
+    })
+  }
+
+  handleBirdUpdate(changeset) {
     const birds = update(this.state.birds, {
       [this.state.currentIndex]: {
-        $merge: bird
+        $merge: changeset
       }
     })
 
@@ -64,6 +76,8 @@ class EditableBirdList extends React.Component {
         <BirdSelect
           birds={this.state.birds}
           onEditBirdItemClicked={this.handleEditBirdItemClick}
+          onRemoveBirdItemClicked={this.handleRemoveBirdItemClick}
+          onRemoveBird
           onAddBird={this.addBirdToList} />
 
         <EditBirdForm

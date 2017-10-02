@@ -1,4 +1,6 @@
 class PhotosController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def new
     @photo = Photo.new
   end

@@ -1,7 +1,11 @@
 import React from 'react'
 import { ListGroupItem, Button } from 'reactstrap'
 
-const fieldName = (attribute, index) => "birding_session[bird_records_attributes][" + index + "][" + attribute + "]"
+const fieldName = (attribute, index, multi = false) => {
+  var name = "birding_session[bird_records_attributes][" + index + "][" + attribute + "]"
+  if (multi) name += "[]"
+  return name
+}
 
 const Count = (props) => {
   const hasCount = props.count
@@ -32,28 +36,34 @@ const Notes = (props) => {
   return null
 }
 
-const HiddenInput = (props) => <input value={props.value} className="form-control hidden" type="hidden" name={fieldName(props.attribute, props.index)} />
+const HiddenInput = (props) => <input value={props.value} className="form-control hidden" type="hidden" name={fieldName(props.attribute, props.index, props.multi)} />
 
 class BirdSelectItem extends React.Component {
   constructor(props) {
     super(props)
 
     this.handleEditClick = this.handleEditClick.bind(this)
+    this.handleRemoveClick = this.handleRemoveClick.bind(this)
   }
 
-  handleEditClick = () => {
+  handleEditClick(e) {
+    e.preventDefault()
     this.props.onEditClicked(this.props.bird, this.props.index)
-    return false
+  }
+
+  handleRemoveClick(e) {
+    e.preventDefault()
+    const remove = confirm(`Are you sure you want to remove ${this.props.bird.name} from your list?`);
+    if (remove) this.props.onRemoveClicked(this.props.index)
   }
 
   render() {
     return (
       <ListGroupItem className="birding-session-bird-result d-flex justify-content-start align-items-center">
         <HiddenInput value={this.props.bird.id} attribute="bird_id" index={this.props.index} />
-        <HiddenInput attribute="count" index={this.props.index} />
-        <HiddenInput attribute="notes" index={this.props.index} />
-        <HiddenInput attribute="location" index={this.props.index} />
-
+        <HiddenInput value={this.props.bird.count} attribute="count" index={this.props.index} />
+        <HiddenInput value={this.props.bird.notes} attribute="notes" index={this.props.index} />
+        <HiddenInput multi value={this.props.bird.photos} attribute="photo_ids" index={this.props.index} />
         <div>
           <CountAndName count={this.props.bird.count} name={this.props.bird.name} />
           <Notes notes={this.props.bird.notes} />
@@ -61,9 +71,9 @@ class BirdSelectItem extends React.Component {
 
         <div className="actions ml-auto">
           <Button onClick={this.handleEditClick} outline size="sm" color="primary" className="mr-1">
-            <i className="fa fa-pencil" />
+            <i className="fa fa-pencil" /><span className="d-none d-sm-inline">&nbsp;Add details</span>
           </Button>
-          <Button onClick={() => {}} outline size="sm" color="danger" className="remove-bird-record" data-confirm-message="Are you sure you want to remove {{name}} from your list?">
+          <Button onClick={this.handleRemoveClick} size="sm" color="danger" className="remove-bird-record" data-confirm-message="Are you sure you want to remove {{name}} from your list?">
             <i className="fa fa-trash" />
           </Button>
         </div>
