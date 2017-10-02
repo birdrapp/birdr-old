@@ -34,6 +34,7 @@ class EditableBirdList extends React.Component {
         name,
         notes: "",
         count: "",
+        location: { lat: 0, lng: 0 },
         photos: []
       }]
     }))
@@ -87,7 +88,8 @@ class EditableBirdList extends React.Component {
           id={this.state.birdBeingEdited.id}
           birdName={this.state.birdBeingEdited.name}
           initialCount={this.state.birdBeingEdited.count}
-          initialNotes={this.state.birdBeingEdited.notes} />
+          initialNotes={this.state.birdBeingEdited.notes}
+          initialLocation={this.state.birdBeingEdited.location} />
       </div>
     )
   }

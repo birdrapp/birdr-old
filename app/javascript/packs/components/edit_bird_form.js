@@ -1,6 +1,7 @@
 import React from 'react'
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Container, Row, Col, FormGroup, Label, Input } from 'reactstrap'
 import PhotoUploader from './photo_uploader'
+import MapWithMarker from './map_with_marker'
 
 class EditBirdForm extends React.Component {
   constructor(props) {
@@ -9,6 +10,8 @@ class EditBirdForm extends React.Component {
     this.state = {
       count: "",
       notes: "",
+      _location: null,
+      location: { lat: 0, lng: 0},
       photos: [],
       uploading: false,
       updateButtonText: "Update"
@@ -20,19 +23,28 @@ class EditBirdForm extends React.Component {
     this.onPhotoProgress = this.onPhotoProgress.bind(this)
     this.onPhotoUploadStart = this.onPhotoUploadStart.bind(this)
     this.onPhotoUploaded = this.onPhotoUploaded.bind(this)
+    this.onPositionChanged = this.onPositionChanged.bind(this)
   }
 
   componentWillReceiveProps = (nextProps) => {
     this.setState({
       count: nextProps.initialCount,
-      notes: nextProps.initialNotes
+      notes: nextProps.initialNotes,
+      location: nextProps.initialLocation
     })
   }
 
   onBirdUpdate = () => {
+    // Update the location the the last reported position of the marker
+    this.setState({
+      location: this.state._location
+    })
+
     this.props.onBirdUpdate({
       count: this.state.count,
-      notes: this.state.notes
+      notes: this.state.notes,
+      location: this.state._location,
+      photos: this.state.photos
     })
   }
 
@@ -61,8 +73,11 @@ class EditBirdForm extends React.Component {
     })
 
     this.setState({ photos })
-    this.props.onBirdUpdate({
-      photos
+  }
+
+  onPositionChanged(location) {
+    this.setState({
+      _location: location
     })
   }
 
@@ -94,6 +109,16 @@ class EditBirdForm extends React.Component {
                   <Label for="notes">Notes</Label>
                   <Input name="notes" value={this.state.notes} onChange={this.handleNotesChange} />
                 </FormGroup>
+              </Col>
+              <Col xs="12" md="6">
+                <MapWithMarker
+                  containerElement={<div style={{ height: '300px' }} />}
+                  mapElement={<div className="rounded my-2" style={{ height: '100%' }} />}
+                  loadingElement={<div style={{ height: `100%` }} />}
+                  position={this.state.location}
+                  googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyCC3Ebzxe2VKuB54kd9baaW-7ztMxyRDA4&libraries=places'
+                  onPositionChanged={this.onPositionChanged}
+                />
               </Col>
             </Row>
             <Row>

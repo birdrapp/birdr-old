@@ -38,6 +38,8 @@ const Notes = (props) => {
 
 const HiddenInput = (props) => <input value={props.value} className="form-control hidden" type="hidden" name={fieldName(props.attribute, props.index, props.multi)} />
 
+const locationToWkt = (location) => `POINT(${location.lng} ${location.lat})`
+
 class BirdSelectItem extends React.Component {
   constructor(props) {
     super(props)
@@ -63,6 +65,7 @@ class BirdSelectItem extends React.Component {
         <HiddenInput value={this.props.bird.id} attribute="bird_id" index={this.props.index} />
         <HiddenInput value={this.props.bird.count} attribute="count" index={this.props.index} />
         <HiddenInput value={this.props.bird.notes} attribute="notes" index={this.props.index} />
+        <HiddenInput value={locationToWkt(this.props.bird.location)} attribute="location" index={this.props.index} />
         <HiddenInput multi value={this.props.bird.photos} attribute="photo_ids" index={this.props.index} />
         <div>
           <CountAndName count={this.props.bird.count} name={this.props.bird.name} />
