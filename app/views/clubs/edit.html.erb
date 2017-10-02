@@ -1,5 +1,5 @@
-<% content_for :js do %>
-  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyCC3Ebzxe2VKuB54kd9baaW-7ztMxyRDA4&libraries=places,drawing" %>
+<% content_for :body_last do %>
+  <%= google_maps %>
   <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/wicket/1.3.2/wicket.min.js" %>
   <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/wicket/1.3.2/wicket-gmap3.min.js" %>
   <%= javascript_include_tag :recording_area %>

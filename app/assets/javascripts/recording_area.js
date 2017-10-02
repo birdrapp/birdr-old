@@ -132,18 +132,19 @@
     setPolygon(polygon);
   }
 
-  function initMap() {
-    // create map
+  function initGoogleMap() {
     map = new google.maps.Map(mapEl, {
       zoom: 10,
       center: defaultLocation
     });
+  }
 
-    // initialize search
+  function initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete(searchInputEl, {});
     autocomplete.addListener('place_changed', onPlaceChanged);
+  }
 
-    // initialize drawing manager
+  function initDrawingManager() {
     drawingManager = new google.maps.drawing.DrawingManager({
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
       drawingControl: true,
@@ -161,11 +162,14 @@
     );
   }
 
-  function init() {
+  function initMap() {
     initElements();
-    initMap();
+    initGoogleMap();
+    initAutocomplete();
+    initDrawingManager();
     initializeExistingArea();
   }
 
-  $(document).ready(init);
+  // export
+  window.initMap = initMap;
 })();
