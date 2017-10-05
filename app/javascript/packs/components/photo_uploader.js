@@ -30,14 +30,20 @@ class PhotoUploader extends React.Component {
       queuecomplete: props.onQueueComplete,
       totaluploadprogress: props.onTotalUploadProgress,
       addedfile: props.onPhotoAdded,
-      photoUploaded: props.onPhotoUploaded
+      success: props.onPhotoUploaded
     }
   }
 
   render() {
     return (
       <div>
-        <div id="photos-container" className="row photos-container"></div>
+        <div id="photos-container" className="row photos-container">
+        {this.props.photos.map((photo, index) => (
+          <div key={index} className="col-6 col-md-3 my-2">
+            <img src={photo.url} style={{ height: '162px', width: '162px' }} className="img-thumbnail" />
+          </div>
+        ))}
+        </div>
         <div className="photo-upload d-flex align-items-center justify-content-center flex-column p-4 mt-3">
           <div className="icon">
             <i className="fa fa-plus" />

@@ -1,96 +1,20 @@
 import React from 'react'
-import update from 'immutability-helper';
-import BirdSelect from './bird_select'
-import EditBirdForm from './edit_bird_form'
+import { ListGroup } from 'reactstrap'
+import BirdListItem from './bird_list_item'
 
 class EditableBirdList extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      editing: false,
-      birdBeingEdited: {},
-      currentIndex: null,
-      birds: []
-    }
-
-    this.toggle = this.toggle.bind(this)
-    this.handleEditBirdItemClick = this.handleEditBirdItemClick.bind(this);
-    this.handleRemoveBirdItemClick = this.handleRemoveBirdItemClick.bind(this);
-    this.handleBirdUpdate = this.handleBirdUpdate.bind(this);
-    this.addBirdToList = this.addBirdToList.bind(this);
-  }
-
-  toggle() {
-    this.setState(prevState => ({
-      editing: !prevState.editing
-    }))
-  }
-
-  addBirdToList(id, name) {
-    this.setState(prevState => ({
-      birds: [...prevState.birds, {
-        id,
-        name,
-        notes: "",
-        count: "",
-        location: { lat: 0, lng: 0 },
-        photos: []
-      }]
-    }))
-  }
-
-  handleEditBirdItemClick(bird, index) {
-    this.setState({
-      editing: true,
-      birdBeingEdited: bird,
-      currentIndex: index
-    })
-  }
-
-  handleRemoveBirdItemClick(index) {
-    // Need to confirm this is the correct syntax
-    const birds = update(this.state.birds, {
-      $splice: [[index, 1]]
-    })
-    this.setState({
-      birds
-    })
-  }
-
-  handleBirdUpdate(changeset) {
-    const birds = update(this.state.birds, {
-      [this.state.currentIndex]: {
-        $merge: changeset
-      }
-    })
-
-    this.setState({
-      birds,
-      editing: false
-    })
-  }
-
   render() {
     return (
-      <div>
-        <BirdSelect
-          birds={this.state.birds}
-          onEditBirdItemClicked={this.handleEditBirdItemClick}
-          onRemoveBirdItemClicked={this.handleRemoveBirdItemClick}
-          onRemoveBird
-          onAddBird={this.addBirdToList} />
-
-        <EditBirdForm
-          onBirdUpdate={this.handleBirdUpdate}
-          isOpen={this.state.editing}
-          toggle={this.toggle}
-          id={this.state.birdBeingEdited.id}
-          birdName={this.state.birdBeingEdited.name}
-          initialCount={this.state.birdBeingEdited.count}
-          initialNotes={this.state.birdBeingEdited.notes}
-          initialLocation={this.state.birdBeingEdited.location} />
-      </div>
+      <ListGroup className="list-group-flush">
+        {this.props.birdRecords.map((bird, i) => (
+          <BirdListItem
+            key={i}
+            bird={bird}
+            index={i}
+            onEditClicked={this.props.onBirdEdit}
+            onRemoveClicked={this.props.onBirdRemoved} />
+        ))}
+      </ListGroup>
     )
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Container, Row, Col, FormGroup, Label, Input } from 'reactstrap'
+import update from 'immutability-helper'
 import PhotoUploader from './photo_uploader'
 import MapWithMarker from './map_with_marker'
 
@@ -28,23 +29,19 @@ class EditBirdForm extends React.Component {
 
   componentWillReceiveProps = (nextProps) => {
     this.setState({
-      count: nextProps.initialCount,
-      notes: nextProps.initialNotes,
-      location: nextProps.initialLocation
+      count: nextProps.bird.count || "",
+      notes: nextProps.bird.notes || "",
+      location: nextProps.bird.location,
+      photos: nextProps.bird.photos || []
     })
   }
 
-  onBirdUpdate = () => {
-    // Update the location the the last reported position of the marker
-    this.setState({
-      location: this.state._location
-    })
-
-    this.props.onBirdUpdate({
+  onBirdUpdated = () => {
+    this.props.onBirdUpdated(this.props.index, {
       count: this.state.count,
       notes: this.state.notes,
-      location: this.state._location,
-      photos: this.state.photos
+      location: this.state.location,
+      photos: this.state.photos,
     })
   }
 
@@ -69,7 +66,10 @@ class EditBirdForm extends React.Component {
 
   onPhotoUploaded(file, response) {
     const photos = update(this.state.photos, {
-      $push: response.id
+      $push: [{
+        id: response.id,
+        url: response.image.url
+      }]
     })
 
     this.setState({ photos })
@@ -77,17 +77,17 @@ class EditBirdForm extends React.Component {
 
   onPositionChanged(location) {
     this.setState({
-      _location: location
+      location
     })
   }
 
-  handleCountChange = (event) => {
+  handleCountChange(event) {
     this.setState({
       count: event.target.value
     });
   }
 
-  handleNotesChange = (event) => {
+  handleNotesChange(event) {
     this.setState({
       notes: event.target.value
     });
@@ -96,7 +96,7 @@ class EditBirdForm extends React.Component {
   render() {
     return (
       <Modal className="bird-modal" size="lg" toggle={this.props.toggle} isOpen={this.props.isOpen} autoFocus={true}>
-        <ModalHeader toggle={this.props.toggle}>Editing {this.props.birdName}</ModalHeader>
+        <ModalHeader toggle={this.props.toggle}>Editing {this.props.bird.commonName}</ModalHeader>
         <ModalBody>
           <Container fluid>
             <Row>
@@ -112,12 +112,11 @@ class EditBirdForm extends React.Component {
               </Col>
               <Col xs="12" md="6">
                 <MapWithMarker
-                  containerElement={<div style={{ height: '300px' }} />}
-                  mapElement={<div className="rounded my-2" style={{ height: '100%' }} />}
-                  loadingElement={<div style={{ height: `100%` }} />}
-                  position={this.state.location}
-                  googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyCC3Ebzxe2VKuB54kd9baaW-7ztMxyRDA4&libraries=places'
+                  containerElement={<div className="my-2" style={{ height: '300px' }} />}
+                  markerPosition={this.state.location}
                   onPositionChanged={this.onPositionChanged}
+                  center={this.props.bird.location}
+                  zoom={15}
                 />
               </Col>
             </Row>
@@ -127,14 +126,15 @@ class EditBirdForm extends React.Component {
                   onQueueComplete={this.onPhotoQueueComplete}
                   onTotalUploadProgress={this.onPhotoProgress}
                   onPhotoAdded={this.onPhotoUploadStart}
-                  onPhotoUploaded={this.onPhotoUploaded} />
+                  onPhotoUploaded={this.onPhotoUploaded}
+                  photos={this.props.bird.photos || []} />
               </Col>
             </Row>
           </Container>
         </ModalBody>
         <ModalFooter>
           <Button color="danger" onClick={this.props.toggle}>Cancel</Button>
-          <Button disabled={this.state.uploading} color="primary" onClick={this.onBirdUpdate}>
+          <Button disabled={this.state.uploading} color="primary" onClick={this.onBirdUpdated}>
             {this.state.updateButtonText}
           </Button>
         </ModalFooter>

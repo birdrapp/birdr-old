@@ -1,29 +1,42 @@
 import React from 'react'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
-
-const refs = {}
-
-const onMarkerMounted = (marker) => {
-  refs.marker = marker
-}
+import { compose, withProps, lifecycle, withHandlers } from "recompose"
 
 const positionToObject = (position) => ({ lat: position.lat(), lng: position.lng() })
 
-const MapWithMarker = withScriptjs(withGoogleMap((props) =>
-  <GoogleMap
-    defaultZoom={8}
-    defaultCenter={props.position}
-  >
-    <Marker
-      defaultPosition={props.position}
-      position={props.position}
-      ref={onMarkerMounted}
-      draggable={true}
-      onPositionChanged={() => props.onPositionChanged(
-        positionToObject(refs.marker.getPosition())
-      )}
-    />
-  </GoogleMap>
-))
+const MapWithMarker = compose(
+  withProps({
+    mapElement: <div className="rounded" style={{ height: '100%' }} />,
+    loadingElement: <div style={{ height: `100%` }} />,
+  }),
+  withHandlers(() => {
+    const refs = {
+      marker: null
+    }
+
+    return {
+      onMarkerMounted: () => ref => {
+        refs.marker = ref
+      },
+
+      positionChanged: (props) => () => {
+        props.onPositionChanged(positionToObject(refs.marker.getPosition()))
+      }
+    }
+  }),
+  withGoogleMap
+  )((props) =>
+    <GoogleMap
+      zoom={props.zoom || 10}
+      center={props.center || { lat: 51.505, lng: -0.09 }}
+    >
+      <Marker
+        position={props.markerPosition}
+        ref={props.onMarkerMounted}
+        draggable={true}
+        onPositionChanged={props.positionChanged}
+      />
+    </GoogleMap>
+  )
 
 export default MapWithMarker
