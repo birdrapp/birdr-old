@@ -1,6 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
-import $ from 'jquery'
+import axios from 'axios'
 
 class SearchableBirdList extends React.Component {
   constructor(props) {
@@ -15,9 +15,9 @@ class SearchableBirdList extends React.Component {
   }
 
   fetchBirds() {
-    return $.getJSON(`/bird_lists/${this.props.country}/birds.json`)
-      .then((res) => {
-        const options = res.birds.map((item) => ({
+    return axios.get(`/bird_lists/${this.props.country}/birds.json`)
+      .then(({ data }) => {
+        const options = data.birds.map((item) => ({
             value: item.bird.id,
             label: item.bird.common_name
         }))
