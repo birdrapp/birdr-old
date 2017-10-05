@@ -68,7 +68,8 @@ class EditBirdForm extends React.Component {
     const photos = update(this.state.photos, {
       $push: [{
         id: response.id,
-        url: response.image.url
+        url: response.image.url,
+        thumbnail: response.image.thumb.url
       }]
     })
 

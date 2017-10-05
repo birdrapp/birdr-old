@@ -40,7 +40,7 @@ class PhotoUploader extends React.Component {
         <div id="photos-container" className="row photos-container">
         {this.props.photos.map((photo, index) => (
           <div key={index} className="col-6 col-md-3 my-2">
-            <img src={photo.url} style={{ height: '162px', width: '162px' }} className="img-thumbnail" />
+            <img src={photo.thumbnail} style={{ height: '162px', width: '162px' }} className="img-thumbnail" />
           </div>
         ))}
         </div>

@@ -52,6 +52,12 @@ class BirdListItem extends React.Component {
   render() {
     return (
       <ListGroupItem className="birding-session-bird-result d-flex justify-content-start align-items-center">
+        {
+          this.props.bird.photos[0] &&
+          <div className="bird-list-image">
+            <img className="rounded-circle mr-2" style={{ width: '40px', height: '40px' }} src={this.props.bird.photos[0].thumbnail} />
+          </div>
+        }
         <div>
           <CountAndName count={this.props.bird.count} name={this.props.bird.commonName} />
           <Notes notes={this.props.bird.notes} />

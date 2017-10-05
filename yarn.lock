@@ -4284,6 +4284,13 @@ react-dropzone-component@^2.0.0:
     dropzone "^4.3.0"
     extend "^3.0.0"
 
+react-flatpickr@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/react-flatpickr/-/react-flatpickr-3.5.1.tgz#f6b3a63aa307ec9d8c2beefae01fd6fadbf0bee0"
+  dependencies:
+    flatpickr "^3.0.7"
+    prop-types "^15.5.10"
+
 react-google-maps@^8.3.3:
   version "8.3.3"
   resolved "https://registry.yarnpkg.com/react-google-maps/-/react-google-maps-8.3.3.tgz#85feec65a5dea80b6f52bba6817cfc5a9adfa2cc"

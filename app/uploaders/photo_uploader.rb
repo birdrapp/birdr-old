@@ -3,6 +3,12 @@ class PhotoUploader < CarrierWave::Uploader::Base
 
     storage :fog
 
+    process resize_to_fit: [1920, 1920]
+
+    version :thumb do
+      process resize_to_fill: [300,300]
+    end
+
     def store_dir
       "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     end
