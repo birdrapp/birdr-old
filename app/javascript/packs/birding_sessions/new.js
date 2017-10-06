@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import update from 'immutability-helper'
-import { Row, Col, FormGroup, Label, Input, Card, CardHeader, ListGroup } from 'reactstrap'
+import { Row, Col, FormGroup, Label, Input, Card, CardHeader, ListGroup, InputGroup, InputGroupAddon } from 'reactstrap'
 import Flatpickr from 'react-flatpickr'
 import EditableBirdList from '../components/editable_bird_list'
 import EditBirdForm from '../components/edit_bird_form'
@@ -37,7 +37,6 @@ class AddBirdRecords extends React.Component {
     super(props)
 
     this.state = {
-      date: null,
       start_time: null,
       location: { lat: 51.505, lng: -0.09 },
       location_name: null,
@@ -137,27 +136,44 @@ class AddBirdRecords extends React.Component {
           <Col xs="12" md="4">
             <h5>Date &amp; Time</h5>
             <p>
-              <small><strong>Tip:</strong> you don't need to specify an end time.</small>
+              <small><strong>Tip:</strong> you can change the time of each bird later.</small>
             </p>
           </Col>
           <Col xs="12" md="4">
             <FormGroup>
               <Label for="birding_session_date">Date</Label>
-              <div className="input-group flatpickr">
+              <InputGroup className="flatpickr">
                 <Flatpickr
                   name="birding_session[date]"
                   options={{ altInput: true, maxDate: new Date(), defaultDate: new Date() }}
                 />
-                <span className="input-group-addon">
+                <InputGroupAddon>
                   <i className="fa fa-calendar" />
-                </span>
-              </div>
+                </InputGroupAddon>
+              </InputGroup>
             </FormGroup>
           </Col>
           <Col xs="12" md="4">
             <FormGroup>
               <Label for="birding_session_start_time">Start Time</Label>
-              <Input name="birding_session_start_time" className="flatpickr" />
+              <InputGroup className="flatpickr">
+                <Flatpickr
+                  name="birding_session[start_time]"
+                  className="form-control"
+                  options={{
+                    enableTime: true,
+                    noCalendar: true,
+                    time_24hr: true,
+                    enableSeconds: false,
+                    dateFormat: "H:i",
+                    // To the nearest 5 minutes
+                    defaultDate: new Date(Math.round((new Date()).getTime() / 300000) * 300000)
+                  }}
+                />
+                <InputGroupAddon>
+                  <i className="fa fa-clock-o" />
+                </InputGroupAddon>
+              </InputGroup>
             </FormGroup>
           </Col>
         </Row>
