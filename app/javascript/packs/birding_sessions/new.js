@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import update from 'immutability-helper'
 import { Row, Col, FormGroup, Label, Input, Card, CardHeader, ListGroup } from 'reactstrap'
+import Flatpickr from 'react-flatpickr'
 import EditableBirdList from '../components/editable_bird_list'
 import EditBirdForm from '../components/edit_bird_form'
 import SearchableBirdList from '../components/searchable_bird_list'
@@ -48,12 +49,12 @@ class AddBirdRecords extends React.Component {
     }
 
     this.addBirdRecord = this.addBirdRecord.bind(this)
-    this.removeBirdFromList = this.removeBirdFromList.bind(this)
     this.birdRecordUpdated = this.birdRecordUpdated.bind(this)
     this.editBird = this.editBird.bind(this)
-    this.toggleEditBirdForm = this.toggleEditBirdForm.bind(this)
     this.placeChanged = this.placeChanged.bind(this)
     this.positionUpdated = this.positionUpdated.bind(this)
+    this.removeBirdFromList = this.removeBirdFromList.bind(this)
+    this.toggleEditBirdForm = this.toggleEditBirdForm.bind(this)
   }
 
   addBirdRecord(bird) {
@@ -69,24 +70,6 @@ class AddBirdRecords extends React.Component {
     }))
   }
 
-  editBird(birdIndex) {
-    this.setState({
-      modalOpen: true,
-      currentBirdIndex: birdIndex,
-      editingBird: this.state.birdRecords[birdIndex]
-    })
-  }
-
-  removeBirdFromList(index) {
-    const birdRecords = update(this.state.birdRecords, {
-      $splice: [[index, 1]]
-    })
-
-    this.setState({
-      birdRecords
-    })
-  }
-
   birdRecordUpdated(index, changeset) {
     const birdRecords = update(this.state.birdRecords, {
       [index]: {
@@ -99,6 +82,14 @@ class AddBirdRecords extends React.Component {
       editingBird: null,
       modalOpen: false,
       currentBirdIndex: null
+    })
+  }
+
+  editBird(birdIndex) {
+    this.setState({
+      modalOpen: true,
+      currentBirdIndex: birdIndex,
+      editingBird: this.state.birdRecords[birdIndex]
     })
   }
 
@@ -123,6 +114,16 @@ class AddBirdRecords extends React.Component {
     })
   }
 
+  removeBirdFromList(index) {
+    const birdRecords = update(this.state.birdRecords, {
+      $splice: [[index, 1]]
+    })
+
+    this.setState({
+      birdRecords
+    })
+  }
+
   toggleEditBirdForm() {
     this.setState({
       modalOpen: !this.state.modalOpen
@@ -143,7 +144,10 @@ class AddBirdRecords extends React.Component {
             <FormGroup>
               <Label for="birding_session_date">Date</Label>
               <div className="input-group flatpickr">
-                <Input name="birding_session_date" />
+                <Flatpickr
+                  name="birding_session[date]"
+                  options={{ altInput: true, maxDate: new Date(), defaultDate: new Date() }}
+                />
                 <span className="input-group-addon">
                   <i className="fa fa-calendar" />
                 </span>
@@ -166,11 +170,11 @@ class AddBirdRecords extends React.Component {
             </p>
           </Col>
           <Col xs="12" md="8">
-            <SearchableMapWithMarker
+            {/* <SearchableMapWithMarker
               onPlaceChanged={this.placeChanged}
               onPositionChanged={this.positionUpdated}
               markerPosition={this.state.location}
-            />
+            /> */}
           </Col>
         </Row>
         <hr className="my-5" />
@@ -195,12 +199,12 @@ class AddBirdRecords extends React.Component {
         </Row>
         {this.state.birdRecords.map(toHiddenFields)}
 
-        <EditBirdForm
+        {/* <EditBirdForm
           onBirdUpdated={this.birdRecordUpdated}
           isOpen={this.state.modalOpen}
           toggle={this.toggleEditBirdForm}
           bird={this.state.editingBird || {}}
-          index={this.state.currentBirdIndex} />
+          index={this.state.currentBirdIndex} /> */}
       </div>
     )
   }
