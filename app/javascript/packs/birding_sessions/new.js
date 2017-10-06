@@ -8,24 +8,24 @@ import EditBirdForm from '../components/edit_bird_form'
 import SearchableBirdList from '../components/searchable_bird_list'
 import SearchableMapWithMarker from '../components/searchable_map_with_marker'
 
-const fieldName = (attribute, index, multi = false) => {
+const birdRecordFieldName = (attribute, index, multi = false) => {
   var name = "birding_session[bird_records_attributes][" + index + "][" + attribute + "]"
   if (multi) name += "[]"
   return name
 }
-const HiddenInput = (props) => <input value={props.value} className="form-control hidden" type="hidden" name={fieldName(props.attribute, props.index, props.multi)} />
+const BirdRecordHiddenInput = (props) => <input value={props.value} className="form-control hidden" type="hidden" name={birdRecordFieldName(props.attribute, props.index, props.multi)} />
 const locationToWkt = (location) => `POINT(${location.lng} ${location.lat})`
 
 const toHiddenFields = (birdRecord, index) => {
   return (
     <div key={index}>
-      <HiddenInput value={birdRecord.id} attribute="bird_id" index={index} />
-      <HiddenInput value={birdRecord.count} attribute="count" index={index} />
-      <HiddenInput value={birdRecord.notes} attribute="notes" index={index} />
-      <HiddenInput value={locationToWkt(birdRecord.location)} attribute="location" index={index} />
+      <BirdRecordHiddenInput value={birdRecord.id} attribute="bird_id" index={index} />
+      <BirdRecordHiddenInput value={birdRecord.count} attribute="count" index={index} />
+      <BirdRecordHiddenInput value={birdRecord.notes} attribute="notes" index={index} />
+      <BirdRecordHiddenInput value={locationToWkt(birdRecord.location)} attribute="location" index={index} />
       <div>
         {birdRecord.photos.map((photo, photoIndex) => (
-          <HiddenInput key={photoIndex} multi value={photo.id} attribute="photo_ids" index={photoIndex} />
+          <BirdRecordHiddenInput key={photoIndex} multi value={photo.id} attribute="photo_ids" index={photoIndex} />
         ))}
       </div>
     </div>
@@ -39,8 +39,8 @@ class AddBirdRecords extends React.Component {
     this.state = {
       start_time: null,
       location: { lat: 51.505, lng: -0.09 },
-      location_name: null,
-      location_address: null,
+      location_name: "",
+      location_address: "",
       editingBird: null,
       currentBirdIndex: null,
       modalOpen: false,
@@ -98,7 +98,9 @@ class AddBirdRecords extends React.Component {
       lng: place.geometry.location.lng()
     }
     this.setState({
-      location
+      location,
+      location_name: place.name,
+      location_address: place.formatted_address
     })
   }
 
@@ -186,11 +188,11 @@ class AddBirdRecords extends React.Component {
             </p>
           </Col>
           <Col xs="12" md="8">
-            {/* <SearchableMapWithMarker
+            <SearchableMapWithMarker
               onPlaceChanged={this.placeChanged}
               onPositionChanged={this.positionUpdated}
               markerPosition={this.state.location}
-            /> */}
+            />
           </Col>
         </Row>
         <hr className="my-5" />
@@ -213,14 +215,16 @@ class AddBirdRecords extends React.Component {
             </Card>
           </Col>
         </Row>
+        <Input type="hidden" name="birding_session_location_name" value={this.state.location_name} />
+        <Input type="hidden" name="birding_session_location_address" value={this.state.location_address} />
         {this.state.birdRecords.map(toHiddenFields)}
 
-        {/* <EditBirdForm
+        <EditBirdForm
           onBirdUpdated={this.birdRecordUpdated}
           isOpen={this.state.modalOpen}
           toggle={this.toggleEditBirdForm}
           bird={this.state.editingBird || {}}
-          index={this.state.currentBirdIndex} /> */}
+          index={this.state.currentBirdIndex} />
       </div>
     )
   }
