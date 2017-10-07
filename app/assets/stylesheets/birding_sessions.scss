@@ -5,31 +5,33 @@
   height: 500px;
 }
 
-.birding-session-bird-result {
-  .remove-bird {
-    display: none;
-  }
-
-  &:hover {
-    .remove-bird {
-      display: inline;
-    }
-  }
-}
-
-.bird-list {
+.bird-select {
   .card-header {
     border-bottom: 0;
   }
 
-  img {
-    height: 40px;
-    width: 40px;
+  button {
+    cursor: pointer;
+  }
+
+  &.Select {
+    width: 100%;
+  }
+
+  .Select-option.is-focused {
+    background: theme-color('primary');
+    color: white;
   }
 }
 
 .modal {
   .map {
     height: 300px;
+  }
+}
+
+.bird-modal {
+  button {
+    cursor: pointer;
   }
 }

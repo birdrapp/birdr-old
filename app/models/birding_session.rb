@@ -31,13 +31,6 @@ class BirdingSession < ApplicationRecord
     @datetime ||= DateTime.new(date.year, date.month, date.day, time.hour, time.min, time.sec, time.zone)
   end
 
-  def time
-    @time ||= (
-      return start_time if end_time.nil?
-      start_time + ((end_time - start_time).to_i / 2)
-    )
-  end
-
   def latitude
     location.lat
   end

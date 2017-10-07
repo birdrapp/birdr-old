@@ -1,6 +1,9 @@
 <% content_for :js do %>
   <%= google_maps %>
-  <%= javascript_include_tag :add_bird_records %>
+<% end %>
+
+<% content_for :stylesheets do %>
+  <%= stylesheet_pack_tag 'birding_sessions/add_bird_records' %>
 <% end %>
 
 <div class="page-header">
@@ -12,67 +15,8 @@
 <div class="container">
   <%= simple_form_for(@birding_session) do |f| %>
   <%= f.association :user, as: :hidden, label: false, wrapper: false %>
-  <div class="row">
-    <div class="col-12 col-md-4">
-      <h5>Date & Time</h5>
-      <p>
-        <small><strong>Tip:</strong> you don't need to specify an end time.</small>
-      </p>
-    </div>
-    <div class="col-12 col-md-4">
-      <div class="form-group">
-        <%= f.label :date, required: false, class: 'form-control-label' %>
-        <div class="input-group flatpickr">
-          <%= f.input_field :date, as: :string, class: 'form-control', data: { input: true } %>
-          <span class="input-group-addon">
-            <%= fa_icon :calendar %>
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-md-4">
-      <%= f.input :start_time, required: false, as: :string, class: 'form-control flatpickr' %>
-      <%= f.input :end_time, required: false, as: :string, class: 'form-control flatpickr', hint: '(Optional)' %>
-    </div>
-  </div>
-  <%= horizontal_rule %>
-  <div class="row">
-    <div class="col-12 col-md-4">
-      <h5>Location</h5>
-      <p>
-        <small><b>Tip:</b> drag the marker for extra accuracy.</small>
-      </p>
-      <%= f.input :location, as: :hidden, label: false, wrapper: false %>
-      <%= f.input :location_name, as: :hidden, label: false, wrapper: false %>
-      <%= f.input :location_address, as: :hidden, label: false, wrapper: false %>
-      <div id="geocodeSearchResults" class="birding_session-search-results"></div>
-    </div>
-    <div class="col-12 col-md-8">
-      <div class="input-group mb-4 search-box">
-        <input id="search" placeholder="Search for a location..." class="form-control" />
-        <span class="input-group-addon">
-          <%= fa_icon :search, class: 'search-box-icon' %>
-        </span>
-      </div>
-      <div id="map" class="birding-session-map"></div>
-    </div>
-  </div>
-  <%= horizontal_rule %>
-  <div class="row">
-    <div class="col-12 col-md-4">
-      <h5>Birds</h5>
-      <p>
-        <small><b>Tip:</b> to add more details click the <%= fa_icon :pencil %> icon.</small>
-      </p>
-    </div>
-    <div class="col-12 col-md-8">
-      <div class="card bird-list">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <%= select_tag :birds, options_from_collection_for_select(@birds, :id, :common_name), include_blank: 'Add a bird to your list...', class: 'form-control', id: 'birdSearch' %>
-        </div>
-        <div class="list-group list-group-flush" id="birdRecords"></div>
-      </div>
-    </div>
+  <div id="add_birding_session">
+    <%= javascript_pack_tag 'birding_sessions/add_bird_records' %>
   </div>
   <div class="row">
     <div class="col-12 col-md-4">
@@ -81,6 +25,3 @@
   </div>
   <% end %>
 </div>
-
-<%= render 'bird_record_template' %>
-<%= render 'bird_record_modal' %>
