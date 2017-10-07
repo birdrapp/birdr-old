@@ -65,7 +65,7 @@ class BirdListItem extends React.Component {
 
         <div className="actions ml-auto">
           <Button onClick={this.handleEditClick} outline size="sm" color="primary" className="mr-1">
-            <i className="fa fa-pencil" /><span className="d-none d-sm-inline">&nbsp;Add details</span>
+            <i className="fa fa-pencil" /><span className="d-none d-sm-inline">&nbsp;Edit</span>
           </Button>
           <Button onClick={this.handleRemoveClick} size="sm" color="danger" className="remove-bird-record" data-confirm-message="Are you sure you want to remove {{name}} from your list?">
             <i className="fa fa-trash" />

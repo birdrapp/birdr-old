@@ -114,21 +114,21 @@ class EditBirdForm extends React.Component {
             <Row>
               <Col xs="12" md="6">
                 <FormGroup>
-                  <Label for="count">Count</Label>
-                  <Input name="count" value={this.state.count} onChange={this.handleCountChange} />
-                </FormGroup>
-                <FormGroup>
                   <Label for="time">Time</Label>
                   <TimeSelect name="time" startTime={this.props.sessionTime} onChange={this.handleTimeChange} />
                 </FormGroup>
                 <FormGroup>
+                  <Label for="count">Count</Label>
+                  <Input type="number" name="count" value={this.state.count} onChange={this.handleCountChange} min={1} />
+                </FormGroup>
+                <FormGroup>
                   <Label for="notes">Notes</Label>
-                  <Input name="notes" value={this.state.notes} onChange={this.handleNotesChange} />
+                  <Input type="textarea" name="notes" value={this.state.notes} onChange={this.handleNotesChange} rows="4" />
                 </FormGroup>
               </Col>
               <Col xs="12" md="6">
                 <MapWithMarker
-                  containerElement={<div className="my-2" style={{ height: '300px' }} />}
+                  containerElement={<div className="my-2" style={{ height: '294px' }} />}
                   markerPosition={this.state.location}
                   onPositionChanged={this.onPositionChanged}
                   center={this.props.bird.location}
