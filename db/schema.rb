@@ -95,13 +95,6 @@ ActiveRecord::Schema.define(version: 20171007100645) do
     t.geometry "recording_area", limit: {:srid=>0, :type=>"st_polygon"}
   end
 
-  create_table "national_bird_lists", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "country_code", limit: 2, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "photos", force: :cascade do |t|
     t.string "image"
     t.string "photographable_type"

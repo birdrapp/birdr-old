@@ -14,3 +14,5 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require wicket
+//= require wicket-gmap3

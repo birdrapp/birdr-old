@@ -1,3 +1,8 @@
+<% content_for :body_last do %>
+  <%= google_maps('initMap') %>
+  <%= javascript_include_tag :recording_area %>
+<% end %>
+
 <%= render 'header' %>
 <%= render 'nav' %>
 
@@ -21,6 +26,46 @@
 
         <div class="form-actions">
           <%= f.submit 'Save', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= horizontal_rule %>
+  <div class="row">
+    <div class="col-md-3 col-12">
+      <h5>Recording area</h5>
+      <p>
+        <small>Set your club's recording area.</small>
+      </p>
+    </div>
+    <div class="col-md-9 col-12">
+      <%= simple_form_for(@club) do |f| %>
+        <%= f.error_notification %>
+
+        <%= f.hidden_field :recording_area %>
+
+        <div class="input-group mb-4 search-box">
+          <input
+            id="recording-area-search"
+            placeholder="Search for a location..."
+            class="form-control"
+          />
+          <span class="input-group-addon">
+            <%= fa_icon "map-o", class: 'search-box-icon' %>
+          </span>
+        </div>
+        <div id="recording-area-map" class="recording-area-map mb-3"></div>
+
+        <div class="form-actions">
+          <%= f.submit 'Save', class: 'btn btn-primary' %>
+          <button
+            disabled
+            type="reset"
+            id="recording-area-clear"
+            class="btn btn-danger pull-right"
+          >
+            Clear <span class="fa fa-trash"></span>
+          </button>
         </div>
       <% end %>
     </div>
