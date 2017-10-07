@@ -33,13 +33,14 @@ const SearchableMapWithMarker = compose(
   lifecycle({
     componentWillMount() {
       this.setState({
+        center: this.props.defaultCenter,
         onSearchBoxMounted: ref => {
           refs.searchBox = ref;
         }
       })
     },
   })
-)(({ center, zoom, markerPosition, onSearchBoxMounted, centerMapOnLocation, onPlaceChanged, onPositionChanged, setZoom, searchText }) =>
+)(({ center, defaultCenter, zoom, markerPosition, onSearchBoxMounted, centerMapOnLocation, onPlaceChanged, onPositionChanged, setZoom, searchText }) =>
   <div>
     <InputGroup className="mb-4">
       <StandaloneSearchBox
@@ -62,7 +63,8 @@ const SearchableMapWithMarker = compose(
     <MapWithMarker
       containerElement={<div style={{height: '500px'}} />}
       onPositionChanged={onPositionChanged}
-      center={markerPosition || center}
+      defaultCenter={defaultCenter}
+      center={center}
       markerPosition={markerPosition}
       zoom={markerPosition ? 17 : zoom}
     />
