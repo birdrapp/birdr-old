@@ -3,12 +3,14 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Container, Row, Col
 import update from 'immutability-helper'
 import PhotoUploader from './photo_uploader'
 import MapWithMarker from './map_with_marker'
+import TimeSelect from './time_select'
 
 class EditBirdForm extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      time: "",
       count: "",
       notes: "",
       _location: null,
@@ -20,6 +22,7 @@ class EditBirdForm extends React.Component {
 
     this.handleCountChange = this.handleCountChange.bind(this)
     this.handleNotesChange = this.handleNotesChange.bind(this)
+    this.handleTimeChange = this.handleTimeChange.bind(this)
     this.onPhotoQueueComplete = this.onPhotoQueueComplete.bind(this)
     this.onPhotoProgress = this.onPhotoProgress.bind(this)
     this.onPhotoUploadStart = this.onPhotoUploadStart.bind(this)
@@ -29,6 +32,7 @@ class EditBirdForm extends React.Component {
 
   componentWillReceiveProps = (nextProps) => {
     this.setState({
+      time: nextProps.sessionTime || "",
       count: nextProps.bird.count || "",
       notes: nextProps.bird.notes || "",
       location: nextProps.bird.location,
@@ -40,6 +44,7 @@ class EditBirdForm extends React.Component {
     this.props.onBirdUpdated(this.props.index, {
       count: this.state.count,
       notes: this.state.notes,
+      time: this.state.time,
       location: this.state.location,
       photos: this.state.photos,
     })
@@ -94,6 +99,12 @@ class EditBirdForm extends React.Component {
     });
   }
 
+  handleTimeChange(event) {
+    this.setState({
+      time: event.target.value
+    });
+  }
+
   render() {
     return (
       <Modal className="bird-modal" size="lg" toggle={this.props.toggle} isOpen={this.props.isOpen} autoFocus={true}>
@@ -105,6 +116,10 @@ class EditBirdForm extends React.Component {
                 <FormGroup>
                   <Label for="count">Count</Label>
                   <Input name="count" value={this.state.count} onChange={this.handleCountChange} />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="time">Time</Label>
+                  <TimeSelect name="time" startTime={this.props.sessionTime} onChange={this.handleTimeChange} />
                 </FormGroup>
                 <FormGroup>
                   <Label for="notes">Notes</Label>

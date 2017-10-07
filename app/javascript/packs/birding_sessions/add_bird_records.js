@@ -24,10 +24,10 @@ class AddBirdRecords extends React.Component {
     super(props)
 
     this.state = {
-      start_time: null,
+      startTime: new Date(Math.round((new Date()).getTime() / 300000) * 300000), // Nearest 5 minutes
       location: { lat: 51.505, lng: -0.09 },
-      location_name: "",
-      location_address: "",
+      locationName: "",
+      locationAddress: "",
       editingBird: null,
       currentBirdIndex: null,
       modalOpen: false,
@@ -40,6 +40,7 @@ class AddBirdRecords extends React.Component {
     this.placeChanged = this.placeChanged.bind(this)
     this.positionUpdated = this.positionUpdated.bind(this)
     this.removeBirdFromList = this.removeBirdFromList.bind(this)
+    this.startTimeUpdated = this.startTimeUpdated.bind(this)
     this.toggleEditBirdForm = this.toggleEditBirdForm.bind(this)
   }
 
@@ -86,8 +87,8 @@ class AddBirdRecords extends React.Component {
     }
     this.setState({
       location,
-      location_name: place.name,
-      location_address: place.formatted_address
+      locationName: place.name,
+      locationAddress: place.formatted_address
     })
   }
 
@@ -109,6 +110,12 @@ class AddBirdRecords extends React.Component {
 
     this.setState({
       birdRecords
+    })
+  }
+
+  startTimeUpdated(startTime) {
+    this.setState({
+      startTime
     })
   }
 
@@ -149,14 +156,14 @@ class AddBirdRecords extends React.Component {
                 <Flatpickr
                   name="birding_session[start_time]"
                   className="form-control"
+                  onChange={value => this.startTimeUpdated(value[0])}
+                  value={this.state.startTime}
                   options={{
                     enableTime: true,
                     noCalendar: true,
                     time_24hr: true,
                     enableSeconds: false,
-                    dateFormat: "H:i",
-                    // To the nearest 5 minutes
-                    defaultDate: new Date(Math.round((new Date()).getTime() / 300000) * 300000)
+                    dateFormat: "H:i"
                   }}
                 />
                 <InputGroupAddon>
@@ -203,8 +210,9 @@ class AddBirdRecords extends React.Component {
           </Col>
         </Row>
         <Input type="hidden" name="birding_session[location]" value={locationToWkt(this.state.location)} />
-        <Input type="hidden" name="birding_session[location_name]" value={this.state.location_name} />
-        <Input type="hidden" name="birding_session[location_address]" value={this.state.location_address} />
+        <Input type="hidden" name="birding_session[location_name]" value={this.state.locationName} />
+        <Input type="hidden" name="birding_session[location_address]" value={this.state.locationAddress} />
+
         {this.state.birdRecords.map((birdRecord, index) => (
           <div key={index}>
             <BirdRecordHiddenInput value={birdRecord.id} attribute="bird_id" index={index} />
@@ -213,6 +221,10 @@ class AddBirdRecords extends React.Component {
             {
               locationToWkt(birdRecord.location) !== locationToWkt(this.state.location) &&
               <BirdRecordHiddenInput value={locationToWkt(birdRecord.location)} attribute="location" index={index} />
+            }
+            {
+              this.state.startTime !== birdRecord.time &&
+              <BirdRecordHiddenInput value={birdRecord.time} attribute="time" index={index} />
             }
             <div>
               {birdRecord.photos.map((photo, photoIndex) => (
@@ -226,6 +238,7 @@ class AddBirdRecords extends React.Component {
           onBirdUpdated={this.birdRecordUpdated}
           isOpen={this.state.modalOpen}
           toggle={this.toggleEditBirdForm}
+          sessionTime={this.state.startTime}
           bird={this.state.editingBird || {}}
           index={this.state.currentBirdIndex} />
       </div>

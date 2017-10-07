@@ -26,6 +26,6 @@ class BirdingSessionsController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def birding_session_params
-      params.require(:birding_session).permit(:date, :start_time, :end_time, :location, :location_name, :location_address, :user_id, :bird_records_attributes => [:id, :bird_id, :count, :notes, :location, :photo_ids => []])
+      params.require(:birding_session).permit(:date, :start_time, :location, :location_name, :location_address, :user_id, :bird_records_attributes => [:id, :bird_id, :count, :notes, :time, :location, :photo_ids => []])
     end
 end
