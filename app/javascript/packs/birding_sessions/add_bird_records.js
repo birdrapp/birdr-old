@@ -7,6 +7,9 @@ import EditableBirdList from '../components/editable_bird_list'
 import EditBirdForm from '../components/edit_bird_form'
 import SearchableBirdList from '../components/searchable_bird_list'
 import SearchableMapWithMarker from '../components/searchable_map_with_marker'
+import 'react-select/dist/react-select.css';
+import 'flatpickr/dist/flatpickr.css';
+
 
 const birdRecordFieldName = (attribute, index, multi = false) => {
   var name = "birding_session[bird_records_attributes][" + index + "][" + attribute + "]"
@@ -215,8 +218,9 @@ class AddBirdRecords extends React.Component {
             </Card>
           </Col>
         </Row>
-        <Input type="hidden" name="birding_session_location_name" value={this.state.location_name} />
-        <Input type="hidden" name="birding_session_location_address" value={this.state.location_address} />
+        <Input type="hidden" name="birding_session[location]" value={locationToWkt(this.state.location)} />
+        <Input type="hidden" name="birding_session[location_name]" value={this.state.location_name} />
+        <Input type="hidden" name="birding_session[location_address]" value={this.state.location_address} />
         {this.state.birdRecords.map(toHiddenFields)}
 
         <EditBirdForm

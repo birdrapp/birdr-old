@@ -2,6 +2,10 @@
   <%= google_maps %>
 <% end %>
 
+<% content_for :stylesheets do %>
+  <%= stylesheet_pack_tag 'birding_sessions/add_bird_records' %>
+<% end %>
+
 <div class="page-header">
   <div class="container">
     <h5 class="mb-0">Add bird records</h5>
@@ -12,7 +16,7 @@
   <%= simple_form_for(@birding_session) do |f| %>
   <%= f.association :user, as: :hidden, label: false, wrapper: false %>
   <div id="add_birding_session">
-    <%= javascript_pack_tag 'birding_sessions/new' %>
+    <%= javascript_pack_tag 'birding_sessions/add_bird_records' %>
   </div>
   <div class="row">
     <div class="col-12 col-md-4">

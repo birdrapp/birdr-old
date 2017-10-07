@@ -13,7 +13,6 @@ const placeToLocation = (place) => ({
 })
 
 const SearchableMapWithMarker = compose(
-  // withState('center', 'setCenter', null),
   withHandlers({
     onPositionChanged: props => (location) => props.onPositionChanged(location),
     onPlaceChanged: props => (place) => props.onPlaceChanged(place)
