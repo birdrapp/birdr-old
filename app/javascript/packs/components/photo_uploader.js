@@ -20,7 +20,7 @@ class PhotoUploader extends React.Component {
         <div className="dz-preview col-6 col-md-3 my-2">
           <img data-dz-thumbnail className="img-thumbnail" />
           <div className="progress dz-upload mt-2">
-            <div className="progress-bar dz-upload" role="progressbar" data-dz-uploadprogress></div>
+            <div className="progress-bar" role="progressbar" data-dz-uploadprogress></div>
           </div>
         </div>
       )

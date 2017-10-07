@@ -23,8 +23,9 @@
 }
 
 .dz-preview {
+  position: relative;
   img {
-    opacity: 0.25;
+    opacity: 0.15;
   }
   &.dz-complete {
     img {
@@ -34,8 +35,16 @@
 }
 
 .dz-upload {
+  position: absolute;
+  bottom: 1px;
+  left: $grid-gutter-width / 2;
+  right: $grid-gutter-width / 2;
+
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+
   .progress-bar {
-    height: 2px;
+    height: 5px;
   }
 }
 
