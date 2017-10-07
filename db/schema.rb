@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170924162756) do
+ActiveRecord::Schema.define(version: 20171007100645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170924162756) do
     t.integer "count"
     t.string "notes"
     t.geography "location", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.time "time"
     t.index ["bird_id"], name: "index_bird_records_on_bird_id"
     t.index ["birding_session_id"], name: "index_bird_records_on_birding_session_id"
   end
@@ -56,7 +57,6 @@ ActiveRecord::Schema.define(version: 20170924162756) do
     t.string "location_address"
     t.bigint "weather_report_id"
     t.time "start_time"
-    t.time "end_time"
     t.index ["location"], name: "index_birding_sessions_on_location", using: :gist
     t.index ["user_id"], name: "index_birding_sessions_on_user_id"
     t.index ["weather_report_id"], name: "index_birding_sessions_on_weather_report_id"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20170924162756) do
     t.datetime "updated_at", null: false
     t.string "cover_image"
     t.string "logo"
+    t.geometry "recording_area", limit: {:srid=>0, :type=>"st_polygon"}
   end
 
   create_table "national_bird_lists", force: :cascade do |t|
