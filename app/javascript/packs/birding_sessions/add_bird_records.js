@@ -17,25 +17,31 @@ const birdRecordFieldName = (attribute, index, multi = false) => {
   return name
 }
 const BirdRecordHiddenInput = (props) => <input value={props.value} className="form-control hidden" type="hidden" name={birdRecordFieldName(props.attribute, props.index, props.multi)} />
-const locationToWkt = (location) => `POINT(${location.lng} ${location.lat})`
+const locationToWkt = (location) => {
+  if (!location) return '';
+  return `POINT(${location.lng} ${location.lat})`
+}
 
 class AddBirdRecords extends React.Component {
   constructor(props) {
     super(props)
+    const session = props.birdingSession
 
     this.state = {
-      startTime: new Date(Math.round((new Date()).getTime() / 300000) * 300000), // Nearest 5 minutes
-      location: { lat: 51.505, lng: -0.09 },
-      locationName: "",
-      locationAddress: "",
+      date: session.date || new Date(),
+      startTime: session.startTime || new Date(Math.round((new Date()).getTime() / 300000) * 300000), // Nearest 5 minutes
+      location: session.location,
+      locationName: session.locationName || "",
+      locationAddress: session.locationAddress || "",
       editingBird: null,
       currentBirdIndex: null,
       modalOpen: false,
-      birdRecords: []
+      birdRecords: session.birdRecords || []
     }
 
     this.addBirdRecord = this.addBirdRecord.bind(this)
     this.birdRecordUpdated = this.birdRecordUpdated.bind(this)
+    this.dateUpdated = this.dateUpdated.bind(this)
     this.editBird = this.editBird.bind(this)
     this.placeChanged = this.placeChanged.bind(this)
     this.positionUpdated = this.positionUpdated.bind(this)
@@ -51,6 +57,7 @@ class AddBirdRecords extends React.Component {
         commonName: bird.commonName,
         notes: "",
         count: "",
+        time: "",
         location: prevState.location,
         photos: []
       }]
@@ -72,6 +79,12 @@ class AddBirdRecords extends React.Component {
     })
   }
 
+  dateUpdated(date) {
+    this.setState({
+      date
+    })
+  }
+
   editBird(birdIndex) {
     this.setState({
       modalOpen: true,
@@ -85,9 +98,10 @@ class AddBirdRecords extends React.Component {
       lat: place.geometry.location.lat(),
       lng: place.geometry.location.lng()
     }
+    const country = place.address_components.filter(c => c.types.includes('country')).map(c => c.long_name)
     this.setState({
       location,
-      locationName: place.name,
+      locationName: `${place.name}, ${country}`,
       locationAddress: place.formatted_address
     })
   }
@@ -141,6 +155,8 @@ class AddBirdRecords extends React.Component {
               <InputGroup className="flatpickr">
                 <Flatpickr
                   name="birding_session[date]"
+                  value={this.state.date}
+                  onChange={value => this.dateUpdated(value[0])}
                   options={{ altInput: true, maxDate: new Date(), defaultDate: new Date() }}
                 />
                 <InputGroupAddon>
@@ -156,14 +172,16 @@ class AddBirdRecords extends React.Component {
                 <Flatpickr
                   name="birding_session[start_time]"
                   className="form-control"
-                  onChange={value => this.startTimeUpdated(value[0])}
+                  onChange={dates => this.startTimeUpdated(dates[0])}
                   value={this.state.startTime}
                   options={{
+                    altFormat: 'H:i',
+                    dateFormat: 'Z',
+                    altInput: true,
                     enableTime: true,
                     noCalendar: true,
                     time_24hr: true,
-                    enableSeconds: false,
-                    dateFormat: "H:i"
+                    enableSeconds: false
                   }}
                 />
                 <InputGroupAddon>
@@ -183,6 +201,7 @@ class AddBirdRecords extends React.Component {
           </Col>
           <Col xs="12" md="8">
             <SearchableMapWithMarker
+              searchText={this.state.locationName}
               onPlaceChanged={this.placeChanged}
               onPositionChanged={this.positionUpdated}
               markerPosition={this.state.location}
@@ -247,8 +266,52 @@ class AddBirdRecords extends React.Component {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  const node = document.getElementById('add_birding_session')
+  const session = JSON.parse(node.getAttribute('data-birding-session'))
+
+  const wktToObject = wkt => {
+    if (!wkt) return null;
+
+    wkt = wkt.replace('POINT (', '')
+    wkt = wkt.replace(')', '')
+    const parts = wkt.split(' ')
+    return {
+      lat: parseFloat(parts[1]),
+      lng: parseFloat(parts[0])
+    }
+  }
+
+  const photoToProps = (photo) => ({
+    id: photo.id,
+    thumbnail: photo.image.thumb.url,
+    url: photo.image.url
+  })
+
+  const birdRecordToProps = (birdRecord) => ({
+    commonName: birdRecord.bird.common_name,
+    count: birdRecord.count || '',
+    notes: birdRecord.notes || '',
+    location: wktToObject(birdRecord.location),
+    id: birdRecord.bird_id,
+    // we need to use datetime as start_time sets the date to 2000-01-01,
+    // which might not be the correct timezone
+    time: birdRecord.datetime,
+    photos: birdRecord.photos.map(photoToProps)
+  })
+
+  const sessionToProps = (session) => ({
+    date: session.date,
+    // we need to use datetime as start_time sets the date to 2000-01-01,
+    // which might not be the correct timezone
+    startTime: session.datetime,
+    location: wktToObject(session.location),
+    locationName: session.location_name,
+    locationAddress: session.location_address,
+    birdRecords: session.bird_records.map(birdRecordToProps)
+  })
+
   ReactDOM.render(
-    <AddBirdRecords />,
-    document.getElementById('add_birding_session'),
+    <AddBirdRecords birdingSession={sessionToProps(session)} />,
+    node,
   )
 })

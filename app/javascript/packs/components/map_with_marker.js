@@ -30,12 +30,12 @@ const MapWithMarker = compose(
       zoom={props.zoom || 10}
       center={props.center || { lat: 51.505, lng: -0.09 }}
     >
-      <Marker
+     {props.markerPosition && <Marker
         position={props.markerPosition}
         ref={props.onMarkerMounted}
         draggable={true}
         onPositionChanged={props.positionChanged}
-      />
+      />}
     </GoogleMap>
   )
 

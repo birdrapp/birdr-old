@@ -28,7 +28,8 @@ class BirdingSession < ApplicationRecord
   validates :start_time, presence: true
 
   def datetime
-    @datetime ||= DateTime.new(date.year, date.month, date.day, time.hour, time.min, time.sec, time.zone)
+    return nil if date.nil? or start_time.nil?
+    @datetime ||= DateTime.new(date.year, date.month, date.day, start_time.hour, start_time.min, start_time.sec, start_time.zone)
   end
 
   def latitude

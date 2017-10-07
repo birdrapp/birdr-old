@@ -39,7 +39,7 @@ const SearchableMapWithMarker = compose(
       })
     },
   })
-)(({ center, zoom, markerPosition, onSearchBoxMounted, centerMapOnLocation, onPlaceChanged, onPositionChanged, setZoom }) =>
+)(({ center, zoom, markerPosition, onSearchBoxMounted, centerMapOnLocation, onPlaceChanged, onPositionChanged, setZoom, searchText }) =>
   <div>
     <InputGroup className="mb-4">
       <StandaloneSearchBox
@@ -52,6 +52,7 @@ const SearchableMapWithMarker = compose(
       >
         <Input
           type="text"
+          defaultValue={searchText}
           placeholder="Search for a location..." />
       </StandaloneSearchBox>
       <InputGroupAddon>
@@ -61,9 +62,9 @@ const SearchableMapWithMarker = compose(
     <MapWithMarker
       containerElement={<div style={{height: '500px'}} />}
       onPositionChanged={onPositionChanged}
-      center={center}
+      center={markerPosition || center}
       markerPosition={markerPosition}
-      zoom={zoom}
+      zoom={markerPosition ? 17 : zoom}
     />
   </div>
 )

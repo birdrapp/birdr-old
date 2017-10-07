@@ -22,6 +22,15 @@ class BirdRecord < ApplicationRecord
   scope :kilometres_from_session, -> (kilometres, location) { joins(:birding_session).where('ST_DWithin(birding_sessions.location, Geography(ST_MakePoint(?, ?)), ?)', location.lon, location.lat, kilometres * 1000) }
   scope :kilometres_from_record, -> (kilometres, location) { joins(:birding_session).where('ST_DWithin(bird_records.location, Geography(ST_MakePoint(?, ?)), ?)', location.lon, location.lat, kilometres * 1000) }
 
+  def date
+    birding_session.date
+  end
+
+  def datetime
+    return birding_session.datetime if time.nil?
+    @datetime ||= DateTime.new(date.year, date.month, date.day, time.hour, time.min, time.sec, time.zone)
+  end
+
   def location
     self[:location] || birding_session.location
   end

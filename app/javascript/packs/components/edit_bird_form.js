@@ -14,7 +14,7 @@ class EditBirdForm extends React.Component {
       count: "",
       notes: "",
       _location: null,
-      location: { lat: 0, lng: 0},
+      location: null,
       photos: [],
       uploading: false,
       updateButtonText: "Update"
@@ -32,10 +32,10 @@ class EditBirdForm extends React.Component {
 
   componentWillReceiveProps = (nextProps) => {
     this.setState({
-      time: nextProps.sessionTime || "",
+      time: nextProps.bird.time || "",
       count: nextProps.bird.count || "",
       notes: nextProps.bird.notes || "",
-      location: nextProps.bird.location,
+      location: nextProps.bird.location || "",
       photos: nextProps.bird.photos || []
     })
   }
@@ -115,7 +115,7 @@ class EditBirdForm extends React.Component {
               <Col xs="12" md="6">
                 <FormGroup>
                   <Label for="time">Time</Label>
-                  <TimeSelect name="time" startTime={this.props.sessionTime} onChange={this.handleTimeChange} />
+                  <TimeSelect name="time" value={this.state.time} startTime={this.props.sessionTime} onChange={this.handleTimeChange} />
                 </FormGroup>
                 <FormGroup>
                   <Label for="count">Count</Label>

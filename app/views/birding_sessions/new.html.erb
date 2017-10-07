@@ -15,7 +15,7 @@
 <div class="container">
   <%= simple_form_for(@birding_session) do |f| %>
   <%= f.association :user, as: :hidden, label: false, wrapper: false %>
-  <div id="add_birding_session">
+  <div id="add_birding_session" data-birding-session='<%= @birding_session.to_json(methods: :datetime, include: { bird_records: { methods: :datetime, include: [ :photos, :bird ] } }) %>'>
     <%= javascript_pack_tag 'birding_sessions/add_bird_records' %>
   </div>
   <div class="row">
