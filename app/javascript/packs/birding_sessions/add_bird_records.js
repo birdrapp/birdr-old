@@ -19,22 +19,6 @@ const birdRecordFieldName = (attribute, index, multi = false) => {
 const BirdRecordHiddenInput = (props) => <input value={props.value} className="form-control hidden" type="hidden" name={birdRecordFieldName(props.attribute, props.index, props.multi)} />
 const locationToWkt = (location) => `POINT(${location.lng} ${location.lat})`
 
-const toHiddenFields = (birdRecord, index) => {
-  return (
-    <div key={index}>
-      <BirdRecordHiddenInput value={birdRecord.id} attribute="bird_id" index={index} />
-      <BirdRecordHiddenInput value={birdRecord.count} attribute="count" index={index} />
-      <BirdRecordHiddenInput value={birdRecord.notes} attribute="notes" index={index} />
-      <BirdRecordHiddenInput value={locationToWkt(birdRecord.location)} attribute="location" index={index} />
-      <div>
-        {birdRecord.photos.map((photo, photoIndex) => (
-          <BirdRecordHiddenInput key={photoIndex} multi value={photo.id} attribute="photo_ids" index={photoIndex} />
-        ))}
-      </div>
-    </div>
-  )
-}
-
 class AddBirdRecords extends React.Component {
   constructor(props) {
     super(props)
@@ -221,7 +205,22 @@ class AddBirdRecords extends React.Component {
         <Input type="hidden" name="birding_session[location]" value={locationToWkt(this.state.location)} />
         <Input type="hidden" name="birding_session[location_name]" value={this.state.location_name} />
         <Input type="hidden" name="birding_session[location_address]" value={this.state.location_address} />
-        {this.state.birdRecords.map(toHiddenFields)}
+        {this.state.birdRecords.map((birdRecord, index) => (
+          <div key={index}>
+            <BirdRecordHiddenInput value={birdRecord.id} attribute="bird_id" index={index} />
+            <BirdRecordHiddenInput value={birdRecord.count} attribute="count" index={index} />
+            <BirdRecordHiddenInput value={birdRecord.notes} attribute="notes" index={index} />
+            {
+              locationToWkt(birdRecord.location) !== locationToWkt(this.state.location) &&
+              <BirdRecordHiddenInput value={locationToWkt(birdRecord.location)} attribute="location" index={index} />
+            }
+            <div>
+              {birdRecord.photos.map((photo, photoIndex) => (
+                <BirdRecordHiddenInput key={photoIndex} multi value={photo.id} attribute="photo_ids" index={photoIndex} />
+              ))}
+            </div>
+          </div>
+        ))}
 
         <EditBirdForm
           onBirdUpdated={this.birdRecordUpdated}
