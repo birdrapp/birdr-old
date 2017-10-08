@@ -14,4 +14,12 @@ class BirdListBird < ApplicationRecord
   belongs_to :bird
   belongs_to :bird_list
   belongs_to :rarity
+
+  validates :bird, presence: true
+  validates :bird_list, presence: true
+  validates :rarity, presence: true
+
+  def to_s
+    "#{bird} - #{bird_list}"
+  end
 end

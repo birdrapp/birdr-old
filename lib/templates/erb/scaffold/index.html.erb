@@ -1,4 +1,4 @@
-<%%= page_header <%= plural_table_name.titleize %> %>
+<%%= page_header "<%= plural_table_name.titleize %>" %>
 
 <div class="container">
   <div class="row">
@@ -6,19 +6,19 @@
       <table class="table table-responsive">
         <thead>
           <tr>
-          <% attributes.each do |attribute| -%>
-            <th><%= attribute.human_name %></th>
-          <% end -%>
-            <th></th>
+          <%- attributes.each do |attribute| -%>
+          <th><%= attribute.human_name %></th>
+          <%- end -%>
+          <th></th>
           </tr>
         </thead>
 
         <tbody>
           <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
             <tr>
-            <% attributes.each do |attribute| -%>
-              <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
-            <% end -%>
+            <%- attributes.each do |attribute| -%>
+            <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+            <%- end -%>
               <td class="text-right">
               <%%= link_to 'Show', <%= singular_table_name %>, class: 'text-dark' %> |
               <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: 'text-dark' %> |

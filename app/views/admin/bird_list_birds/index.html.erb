@@ -1,0 +1,45 @@
+<%= page_header "Bird List Birds" %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th>Bird</th>
+            <th>Bird list</th>
+            <th>Rarity</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @bird_list_birds.each do |bird_list_bird| %>
+            <tr>
+              <td><%= bird_list_bird.bird %></td>
+              <td><%= bird_list_bird.bird_list %></td>
+              <td><%= bird_list_bird.rarity %></td>
+              <td class="text-right">
+              <%= link_to 'Show', [:admin, bird_list_bird], class: 'text-dark' %> |
+              <%= link_to 'Edit', [:edit, :admin, bird_list_bird], class: 'text-dark' %> |
+              <%= link_to 'Destroy', [:admin, bird_list_bird], method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= paginate @bird_list_birds %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <%= link_to 'Create New Bird List Bird', new_admin_bird_list_bird_path, class: 'btn btn-outline-primary' %>
+    </div>
+  </div>
+</div>

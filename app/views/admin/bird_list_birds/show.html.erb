@@ -1,0 +1,29 @@
+<%= page_header @bird_list_bird %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <dl class="row">
+        <dt class="col-sm-3">Bird</dt>
+        <dd class="col-sm-9"><%= @bird_list_bird.bird %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Bird list</dt>
+        <dd class="col-sm-9"><%= @bird_list_bird.bird_list %></dd>
+      </dl>
+      <dl class="row">
+        <dt class="col-sm-3">Rarity</dt>
+        <dd class="col-sm-9"><%= @bird_list_bird.rarity %></dd>
+      </dl>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <%= link_to 'Edit', [:admin, :edit, @bird_list_bird], class: 'btn btn-outline-dark' %>
+      <%= link_to 'Destroy', [:admin, @bird_list_bird], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>
+
+
+

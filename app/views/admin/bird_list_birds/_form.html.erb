@@ -1,0 +1,9 @@
+<%= simple_form_for([:admin, @bird_list_bird]) do |f| %>
+  <%= f.error_notification %>
+
+    <%# <%= f.association :bird, required: false %>
+    <%# <%= f.association :bird_list, required: false %>
+    <%= f.association :rarity, required: true %>
+
+  <%= f.button :submit %>
+<% end %>

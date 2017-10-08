@@ -23,12 +23,13 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'welcome#index'
 
+    resources :bird_list_birds
     resources :bird_lists
     resources :bird_records
     resources :birding_sessions
     resources :birds
-    resources :clubs
     resources :club_memberships
+    resources :clubs
     resources :rarities
     resources :users
 
