@@ -272,7 +272,7 @@ class AddBirdRecords extends React.Component {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+window.init = () => {
   const node = document.getElementById('add_birding_session')
   const session = JSON.parse(node.getAttribute('data-birding-session'))
   const errors = JSON.parse(node.getAttribute('data-errors'))
@@ -322,4 +322,4 @@ document.addEventListener('DOMContentLoaded', () => {
     <AddBirdRecords errors={errors} birdingSession={sessionToProps(session)} />,
     node,
   )
-})
+}
