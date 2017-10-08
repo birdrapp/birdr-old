@@ -6,6 +6,7 @@
         <div class="p-4">
           <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <%= f.error_notification %>
+            <%= f.input :remember_me, as: :hidden, input_html: { value: true } %>
             <%= f.input :email, autofocus: true, label: false, placeholder: 'Email address' %>
             <%= f.input :password, label: false, placeholder: 'Password' %>
             <%= f.button :submit, "Sign in", class: 'btn-block py-2' %>
