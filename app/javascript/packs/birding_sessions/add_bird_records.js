@@ -5,6 +5,7 @@ import { Row, Col, FormGroup, Label, Input, Card, CardHeader, ListGroup, InputGr
 import Flatpickr from 'react-flatpickr'
 import EditableBirdList from '../components/editable_bird_list'
 import EditBirdForm from '../components/edit_bird_form'
+import ErrorText from '../components/error_text'
 import SearchableBirdList from '../components/searchable_bird_list'
 import SearchableMapWithMarker from '../components/searchable_map_with_marker'
 import 'react-select/dist/react-select.css';
@@ -155,6 +156,7 @@ class AddBirdRecords extends React.Component {
               <InputGroup className="flatpickr">
                 <Flatpickr
                   name="birding_session[date]"
+                  className={(this.props.errors.date ? "is-invalid": "")}
                   value={this.state.date}
                   onChange={value => this.dateUpdated(value[0])}
                   options={{ altInput: true, maxDate: new Date(), defaultDate: new Date() }}
@@ -163,6 +165,7 @@ class AddBirdRecords extends React.Component {
                   <i className="fa fa-calendar" />
                 </InputGroupAddon>
               </InputGroup>
+              <ErrorText error={this.props.errors.date} />
             </FormGroup>
           </Col>
           <Col xs="12" md="4">
@@ -171,7 +174,7 @@ class AddBirdRecords extends React.Component {
               <InputGroup className="flatpickr">
                 <Flatpickr
                   name="birding_session[start_time]"
-                  className="form-control"
+                  className={"form-control" + (this.props.errors.start_time ? " is-invalid": "")}
                   onChange={dates => this.startTimeUpdated(dates[0])}
                   value={this.state.startTime}
                   options={{
@@ -188,6 +191,7 @@ class AddBirdRecords extends React.Component {
                   <i className="fa fa-clock-o" />
                 </InputGroupAddon>
               </InputGroup>
+              <ErrorText error={this.props.errors.start_time} />
             </FormGroup>
           </Col>
         </Row>
@@ -206,6 +210,7 @@ class AddBirdRecords extends React.Component {
               onPositionChanged={this.positionUpdated}
               markerPosition={this.state.location}
               defaultCenter={this.props.birdingSession.location}
+              error={this.props.errors.location}
             />
           </Col>
         </Row>
@@ -218,7 +223,8 @@ class AddBirdRecords extends React.Component {
             </p>
           </Col>
           <Col xs="12" md="8">
-            <Card className="bird-select">
+            <ErrorText className="mb-2" error={this.props.errors.bird_records} />
+            <Card className={"bird-select" + (this.props.errors.bird_records ? " border-danger": "")}>
               <CardHeader className="d-flex justify-content-between align-items-center">
                 <SearchableBirdList country="gb" onBirdSelected={this.addBirdRecord} />
               </CardHeader>
@@ -269,6 +275,7 @@ class AddBirdRecords extends React.Component {
 document.addEventListener('DOMContentLoaded', () => {
   const node = document.getElementById('add_birding_session')
   const session = JSON.parse(node.getAttribute('data-birding-session'))
+  const errors = JSON.parse(node.getAttribute('data-errors'))
 
   const wktToObject = wkt => {
     if (!wkt) return null;
@@ -312,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   ReactDOM.render(
-    <AddBirdRecords birdingSession={sessionToProps(session)} />,
+    <AddBirdRecords errors={errors} birdingSession={sessionToProps(session)} />,
     node,
   )
 })

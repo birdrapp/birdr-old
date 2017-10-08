@@ -3,6 +3,7 @@ import { compose, lifecycle, withState, withHandlers, withStateHandlers } from '
 import { withScriptjs } from 'react-google-maps'
 import { Input, InputGroup, InputGroupAddon } from 'reactstrap'
 import MapWithMarker from './map_with_marker'
+import ErrorText from './error_text'
 import StandaloneSearchBox from "react-google-maps/lib/components/places/StandaloneSearchBox";
 
 const refs = {}
@@ -39,9 +40,9 @@ const SearchableMapWithMarker = compose(
       })
     },
   })
-)(({ center, defaultCenter, zoom, markerPosition, onSearchBoxMounted, centerMapOnLocation, onPlaceChanged, onPositionChanged, setZoom, searchText }) =>
+)(({ center, defaultCenter, error, zoom, markerPosition, onSearchBoxMounted, centerMapOnLocation, onPlaceChanged, onPositionChanged, setZoom, searchText }) =>
   <div>
-    <InputGroup className="mb-4">
+    <InputGroup>
       <StandaloneSearchBox
         ref={onSearchBoxMounted}
         onPlacesChanged={(places) => {
@@ -52,6 +53,7 @@ const SearchableMapWithMarker = compose(
       >
         <Input
           type="text"
+          className={(error ? "is-invalid": "")}
           defaultValue={searchText}
           placeholder="Search for a location..." />
       </StandaloneSearchBox>
@@ -59,8 +61,9 @@ const SearchableMapWithMarker = compose(
         <i className="fa fa-map-o" />
       </InputGroupAddon>
     </InputGroup>
+    <ErrorText error={error} />
     <MapWithMarker
-      containerElement={<div style={{height: '500px'}} />}
+      containerElement={<div className='mt-4' style={{height: '500px'}} />}
       onPositionChanged={onPositionChanged}
       defaultCenter={defaultCenter}
       center={center}
