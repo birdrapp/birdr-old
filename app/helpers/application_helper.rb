@@ -11,6 +11,18 @@ module ApplicationHelper
     tag(:hr, class: 'my-5')
   end
 
+  def page_header(text = nil, &block)
+    content_tag :div, class: 'page-header' do
+      content_tag :div, class: 'container' do
+        if text.nil?
+          yield
+        else
+          content_tag :h5, text, class: 'mb-0'
+        end
+      end
+    end
+  end
+
   def bootstrap_class_for flash_type
     { success: "alert-success", error: "alert-danger", alert: "alert-warning", notice: "alert-info" }[flash_type.to_sym] || flash_type.to_s
   end

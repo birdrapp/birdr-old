@@ -54,7 +54,7 @@ class AddBirdRecords extends React.Component {
   addBirdRecord(bird) {
     this.setState(prevState => ({
       birdRecords: [...prevState.birdRecords, {
-        id: bird.id,
+        bird_id: bird.id,
         commonName: bird.commonName,
         notes: "",
         count: "",
@@ -241,7 +241,8 @@ class AddBirdRecords extends React.Component {
 
         {this.state.birdRecords.map((birdRecord, index) => (
           <div key={index}>
-            <BirdRecordHiddenInput value={birdRecord.id} attribute="bird_id" index={index} />
+            <BirdRecordHiddenInput value={birdRecord.id} attribute="id" index={index} />
+            <BirdRecordHiddenInput value={birdRecord.bird_id} attribute="bird_id" index={index} />
             <BirdRecordHiddenInput value={birdRecord.count} attribute="count" index={index} />
             <BirdRecordHiddenInput value={birdRecord.notes} attribute="notes" index={index} />
             {
@@ -273,7 +274,7 @@ class AddBirdRecords extends React.Component {
 }
 
 window.init = () => {
-  const node = document.getElementById('add_birding_session')
+  const node = document.getElementById('birding_session_form')
   const session = JSON.parse(node.getAttribute('data-birding-session'))
   const errors = JSON.parse(node.getAttribute('data-errors'))
 
@@ -300,7 +301,8 @@ window.init = () => {
     count: birdRecord.count || '',
     notes: birdRecord.notes || '',
     location: wktToObject(birdRecord.location),
-    id: birdRecord.bird_id,
+    bird_id: birdRecord.bird_id,
+    id: birdRecord.id,
     // we need to use datetime as start_time sets the date to 2000-01-01,
     // which might not be the correct timezone
     time: birdRecord.datetime,

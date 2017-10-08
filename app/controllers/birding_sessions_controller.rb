@@ -23,6 +23,24 @@ class BirdingSessionsController < ApplicationController
     end
   end
 
+  def edit
+    @birding_session = BirdingSession.includes(bird_records: :photos).find(params[:id])
+  end
+
+  def update
+    @birding_session = BirdingSession.find(params[:id])
+
+    respond_to do |format|
+      if @birding_session.update(birding_session_params)
+        format.html { redirect_to root_path, notice: 'BirdingSession was successfully updated.' }
+        format.json { render :show, status: :ok, location: root_path }
+      else
+        format.html { render :edit }
+        format.json { render json: @birding_session.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def birding_session_params

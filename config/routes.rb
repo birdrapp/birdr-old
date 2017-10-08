@@ -2,7 +2,7 @@ require 'resque/server'
 
 Rails.application.routes.draw do
   get '/add_bird_records', to: 'birding_sessions#new'
-  resources :birding_sessions, only: [:new, :create]
+  resources :birding_sessions, only: [:new, :create, :edit, :update]
 
   resources :clubs
   post '/clubs/:id/join', to: 'clubs#join', as: 'join_club'

@@ -6,7 +6,11 @@
   <%= stylesheet_pack_tag 'birding_sessions/form' %>
 <% end %>
 
-<%= page_header "Add bird records" %>
+<div class="page-header">
+  <div class="container">
+    <h5 class="mb-0">Edit bird records</h5>
+  </div>
+</div>
 
 <div class="container">
   <%= simple_form_for(@birding_session) do |f| %>
@@ -16,7 +20,7 @@
   </div>
   <div class="row">
     <div class="col-12 col-md-4">
-      <%= f.button :submit, 'Save Bird Records', class: 'btn-primary mb-5 mt-4' %>
+      <%= f.button :submit, 'Update Bird Records', class: 'btn-primary mb-5 mt-4' %>
     </div>
   </div>
   <% end %>

@@ -1,15 +1,4 @@
-<% content_for :body_last do %>
-  <%= google_maps :init %>
-<% end %>
-
-<% content_for :stylesheets do %>
-  <%= stylesheet_pack_tag 'birding_sessions/form' %>
-<% end %>
-
-<%= page_header "Add bird records" %>
-
-<div class="container">
-  <%= simple_form_for(@birding_session) do |f| %>
+<%= simple_form_for(@birding_session) do |f| %>
   <%= f.association :user, as: :hidden, label: false, wrapper: false %>
   <div id="birding_session_form" data-errors='<%= @birding_session.errors.to_json %>' data-birding-session='<%= @birding_session.to_json(methods: :datetime, include: { bird_records: { methods: :datetime, include: [ :photos, :bird ] } }) %>'>
     <%= javascript_pack_tag 'birding_sessions/form' %>
@@ -19,5 +8,4 @@
       <%= f.button :submit, 'Save Bird Records', class: 'btn-primary mb-5 mt-4' %>
     </div>
   </div>
-  <% end %>
-</div>
+<% end %>
