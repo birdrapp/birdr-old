@@ -55,7 +55,8 @@ const SearchableMapWithMarker = compose(
           type="text"
           className={(error ? "is-invalid": "")}
           defaultValue={searchText}
-          placeholder="Search for a location..." />
+          placeholder="Search for a location..."
+          onKeyDown={e => { if (e.keyCode === 13) e.preventDefault() }} />
       </StandaloneSearchBox>
       <InputGroupAddon>
         <i className="fa fa-map-o" />
