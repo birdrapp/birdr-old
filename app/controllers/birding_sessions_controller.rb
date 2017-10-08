@@ -24,7 +24,10 @@ class BirdingSessionsController < ApplicationController
   end
 
   def edit
-    @birding_session = BirdingSession.includes(bird_records: :photos).find(params[:id])
+    @birding_session = BirdingSession
+      .includes(bird_records: :photos)
+      .order('bird_records.created_at')
+      .find(params[:id])
   end
 
   def update
