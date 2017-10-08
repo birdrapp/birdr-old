@@ -1,5 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
+import createFilterOptions from 'react-select-fast-filter-options'
 import axios from 'axios'
 
 class SearchableBirdList extends React.Component {
@@ -44,6 +45,8 @@ class SearchableBirdList extends React.Component {
     return (
       <Select
         value="one"
+        placeholder="Search for a bird..."
+        filterOptions={createFilterOptions({ options: this.state.options })}
         options={this.state.options}
         className="bird-select"
         clearable={false}
