@@ -205,7 +205,7 @@ class AddBirdRecords extends React.Component {
               onPlaceChanged={this.placeChanged}
               onPositionChanged={this.positionUpdated}
               markerPosition={this.state.location}
-              defaultCenter={this.state.location}
+              defaultCenter={this.props.birdingSession.location}
             />
           </Col>
         </Row>

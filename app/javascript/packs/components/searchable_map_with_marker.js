@@ -33,7 +33,6 @@ const SearchableMapWithMarker = compose(
   lifecycle({
     componentWillMount() {
       this.setState({
-        center: this.props.defaultCenter,
         onSearchBoxMounted: ref => {
           refs.searchBox = ref;
         }
