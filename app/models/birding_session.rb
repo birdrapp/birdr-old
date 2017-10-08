@@ -23,8 +23,9 @@ class BirdingSession < ApplicationRecord
 
   accepts_nested_attributes_for :bird_records
 
-  validates :location, presence: true
+  validates :bird_records, presence: true
   validates :date, presence: true
+  validates :location, presence: true
   validates :start_time, presence: true
 
   def datetime
