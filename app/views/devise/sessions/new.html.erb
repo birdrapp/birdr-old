@@ -3,10 +3,14 @@
     <div class="card card-rounded">
       <div class="card-body">
         <h4 class="card-title text-center my-4 font-weight-light">Sign in to your account</h4>
-        <div class="p-4">
+        <div class="px-4 py-2">
           <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-            <%= f.error_notification %>
             <%= f.input :remember_me, as: :hidden, input_html: { value: true } %>
+            <% if flash[:alert] %>
+              <div class="alert alert-danger rounded" role="alert">
+                <%= flash[:alert] %>
+              </div>
+            <% end %>
             <%= f.input :email, autofocus: true, label: false, placeholder: 'Email address' %>
             <%= f.input :password, label: false, placeholder: 'Password' %>
             <%= f.button :submit, "Sign in", class: 'btn-block py-2' %>
