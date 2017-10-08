@@ -254,7 +254,7 @@ class AddBirdRecords extends React.Component {
             }
             <div>
               {birdRecord.photos.map((photo, photoIndex) => (
-                <BirdRecordHiddenInput key={photoIndex} multi value={photo.id} attribute="photo_ids" index={photoIndex} />
+                <BirdRecordHiddenInput key={photoIndex} multi value={photo.id} attribute="photo_ids" index={index} />
               ))}
             </div>
           </div>
