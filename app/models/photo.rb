@@ -12,5 +12,9 @@
 
 class Photo < ApplicationRecord
   belongs_to :photographable, polymorphic: true, optional: true
+
   mount_uploader :image, PhotoUploader
+
+  scope :orphaned, -> { where(photographable_id: nil)}
+  scope :older_than, -> (duration) { where('created_at <= ?', duration.ago) }
 end
