@@ -1,4 +1,6 @@
 class ClubsController < ApplicationController
+  before_action :authenticate_user!, except: [:show, :members]
+
   # GET /clubs
   # GET /clubs.json
   def index
