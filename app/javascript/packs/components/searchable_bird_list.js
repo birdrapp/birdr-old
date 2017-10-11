@@ -1,6 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
-import createFilterOptions from 'react-select-fast-filter-options'
+import { filter, score } from 'fuzzaldrin'
 import axios from 'axios'
 
 class SearchableBirdList extends React.Component {
@@ -41,12 +41,26 @@ class SearchableBirdList extends React.Component {
       })
   }
 
+  filterOptions(options, query) {
+    if (query === '') return options
+
+    const filteredOptions = filter(options, query, { key: 'label' })
+    return filteredOptions.sort((a, b) => {
+      const scoreA = score(a.label, query)
+      const scoreB = score(b.label, query)
+
+      if (scoreA < scoreB) return 1
+      if (scoreA > scoreB) return -1
+      return 0
+    });
+  }
+
   render() {
     return (
       <Select
         value="one"
         placeholder="Search for a bird..."
-        filterOptions={createFilterOptions({ options: this.state.options })}
+        filterOptions={this.filterOptions}
         options={this.state.options}
         className="bird-select"
         clearable={false}
