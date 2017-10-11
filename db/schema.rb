@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171011062202) do
+ActiveRecord::Schema.define(version: 20171011201804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,13 +96,8 @@ ActiveRecord::Schema.define(version: 20171011062202) do
     t.string "cover_image"
     t.string "logo"
     t.geometry "recording_area", limit: {:srid=>0, :type=>"st_polygon"}
-  end
-
-  create_table "national_bird_lists", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "country_code", limit: 2, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.bigint "owner_id"
+    t.index ["owner_id"], name: "index_clubs_on_owner_id"
   end
 
   create_table "photos", force: :cascade do |t|
@@ -169,4 +164,5 @@ ActiveRecord::Schema.define(version: 20171011062202) do
   add_foreign_key "bird_records", "birds"
   add_foreign_key "birding_sessions", "users"
   add_foreign_key "birding_sessions", "weather_reports"
+  add_foreign_key "clubs", "users", column: "owner_id"
 end

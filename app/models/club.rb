@@ -16,6 +16,7 @@
 class Club < ApplicationRecord
   has_many :club_memberships
   has_many :users, through: :club_memberships
+  belongs_to :owner, class_name: "User"
   validates :name, :presence => true
   validates :description, :presence => true
   mount_uploader :cover_image, CoverImageUploader

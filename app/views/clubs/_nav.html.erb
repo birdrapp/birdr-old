@@ -7,6 +7,7 @@
           <span class="d-sm-none"><%= fa_icon 'home' %></span>
         <% end %>
       </li>
+      <% if policy(@club).members? %>
       <li class="nav-item">
         <%= link_to club_members_path(@club), class: nav_link_class(club_members_path(@club)) do %>
           <span class="d-none d-sm-inline">Members</span>
@@ -14,7 +15,8 @@
           <span class="badge"><%= @club.members.length %></span>
         <% end %>
       </li>
-      <% if current_user.is_member_of?(@club) %>
+      <% end %>
+      <% if policy(@club).membership? %>
       <li class="nav-item">
         <%= link_to club_membership_path(@club), class: nav_link_class(club_membership_path(@club)) do %>
           <span class="d-none d-sm-inline">Membership</span>
@@ -22,12 +24,14 @@
         <% end %>
       </li>
       <% end %>
+      <% if policy(@club).edit? %>
       <li class="nav-item">
         <%= link_to edit_club_path(@club), class: nav_link_class(edit_club_path(@club)) do %>
           <span class="d-none d-sm-inline">Settings</span>
           <span class="d-sm-none"><%= fa_icon 'cog' %></span>
         <% end %>
       </li>
+      <% end %>
     </ul>
   </div>
 </nav>

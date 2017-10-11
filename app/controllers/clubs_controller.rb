@@ -1,7 +1,11 @@
 class ClubsController < ApplicationController
+  before_action :authenticate_user!, except: [:show]
+  after_action :verify_authorized
+
   # GET /clubs
   # GET /clubs.json
   def index
+    authorize Club
     @clubs = Club.all
   end
 
@@ -9,23 +13,27 @@ class ClubsController < ApplicationController
   # GET /clubs/1.json
   def show
     @club = Club.find(params[:id])
+    authorize @club
   end
 
   # GET /clubs/new
   def new
+    authorize Club
     @club = Club.new
   end
 
   # GET /clubs/1/edit
   def edit
     @club = Club.find(params[:id])
+    authorize @club
   end
 
   # POST /clubs
   # POST /clubs.json
   def create
+    authorize Club
     @club = Club.new(club_params)
-
+    @club.owner = current_user
     respond_to do |format|
       if @club.save
         format.html { redirect_to @club, notice: 'Club was successfully created.' }
@@ -41,7 +49,7 @@ class ClubsController < ApplicationController
   # PATCH/PUT /clubs/1.json
   def update
     @club = Club.find(params[:id])
-
+    authorize @club
     respond_to do |format|
       if @club.update(club_params)
         format.html { redirect_to @club, notice: 'Club was successfully updated.' }
@@ -57,6 +65,7 @@ class ClubsController < ApplicationController
   # DELETE /clubs/1.json
   def destroy
     @club = Club.find(params[:id])
+    authorize @club
     @club.destroy
     respond_to do |format|
       format.html { redirect_to clubs_url, notice: 'Club was successfully destroyed.' }
@@ -68,6 +77,7 @@ class ClubsController < ApplicationController
   # POST /clubs/1/join.json
   def join
     @club = Club.find(params[:id])
+    authorize @club
     @club.club_memberships.create! user_id: current_user.id
     redirect_to action: :show
   end
@@ -76,6 +86,7 @@ class ClubsController < ApplicationController
   # POST /clubs/1/leave.json
   def leave
     @club = Club.find(params[:id])
+    authorize @club
     @club.club_memberships.where(user_id: current_user).destroy_all
     redirect_to action: :show
   end
@@ -83,11 +94,13 @@ class ClubsController < ApplicationController
   # GET /clubs/1/members
   def members
     @club = Club.find(params[:id])
+    authorize @club
   end
 
   # GET /clubs/1/membership
   def membership
     @club = Club.find(params[:id])
+    authorize @club
   end
 
   private
