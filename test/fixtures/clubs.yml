@@ -2,14 +2,15 @@
 #
 # Table name: clubs
 #
-#  id          :integer          not null, primary key
-#  name        :string
-#  short_name  :string
-#  description :text
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  cover_image :string
-#  logo        :string
+#  id             :integer          not null, primary key
+#  name           :string
+#  short_name     :string
+#  description    :text
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  cover_image    :string
+#  logo           :string
+#  recording_area :geometry({:srid= polygon, 0
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

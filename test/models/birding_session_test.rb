@@ -12,7 +12,6 @@
 #  location_address  :string
 #  weather_report_id :integer
 #  start_time        :time
-#  end_time          :time
 #
 
 require 'test_helper'

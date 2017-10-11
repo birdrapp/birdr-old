@@ -9,6 +9,8 @@
 #  updated_at         :datetime         not null
 #  count              :integer
 #  notes              :string
+#  location           :geography({:srid point, 4326
+#  time               :time
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
