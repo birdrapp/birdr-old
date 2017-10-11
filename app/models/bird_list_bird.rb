@@ -19,6 +19,8 @@ class BirdListBird < ApplicationRecord
   validates :bird_list, presence: true
   validates :rarity, presence: true
 
+  scope :ioc_order, -> { joins(:bird).order('birds.sort_position') }
+
   def to_s
     "#{bird} - #{bird_list}"
   end

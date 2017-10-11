@@ -1,7 +1,7 @@
 class Admin::BirdListBirdsController < ApplicationController
   # GET /admin/bird_list_birds
   def index
-    @bird_list_birds = BirdListBird.includes(:bird, :rarity, :bird_list).order('birds.sort_position').page(params[:page])
+    @bird_list_birds = BirdListBird.includes(:bird, :rarity, :bird_list).ioc_order.page(params[:page])
   end
 
   # GET /admin/bird_list_birds/1
