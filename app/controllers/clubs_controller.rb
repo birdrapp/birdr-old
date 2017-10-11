@@ -33,6 +33,7 @@ class ClubsController < ApplicationController
   def create
     authorize Club
     @club = Club.new(club_params)
+    @club.owner = current_user
     respond_to do |format|
       if @club.save
         format.html { redirect_to @club, notice: 'Club was successfully created.' }
