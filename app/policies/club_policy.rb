@@ -8,15 +8,15 @@ class ClubPolicy < ApplicationPolicy
   end
 
   def members?
-    signed_in
+    member
   end
 
   def membership?
-    signed_in
+    member
   end
 
   def update?
-    record.owner == @user
+    owner
   end
 
   def join?
@@ -24,6 +24,20 @@ class ClubPolicy < ApplicationPolicy
   end
 
   def leave?
-    signed_in
+    member
+  end
+
+  private
+
+  def member
+    user.is_member_of? club
+  end
+
+  def owner
+    club.owner == user
+  end
+
+  def club
+    record
   end
 end
