@@ -4,36 +4,36 @@ class ClubPolicy < ApplicationPolicy
   end
 
   def create?
-    signed_in
+    signed_in?
   end
 
   def members?
-    member
+    member? || owner?
   end
 
   def membership?
-    member
+    member?
   end
 
   def update?
-    owner
+    owner?
   end
 
   def join?
-    signed_in
+    signed_in?
   end
 
   def leave?
-    member
+    member?
   end
 
   private
 
-  def member
+  def member?
     user.is_member_of? club
   end
 
-  def owner
+  def owner?
     club.owner == user
   end
 

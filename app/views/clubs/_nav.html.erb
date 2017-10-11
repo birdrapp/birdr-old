@@ -7,7 +7,7 @@
           <span class="d-sm-none"><%= fa_icon 'home' %></span>
         <% end %>
       </li>
-      <% if policy(@club).membership? %>
+      <% if policy(@club).members? %>
       <li class="nav-item">
         <%= link_to club_members_path(@club), class: nav_link_class(club_members_path(@club)) do %>
           <span class="d-none d-sm-inline">Members</span>

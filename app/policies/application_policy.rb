@@ -34,7 +34,7 @@ class ApplicationPolicy
     false
   end
 
-  def signed_in
+  def signed_in?
     !!@user
   end
 
