@@ -22,12 +22,14 @@
         <% end %>
       </li>
       <% end %>
+      <% if policy(@club).edit? %>
       <li class="nav-item">
         <%= link_to edit_club_path(@club), class: nav_link_class(edit_club_path(@club)) do %>
           <span class="d-none d-sm-inline">Settings</span>
           <span class="d-sm-none"><%= fa_icon 'cog' %></span>
         <% end %>
       </li>
+      <% end %>
     </ul>
   </div>
 </nav>
