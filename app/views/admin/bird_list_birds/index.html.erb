@@ -9,6 +9,9 @@
             <th>Bird</th>
             <th>Bird list</th>
             <th>Rarity</th>
+            <th>Resident</th>
+            <th>Migratory</th>
+            <th>Vagrant</th>
             <th></th>
           </tr>
         </thead>
@@ -19,6 +22,9 @@
               <td><%= bird_list_bird.bird %></td>
               <td><%= bird_list_bird.bird_list %></td>
               <td><%= bird_list_bird.rarity %></td>
+              <td><%= bird_list_bird.resident? %></td>
+              <td><%= bird_list_bird.migratory? %></td>
+              <td><%= bird_list_bird.vagrant? %></td>
               <td class="text-right">
               <%= link_to 'Show', [:admin, bird_list_bird], class: 'text-dark' %> |
               <%= link_to 'Edit', [:edit, :admin, bird_list_bird], class: 'text-dark' %> |

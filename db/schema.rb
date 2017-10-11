@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171007100645) do
+ActiveRecord::Schema.define(version: 20171011062202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,9 @@ ActiveRecord::Schema.define(version: 20171007100645) do
     t.bigint "rarity_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "resident", default: false
+    t.boolean "migratory", default: false
+    t.boolean "vagrant", default: false
     t.index ["bird_id"], name: "index_bird_list_birds_on_bird_id"
     t.index ["bird_list_id"], name: "index_bird_list_birds_on_bird_list_id"
     t.index ["rarity_id"], name: "index_bird_list_birds_on_rarity_id"
@@ -93,6 +96,13 @@ ActiveRecord::Schema.define(version: 20171007100645) do
     t.string "cover_image"
     t.string "logo"
     t.geometry "recording_area", limit: {:srid=>0, :type=>"st_polygon"}
+  end
+
+  create_table "national_bird_lists", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "country_code", limit: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "photos", force: :cascade do |t|

@@ -1,7 +1,7 @@
 class Admin::BirdListBirdsController < ApplicationController
   # GET /admin/bird_list_birds
   def index
-    @bird_list_birds = BirdListBird.all.page(params[:page])
+    @bird_list_birds = BirdListBird.includes(:bird, :rarity, :bird_list).order('birds.sort_position').page(params[:page])
   end
 
   # GET /admin/bird_list_birds/1
@@ -52,6 +52,6 @@ class Admin::BirdListBirdsController < ApplicationController
   private
     # Only allow a trusted parameter "white list" through.
     def bird_list_bird_params
-      params.require(:bird_list_bird).permit(:bird_id, :bird_list_id, :rarity_id)
+      params.require(:bird_list_bird).permit(:bird_id, :bird_list_id, :rarity_id, :resident, :migratory, :vagrant)
     end
 end
