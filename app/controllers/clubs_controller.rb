@@ -1,5 +1,5 @@
 class ClubsController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :members]
+  before_action :authenticate_user!, except: [:show]
   after_action :verify_authorized
 
   # GET /clubs

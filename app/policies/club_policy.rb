@@ -4,30 +4,26 @@ class ClubPolicy < ApplicationPolicy
   end
 
   def create?
-    true
-  end
-
-  def new?
-    create?
+    signed_in
   end
 
   def members?
-    @user
+    signed_in
   end
 
   def membership?
-    @user
+    signed_in
   end
 
-  def edit?
-    false
+  def update?
+    record.owner == @user
   end
 
   def join?
-    @user
+    signed_in
   end
 
   def leave?
-    @user
+    signed_in
   end
 end
