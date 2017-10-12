@@ -7,6 +7,10 @@ class ClubPolicy < ApplicationPolicy
     signed_in?
   end
 
+  def new?
+    signed_in?
+  end
+
   def members?
     member? || owner?
   end
@@ -16,6 +20,10 @@ class ClubPolicy < ApplicationPolicy
   end
 
   def update?
+    owner?
+  end
+
+  def edit?
     owner?
   end
 
