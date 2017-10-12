@@ -35,3 +35,15 @@
     cursor: pointer;
   }
 }
+
+.full-width-map {
+  width: 100%;
+  background: $gray-200;
+  position: relative;
+
+  .user-overlay {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+  }
+}
