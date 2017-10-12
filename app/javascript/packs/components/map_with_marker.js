@@ -29,7 +29,8 @@ const MapWithMarker = compose(
     <GoogleMap
       zoom={props.zoom || 10}
       center={props.center || props.defaultCenter || { lat: 51.505, lng: -0.09 }}
-      {...props}
+      defaultOptions={props.defaultOptions || {}}
+      clickableIcons={props.clickableIcons || true}
     >
      {props.markerPosition &&
       <Marker
