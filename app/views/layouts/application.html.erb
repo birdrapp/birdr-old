@@ -20,9 +20,7 @@
   <body>
     <%= flash_messages %>
     <%= render 'layouts/navigation' %>
-    <div class="mt-4">
-      <%= yield %>
-    </div>
+    <%= yield %>
     <%= yield :body_last %>
   </body>
 </html>

@@ -16,9 +16,11 @@
 
 class BirdingSession < ApplicationRecord
   belongs_to :user
-  has_many :bird_records, dependent: :destroy
-  has_many :birds, through: :bird_records
   belongs_to :weather_report, optional: true
+
+  has_many :birds, through: :bird_records
+  has_many :bird_records, dependent: :destroy
+  has_many :photos, through: :bird_records
 
   accepts_nested_attributes_for :bird_records
 
@@ -42,5 +44,9 @@ class BirdingSession < ApplicationRecord
 
   def to_s
     "#{date} - #{location_name}"
+  end
+
+  def user_name
+    user.full_name
   end
 end

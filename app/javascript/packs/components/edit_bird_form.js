@@ -130,6 +130,7 @@ class EditBirdForm extends React.Component {
                 <MapWithMarker
                   containerElement={<div className="my-2" style={{ height: '294px' }} />}
                   markerPosition={this.state.location}
+                  markerDraggable={true}
                   onPositionChanged={this.onPositionChanged}
                   center={this.props.bird.location}
                   zoom={15}

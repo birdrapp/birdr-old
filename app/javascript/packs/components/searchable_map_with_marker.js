@@ -69,6 +69,7 @@ const SearchableMapWithMarker = compose(
       defaultCenter={defaultCenter}
       center={center}
       markerPosition={markerPosition}
+      markerDraggable={true}
       zoom={markerPosition ? 17 : zoom}
     />
   </div>

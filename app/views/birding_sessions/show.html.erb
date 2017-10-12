@@ -1,0 +1,39 @@
+<%= content_for :body_last do %>
+  <%= javascript_pack_tag 'birding_sessions/show' %>
+  <%= google_maps :init %>
+<% end %>
+
+<div class="full-width-map">
+  <%= render 'weather_card', weather: @birding_session.weather_report unless @birding_session.weather_report.nil? %>
+  <div id="fullWidthMap" data-latitude="<%= @birding_session.latitude %>" data-longitude="<%= @birding_session.longitude %>" class="map"></div>
+</div>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col">
+      <h3 class="text-center">
+        <%= @birding_session.location_name %>
+        <br/>
+        <small class="text-muted text-lighter">
+          <%= @birding_session.datetime.strftime '%B %d, %Y' %>
+        </small>
+      </h3>
+
+      <div class="text-center mt-4">
+        <%= user_avatar :medium %><br/>
+        <span class="align-middle"><%= @birding_session.user_name %></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5 justify-content-center">
+    <div class="col-12 col-md-6 col-lg-5">
+      <%= render 'bird_records', bird_records: @birding_session.bird_records.with_bird.order_by_time %>
+    </div>
+    <% if @birding_session.photos.count > 0 %>
+    <div class="col-12 col-md-6 col-lg-5 mt-4 mt-md-0">
+      <%= render 'photo_gallery', photos: @birding_session.photos %>
+    </div>
+    <% end %>
+  </div>
+</div>

@@ -35,3 +35,30 @@
     cursor: pointer;
   }
 }
+
+.full-width-map {
+  width: 100%;
+  background: $gray-200;
+  position: relative;
+
+  .user-overlay {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+.weather-card {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 100;
+  background: white;
+
+  .temperature {
+    font-size: 1.3rem;
+  }
+  .degrees {
+    vertical-align: top;
+  }
+}
