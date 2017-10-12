@@ -47,3 +47,18 @@
     right: 15px;
   }
 }
+
+.weather-card {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 100;
+  background: white;
+
+  .temperature {
+    font-size: 1.3rem;
+  }
+  .degrees {
+    vertical-align: top;
+  }
+}

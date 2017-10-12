@@ -4,6 +4,7 @@
 <% end %>
 
 <div class="full-width-map">
+  <%= render 'weather_card', weather: @birding_session.weather_report unless @birding_session.weather_report.nil? %>
   <div id="fullWidthMap" data-latitude="<%= @birding_session.latitude %>" data-longitude="<%= @birding_session.longitude %>" class="map"></div>
 </div>
 
