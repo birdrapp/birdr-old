@@ -10,7 +10,7 @@
       </div>
     <% end %>
 
-    <% if current_user && current_user.is_member_of?(@club) %>
+    <% if is_member? %>
       <%= link_to 'Member', club_membership_path(@club), class: 'btn btn-success float-right' %>
     <% else %>
       <%= button_to 'Join', join_club_path(@club), class: 'btn btn-primary float-right' %>
