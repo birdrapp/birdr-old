@@ -30,9 +30,10 @@
     <div class="col-12 col-md-6 col-lg-5">
       <%= render 'bird_records', bird_records: @birding_session.bird_records %>
     </div>
-
+    <% if @birding_session.photos.count > 0 %>
     <div class="col-12 col-md-6 col-lg-5 mt-4 mt-md-0">
       <%= render 'photo_gallery', photos: @birding_session.photos %>
     </div>
+    <% end %>
   </div>
 </div>
