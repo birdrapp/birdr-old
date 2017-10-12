@@ -1,4 +1,10 @@
 class BirdingSessionsController < ApplicationController
+  # GET /birding_sessions/:id
+  # GET /birding_sessions/:id.json
+  def show
+    @birding_session = BirdingSession.includes(bird_records: :bird).find(params[:id])
+  end
+
   # GET /birding_sessions/new
   def new
     @birding_session = current_user.birding_sessions.new
@@ -14,8 +20,8 @@ class BirdingSessionsController < ApplicationController
         # Lookup the weather for this birding session
         WeatherForecastJob.perform_later @birding_session
 
-        format.html { redirect_to root_path, notice: 'Bird records were successfully created.' }
-        format.json { render :show, status: :created, location: root_path }
+        format.html { redirect_to @birding_session, notice: 'Bird records were successfully created.' }
+        format.json { render :show, status: :created, location: @birding_session }
       else
         format.html { render :new }
         format.json { render json: @birding_session.errors, status: :unprocessable_entity }
@@ -35,8 +41,8 @@ class BirdingSessionsController < ApplicationController
 
     respond_to do |format|
       if @birding_session.update(birding_session_params)
-        format.html { redirect_to root_path, notice: 'BirdingSession was successfully updated.' }
-        format.json { render :show, status: :ok, location: root_path }
+        format.html { redirect_to @birding_session, notice: 'BirdingSession was successfully updated.' }
+        format.json { render :show, status: :ok, location: @birding_session }
       else
         format.html { render :edit }
         format.json { render json: @birding_session.errors, status: :unprocessable_entity }

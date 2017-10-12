@@ -1,0 +1,71 @@
+<%= content_for :body_last do %>
+  <%= javascript_pack_tag 'birding_sessions/show' %>
+  <%= google_maps :init %>
+<% end %>
+
+<div class="full-width-map">
+  <div id="fullWidthMap" data-latitude="<%= @birding_session.latitude %>" data-longitude="<%= @birding_session.longitude %>" class="map"></div>
+</div>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col">
+      <h3 class="text-center">
+        <%= @birding_session.location_name %>
+        <br/>
+        <small class="text-muted text-lighter">
+          <%= @birding_session.datetime.strftime '%B %d, %Y' %>
+        </small>
+      </h3>
+
+      <div class="text-center mt-4">
+        <%= user_avatar :medium %><br/>
+        <span class="align-middle"><%= @birding_session.user_name %></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5 justify-content-center">
+    <div class="col-12 col-md-6 col-lg-5">
+      <div class="list-group">
+        <% @birding_session.bird_records.each do |br| %>
+          <div class="list-group-item d-flex justify-content-start align-items-center">
+            <div class="bird-details">
+              <% if br.count %>
+                <span class="count"><%= br.count %> x </span>
+              <% end %>
+              <%= br.bird.common_name %>
+              <% if br.notes %>
+              <br />
+              <small  class="text-muted text-truncated">
+                <%= br.notes %>
+              </small>
+              <% end %>
+            </div>
+            <div class="time ml-auto">
+              <small class="text-muted">
+                <%= br.datetime.in_time_zone("Europe/London").strftime '%l:%M %P' %>
+              </small>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-5 mt-4 mt-md-0">
+      <div class="row no-gutters">
+        <% @birding_session.photos.in_groups_of(3, false).reverse.each do |photos| %>
+          <% photos.each do |p| %>
+          <div class="col-<%= (12 / photos.length).to_s %>">
+            <% if photos.length == 1 %>
+              <%= image_tag p.image.small.url, class: 'img-fluid white-border' %>
+            <% else %>
+              <%= image_tag p.image.thumb.url, class: 'img-fluid white-border' %>
+            <% end %>
+          </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
