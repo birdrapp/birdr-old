@@ -1,0 +1,13 @@
+<div class="row no-gutters">
+  <% photos.in_groups_of(3, false).reverse.each do |photo_group| %>
+    <% photo_group.each do |p| %>
+    <div class="col-<%= (12 / photo_group.length).to_s %>">
+      <% if photo_group.length == 1 %>
+        <%= image_tag p.image.small.url, class: 'img-fluid white-border' %>
+      <% else %>
+        <%= image_tag p.image.thumb.url, class: 'img-fluid white-border' %>
+      <% end %>
+    </div>
+    <% end %>
+  <% end %>
+</div>
