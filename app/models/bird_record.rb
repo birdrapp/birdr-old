@@ -16,8 +16,8 @@
 class BirdRecord < ApplicationRecord
   belongs_to :bird
   belongs_to :birding_session
+  has_and_belongs_to_many :clubs, join_table: :club_bird_records
   has_one :weather_report, through: :birding_session
-
   has_many :photos, as: :photographable
 
   scope :kilometres_from, -> (kilometres, location) { kilometres_from_session(kilometres, location).or(kilometres_from_record(kilometres, location)) }

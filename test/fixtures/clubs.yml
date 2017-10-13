@@ -11,6 +11,7 @@
 #  cover_image    :string
 #  logo           :string
 #  recording_area :geometry({:srid= polygon, 0
+#  owner_id       :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

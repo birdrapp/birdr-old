@@ -11,9 +11,11 @@
 #  cover_image    :string
 #  logo           :string
 #  recording_area :geometry({:srid= polygon, 0
+#  owner_id       :integer
 #
 
 class Club < ApplicationRecord
+  has_and_belongs_to_many :bird_records, join_table: :club_bird_records
   has_many :club_memberships
   has_many :users, through: :club_memberships
   belongs_to :owner, class_name: "User"
