@@ -40,6 +40,7 @@ gem 'country_select', '~> 3.1'
 gem 'forecast_io', '~> 2.0'
 gem 'resque', '~> 1.27'
 gem 'pundit', '~> 1.1.0'
+gem 'rgeo', '~> 0.6.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
