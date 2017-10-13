@@ -19,6 +19,8 @@ class BirdingSessionsController < ApplicationController
       if @birding_session.save
         # Lookup the weather for this birding session
         WeatherForecastJob.perform_later @birding_session
+        # Add any records to clubs
+        AddRecordsToClubs.perform_later @birding_session
 
         format.html { redirect_to @birding_session, notice: 'Bird records were successfully created.' }
         format.json { render :show, status: :created, location: @birding_session }
