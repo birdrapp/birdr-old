@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20171013062632) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["bird_record_id"], name: "index_club_bird_records_on_bird_record_id"
+    t.index ["club_id", "bird_record_id"], name: "index_club_bird_records_on_club_id_and_bird_record_id", unique: true
     t.index ["club_id"], name: "index_club_bird_records_on_club_id"
   end
 

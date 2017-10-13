@@ -15,7 +15,8 @@
 #
 
 class Club < ApplicationRecord
-  has_and_belongs_to_many :bird_records, join_table: :club_bird_records
+  has_many :club_bird_records, dependent: :destroy
+  has_many :bird_records, through: :club_bird_records
   has_many :club_memberships
   has_many :users, through: :club_memberships
   belongs_to :owner, class_name: "User"
