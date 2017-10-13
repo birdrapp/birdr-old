@@ -23,7 +23,7 @@ class BirdRecord < ApplicationRecord
   scope :kilometres_from, -> (kilometres, location) { kilometres_from_session(kilometres, location).or(kilometres_from_record(kilometres, location)) }
   scope :kilometres_from_session, -> (kilometres, location) { joins(:birding_session).where('ST_DWithin(birding_sessions.location, Geography(ST_MakePoint(?, ?)), ?)', location.lon, location.lat, kilometres * 1000) }
   scope :kilometres_from_record, -> (kilometres, location) { joins(:birding_session).where('ST_DWithin(bird_records.location, Geography(ST_MakePoint(?, ?)), ?)', location.lon, location.lat, kilometres * 1000) }
-  scope :order_by_time, -> { joins(:birding_session).order('COALESCE(bird_records.time, birding_sessions.start_time), bird_records.id') }
+  scope :order_by_time, -> { order('bird_records.time NULLS FIRST, bird_records.id') }
   scope :with_bird, -> { includes(:bird) }
 
   def bird_name
