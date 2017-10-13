@@ -37,7 +37,7 @@ const MapWithMarker = compose(
         position={props.markerPosition}
         ref={props.onMarkerMounted}
         draggable={props.markerDraggable}
-        onPositionChanged={props.positionChanged}
+        onDragEnd={props.positionChanged}
       />}
     </GoogleMap>
   )
