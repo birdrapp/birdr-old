@@ -11,9 +11,13 @@
 #  cover_image    :string
 #  logo           :string
 #  recording_area :geometry({:srid= polygon, 0
+#  owner_id       :integer
 #
 
 class Club < ApplicationRecord
+  has_many :club_bird_records, dependent: :destroy
+  has_many :bird_records, through: :club_bird_records
+  has_many :birding_sessions, -> { distinct('birding_session_id') }, through: :bird_records
   has_many :club_memberships
   has_many :users, through: :club_memberships
   belongs_to :owner, class_name: "User"
@@ -21,6 +25,8 @@ class Club < ApplicationRecord
   validates :description, :presence => true
   mount_uploader :cover_image, CoverImageUploader
   mount_uploader :logo, LogoUploader
+
+  scope :covering, -> (location) { where('ST_Contains(recording_area, ST_GeomFromText(?))', location) }
 
   def display_name
     has_short_name? ? short_name : name

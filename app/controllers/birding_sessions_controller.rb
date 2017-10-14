@@ -17,8 +17,7 @@ class BirdingSessionsController < ApplicationController
 
     respond_to do |format|
       if @birding_session.save
-        # Lookup the weather for this birding session
-        WeatherForecastJob.perform_later @birding_session
+        run_background_jobs
 
         format.html { redirect_to @birding_session, notice: 'Bird records were successfully created.' }
         format.json { render :show, status: :created, location: @birding_session }
@@ -41,6 +40,8 @@ class BirdingSessionsController < ApplicationController
 
     respond_to do |format|
       if @birding_session.update(birding_session_params)
+        run_background_jobs
+
         format.html { redirect_to @birding_session, notice: 'BirdingSession was successfully updated.' }
         format.json { render :show, status: :ok, location: @birding_session }
       else
@@ -54,5 +55,12 @@ class BirdingSessionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def birding_session_params
       params.require(:birding_session).permit(:date, :start_time, :location, :location_name, :location_address, :user_id, :bird_records_attributes => [:id, :bird_id, :count, :notes, :time, :location, :photo_ids => []])
+    end
+
+    def run_background_jobs
+      # Lookup the weather for this birding session
+      WeatherForecastJob.perform_later @birding_session
+      # Add any records to clubs
+      UpdateClubRecordsJob.perform_later @birding_session
     end
 end

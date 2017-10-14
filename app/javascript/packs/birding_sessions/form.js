@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import update from 'immutability-helper'
-import { Row, Col, FormGroup, Label, Input, Card, CardHeader, ListGroup, InputGroup, InputGroupAddon } from 'reactstrap'
+import { Button, Row, Col, FormGroup, Label, Input, Card, CardHeader, ListGroup, InputGroup, InputGroupAddon } from 'reactstrap'
 import Flatpickr from 'react-flatpickr'
+import ClubSubmissionNotice from '../components/club_submission_notice'
 import EditableBirdList from '../components/editable_bird_list'
 import EditBirdForm from '../components/edit_bird_form'
 import ErrorText from '../components/error_text'
@@ -233,6 +234,14 @@ class AddBirdRecords extends React.Component {
                 onBirdRemoved={this.removeBirdFromList}
                 onBirdEdit={this.editBird} />
             </Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs="12" md="4">
+            <Button className="mt-4" color="primary">Save Bird Records</Button>
+            <div className="mt-2">
+              <ClubSubmissionNotice location={this.state.location} />
+            </div>
           </Col>
         </Row>
         <Input type="hidden" name="birding_session[location]" value={locationToWkt(this.state.location)} />
