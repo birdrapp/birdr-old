@@ -42,7 +42,7 @@ class BirdingSessionsController < ApplicationController
       if @birding_session.update(birding_session_params)
         run_background_jobs
 
-        format.html { redirect_to @birding_session, notice: 'BirdingSession was successfully updated.' }
+        format.html { redirect_to @birding_session, notice: "Bird records successfully updated." }
         format.json { render :show, status: :ok, location: @birding_session }
       else
         format.html { render :edit }
