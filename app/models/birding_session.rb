@@ -9,9 +9,9 @@
 #  updated_at        :datetime         not null
 #  user_id           :integer
 #  location_name     :string           not null
-#  location_address  :string
 #  weather_report_id :integer
-#  start_time        :time
+#  time              :time
+#  country_code      :string(2)        not null
 #
 
 class BirdingSession < ApplicationRecord
@@ -27,11 +27,15 @@ class BirdingSession < ApplicationRecord
   validates :bird_records, presence: true
   validates :date, presence: true
   validates :location, presence: true
-  validates :start_time, presence: true
+  validates :time, presence: true
+
+  def country_name
+    country.local_name
+  end
 
   def datetime
-    return nil if date.nil? or start_time.nil?
-    @datetime ||= DateTime.new(date.year, date.month, date.day, start_time.hour, start_time.min, start_time.sec, start_time.zone)
+    return nil if date.nil? or time.nil?
+    @datetime ||= DateTime.new(date.year, date.month, date.day, time.hour, time.min, time.sec, time.zone)
   end
 
   def latitude
@@ -48,5 +52,11 @@ class BirdingSession < ApplicationRecord
 
   def user_name
     user.full_name
+  end
+
+  private
+
+  def country
+    @country ||= ISO3166::Country.new(country_code)
   end
 end

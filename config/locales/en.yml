@@ -35,7 +35,7 @@ en:
       models:
         birding_session:
           attributes:
-            start_time:
+            time:
               blank: "You must specify a start time"
             location:
               blank: "You must specify a location"
