@@ -22,7 +22,11 @@
 
 class User < ApplicationRecord
   has_many :club_memberships
-  has_many :clubs, :through => :club_memberships
+  has_many :clubs, :through => :club_memberships do
+    def joined_before(date)
+      where('club_memberships.created_at <= ?', date)
+    end
+  end
   has_many :birding_sessions
   has_many :bird_records, :through => :birding_sessions
 
