@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import update from 'immutability-helper'
 import { Row, Col, FormGroup, Label, Input, Card, CardHeader, ListGroup, InputGroup, InputGroupAddon } from 'reactstrap'
 import Flatpickr from 'react-flatpickr'
+import ClubSubmissionNotice from '../components/club_submission_notice'
 import EditableBirdList from '../components/editable_bird_list'
 import EditBirdForm from '../components/edit_bird_form'
 import ErrorText from '../components/error_text'
@@ -221,6 +222,7 @@ class AddBirdRecords extends React.Component {
             <p>
               <small><b>Tip:</b> to add more details click the <i className="fa fa-pencil" /> icon.</small>
             </p>
+            <ClubSubmissionNotice location={this.state.location} />
           </Col>
           <Col xs="12" md="8">
             <ErrorText className="mb-2" error={this.props.errors.bird_records} />
