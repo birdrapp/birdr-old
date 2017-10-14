@@ -12,6 +12,7 @@ module Birdr
     config.load_defaults 5.1
 
     config.i18n.default_locale = :en
+    config.active_record.default_timezone = :utc
 
     config.active_job.queue_adapter = :resque
     # Settings in config/environments/* take precedence over those specified here.

@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import moment from 'moment'
 import update from 'immutability-helper'
 import { Button, Row, Col, FormGroup, Label, Input, Card, CardHeader, ListGroup, InputGroup, InputGroupAddon } from 'reactstrap'
 import Flatpickr from 'react-flatpickr'
@@ -171,7 +172,7 @@ class AddBirdRecords extends React.Component {
           </Col>
           <Col xs="12" md="4">
             <FormGroup>
-              <Label for="birding_session_time">Start Time</Label>
+              <Label for="birding_session_time">Time</Label>
               <InputGroup className="flatpickr">
                 <Flatpickr
                   name="birding_session[time]"
@@ -179,9 +180,6 @@ class AddBirdRecords extends React.Component {
                   onChange={dates => this.timeUpdated(dates[0])}
                   value={this.state.time}
                   options={{
-                    altFormat: 'H:i',
-                    dateFormat: 'Z',
-                    altInput: true,
                     enableTime: true,
                     noCalendar: true,
                     time_24hr: true,
@@ -249,7 +247,11 @@ class AddBirdRecords extends React.Component {
         <Input type="hidden" name="birding_session[country_code]" value={this.state.countryCode} />
         {this.state.birdRecords.map((birdRecord, index) => (
           <div key={index}>
-            <BirdRecordHiddenInput value={birdRecord.id} attribute="id" index={index} />
+            {
+              birdRecord.id ?
+              <BirdRecordHiddenInput value={birdRecord.id} attribute="id" index={index} />
+              : ''
+            }
             <BirdRecordHiddenInput value={birdRecord.bird_id} attribute="bird_id" index={index} />
             <BirdRecordHiddenInput value={birdRecord.count} attribute="count" index={index} />
             <BirdRecordHiddenInput value={birdRecord.notes} attribute="notes" index={index} />
@@ -311,17 +313,13 @@ window.init = () => {
     location: wktToObject(birdRecord.location),
     bird_id: birdRecord.bird_id,
     id: birdRecord.id,
-    // we need to use datetime as time sets the date to 2000-01-01,
-    // which might not be the correct timezone
-    time: birdRecord.datetime,
+    time: birdRecord.time ? moment(birdRecord.time).format('HH:mm') : '',
     photos: birdRecord.photos.map(photoToProps)
   })
 
   const sessionToProps = (session) => ({
     date: session.date,
-    // we need to use datetime as time sets the date to 2000-01-01,
-    // which might not be the correct timezone
-    time: session.datetime,
+    time: session.time ? moment(session.time).format('HH:mm') : '',
     location: wktToObject(session.location),
     locationName: session.location_name,
     countryCode: session.country_code,
