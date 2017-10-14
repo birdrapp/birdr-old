@@ -13,13 +13,15 @@ class ClubSubmissionNotice extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.findClubs(newProps.location)
-      .then((clubs) => {
-        const clubString = clubs.map(c => c.short_name).join(', ')
-        this.setState({
-          clubs: clubString
+    if (newProps.location) {
+      this.findClubs(newProps.location)
+        .then((clubs) => {
+          const clubString = clubs.map(c => c.short_name).join(', ')
+          this.setState({
+            clubs: clubString
+          })
         })
-      })
+    }
   }
 
   findClubs(location) {
