@@ -17,6 +17,7 @@
 class Club < ApplicationRecord
   has_many :club_bird_records, dependent: :destroy
   has_many :bird_records, through: :club_bird_records
+  has_many :birding_sessions, -> { distinct('birding_session_id') }, through: :bird_records
   has_many :club_memberships
   has_many :users, through: :club_memberships
   belongs_to :owner, class_name: "User"
