@@ -14,10 +14,5 @@
   <div id="birding_session_form" data-errors='<%= @birding_session.errors.to_json %>' data-birding-session='<%= @birding_session.to_json(methods: :datetime, include: { bird_records: { methods: :datetime, include: [ :photos, :bird ] } }) %>'>
     <%= javascript_pack_tag 'birding_sessions/form' %>
   </div>
-  <div class="row">
-    <div class="col-12 col-md-4">
-      <%= f.button :submit, 'Save Bird Records', class: 'btn-primary mb-5 mt-4' %>
-    </div>
-  </div>
   <% end %>
 </div>

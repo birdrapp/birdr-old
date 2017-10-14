@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     passwords: 'users/passwords'
   }
+  get 'user/clubs', to: 'user#clubs', as: 'user_clubs'
 
   get '/bird_lists/:country_code/birds', to: 'bird_lists#birds'
 

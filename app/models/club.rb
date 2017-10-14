@@ -26,6 +26,8 @@ class Club < ApplicationRecord
   mount_uploader :cover_image, CoverImageUploader
   mount_uploader :logo, LogoUploader
 
+  scope :covering, -> (location) { where('ST_Contains(recording_area, ST_GeomFromText(?))', location) }
+
   def display_name
     has_short_name? ? short_name : name
   end

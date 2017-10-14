@@ -15,22 +15,26 @@ class ClubSubmissionNotice extends React.Component {
   componentWillReceiveProps(newProps) {
     this.findClubs(newProps.location)
       .then((clubs) => {
+        const clubString = clubs.map(c => c.short_name).join(', ')
         this.setState({
-          clubs
+          clubs: clubString
         })
       })
   }
 
   findClubs(location) {
-    return axios.get(`/user/clubs?point=${location}`).then(({ data }) => data)
+    const wkt = `POINT(${location.lng} ${location.lat})`
+    return axios.get(`/user/clubs.json?location=${wkt}`).then(({ data }) => {
+      return data.clubs
+    })
   }
 
   render() {
     return (
       this.state.clubs.length > 0 ?
-      <Alert>
-        {this.state.clubs}
-      </Alert>
+        <small className="text-danger">
+          These records fall within the <b>{this.state.clubs}</b> recording area and will be submitted automatically.
+        </small>
       : ''
     )
   }
