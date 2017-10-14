@@ -34,8 +34,9 @@ class AddBirdRecords extends React.Component {
       date: session.date || new Date(),
       time: session.time || new Date(Math.round((new Date()).getTime() / 300000) * 300000), // Nearest 5 minutes
       location: session.location,
-      locationName: session.locationName ? `${session.locationName}, ${session.countryName}` : "",
+      locationName: session.locationName || "",
       countryCode: session.countryCode || "",
+      countryName: session.countryName || "",
       editingBird: null,
       currentBirdIndex: null,
       modalOpen: false,
@@ -204,7 +205,7 @@ class AddBirdRecords extends React.Component {
           </Col>
           <Col xs="12" md="8">
             <SearchableMapWithMarker
-              searchText={this.state.locationName}
+              searchText={this.state.locationName ? `${this.state.locationName}, ${this.state.countryName}` : ''}
               onPlaceChanged={this.placeChanged}
               onPositionChanged={this.positionUpdated}
               markerPosition={this.state.location}
