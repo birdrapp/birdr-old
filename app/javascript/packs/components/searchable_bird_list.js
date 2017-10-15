@@ -10,7 +10,8 @@ class SearchableBirdList extends React.Component {
       options: [],
       isLoading: false,
       disabled: true,
-      placeholderText: 'Choose a location to enable the bird list'
+      placeholderText: 'Choose a location to enable the bird list',
+      listName: null
     }
 
     this.birdSelected = this.birdSelected.bind(this)
@@ -30,8 +31,16 @@ class SearchableBirdList extends React.Component {
           this.setState({
             options,
             listName: birdList.bird_list.name,
-            placeholderText: 'Enter a bird name to search...',
+            placeholderText: 'Type to search for a bird...',
             isLoading: false,
+          })
+        })
+        .catch((err) => {
+          this.setState({
+            options: [],
+            listName: null,
+            placeholderText: 'Error loading list.',
+            isLoading: false
           })
         })
     }
@@ -74,17 +83,26 @@ class SearchableBirdList extends React.Component {
 
   render() {
     return (
-      <Select
-        value="one"
-        placeholder={this.state.placeholderText}
-        filterOptions={this.filterOptions}
-        options={this.state.options}
-        className="bird-select"
-        clearable={false}
-        disabled={this.state.options.length === 0}
-        onChange={this.birdSelected}
-        isLoading={this.state.isLoading}
-      />
+      <div style={{width: '100%'}}>
+        <Select
+          value="one"
+          placeholder={this.state.placeholderText}
+          filterOptions={this.filterOptions}
+          options={this.state.options}
+          className="bird-select"
+          clearable={false}
+          disabled={this.state.options.length === 0}
+          onChange={this.birdSelected}
+          isLoading={this.state.isLoading}
+        />
+        {
+        this.state.listName ?
+        <div className="text-right">
+          <small className="text-muted">Searching <b>{this.state.listName}</b></small>
+        </div>
+        : ''
+        }
+      </div>
     )
   }
 }
