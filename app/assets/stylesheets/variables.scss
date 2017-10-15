@@ -55,6 +55,15 @@ $colors: map-merge((
   gray-dark: $gray-800
 ), $colors);
 
+$rarity-colors: () !default;
+$rarity-colors: map-merge((
+  abundant: $white,
+  common: $gray-300,
+  scarce: $green,
+  rare: $orange,
+  mega: $red
+), $rarity-colors);
+
 $theme-colors: () !default;
 $theme-colors: map-merge((
   primary: $blue,

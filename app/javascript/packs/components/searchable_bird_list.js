@@ -3,6 +3,18 @@ import Select from 'react-select'
 import { filter, score } from 'fuzzaldrin'
 import axios from 'axios'
 
+const rarityIcon = (level) => {
+  if (level >= 4) return <i className={"fa fa-exclamation rarity-indicator rarity-indicator-" + level}></i>
+  return <i className={"rarity-indicator rarity-indicator-" + level}></i>;
+}
+
+const optionWithRarity = (option) => {
+  return <div value={option.value}>
+    {rarityIcon(option.rarity)}
+    <span className="ml-2">{option.label}</span>
+  </div>
+}
+
 class SearchableBirdList extends React.Component {
   constructor(props) {
     super(props)
@@ -49,7 +61,8 @@ class SearchableBirdList extends React.Component {
   parseOptions(birds) {
     return birds.map(b => ({
       value: b.bird.id,
-      label: b.bird.common_name
+      label: b.bird.common_name,
+      rarity: b.rarity.level
     }))
   }
 
@@ -94,6 +107,7 @@ class SearchableBirdList extends React.Component {
           disabled={this.state.options.length === 0}
           onChange={this.birdSelected}
           isLoading={this.state.isLoading}
+          optionRenderer={optionWithRarity}
         />
         {
         this.state.listName ?
