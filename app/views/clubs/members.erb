@@ -12,6 +12,7 @@
           <p class="member-name my-0"><%= member.full_name %></p>
           <p class="member-since my-0 text-muted">Member since <%= member.member_since(@club).strftime("%B %Y") %></p>
         </div>
+        <% if policy(@club).manage_roles? %>
         <div class="member-roles mx-3">
           <%= role_names member %>
         </div>
@@ -23,6 +24,7 @@
             <a class="dropdown-item" href="#">Edit roles</a>
           </div>
         </div>
+        <% end %>
       </div>
     </div>
   <% end %>
