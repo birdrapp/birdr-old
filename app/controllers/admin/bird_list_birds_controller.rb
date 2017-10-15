@@ -48,7 +48,7 @@ class Admin::BirdListBirdsController < ApplicationController
     @bird_list_bird = BirdListBird.find(params[:id])
 
     @bird_list_bird.destroy
-    redirect_to admin_bird_list_birds_url, notice: 'Bird list bird was successfully destroyed.'
+    redirect_back fallback_location: admin_bird_list_birds_url, notice: 'Bird list bird was successfully destroyed.'
   end
 
   private

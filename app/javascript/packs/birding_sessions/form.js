@@ -226,7 +226,7 @@ class AddBirdRecords extends React.Component {
             <ErrorText className="mb-2" error={this.props.errors.bird_records} />
             <Card className={"bird-select" + (this.props.errors.bird_records ? " border-danger": "")}>
               <CardHeader className="d-flex justify-content-between align-items-center">
-                <SearchableBirdList country="gb" onBirdSelected={this.addBirdRecord} />
+                <SearchableBirdList location={this.state.location} onBirdSelected={this.addBirdRecord} />
               </CardHeader>
               <EditableBirdList
                 birdRecords={this.state.birdRecords}

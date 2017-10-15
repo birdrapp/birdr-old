@@ -1,7 +1,6 @@
 
 import React from 'react'
 import axios from 'axios'
-import { Alert } from 'reactstrap'
 
 class ClubSubmissionNotice extends React.Component {
   constructor(props) {
@@ -13,7 +12,7 @@ class ClubSubmissionNotice extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.location) {
+    if (newProps.location !== this.props.location) {
       this.findClubs(newProps.location)
         .then((clubs) => {
           const clubString = clubs.map(c => c.short_name).join(', ')
@@ -25,8 +24,7 @@ class ClubSubmissionNotice extends React.Component {
   }
 
   findClubs(location) {
-    const wkt = `POINT(${location.lng} ${location.lat})`
-    return axios.get(`/user/clubs.json?location=${wkt}`).then(({ data }) => {
+    return axios.get(`/user/clubs.json?lat=${location.lat}&lng=${location.lng}`).then(({ data }) => {
       return data.clubs
     })
   }

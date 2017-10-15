@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   }
   get 'user/clubs', to: 'user#clubs', as: 'user_clubs'
 
-  get '/bird_lists/:country_code/birds', to: 'bird_lists#birds'
+  get '/bird_lists/birds', to: 'bird_lists#birds'
 
   namespace :admin do
     root to: 'welcome#index'

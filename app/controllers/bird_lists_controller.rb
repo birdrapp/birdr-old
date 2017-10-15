@@ -1,7 +1,10 @@
 class BirdListsController < ApplicationController
   def birds
-    @bird_list = BirdList.covering(params[:point])
+    lng, lat = params[:lng], params[:lat]
+
+    @bird_list = BirdList.covering(lng, lat)
       .order_by_area
+      .first
 
     @birds = @bird_list.bird_list_birds
       .ioc_order

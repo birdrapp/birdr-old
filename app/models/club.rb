@@ -15,6 +15,8 @@
 #
 
 class Club < ApplicationRecord
+  include Geographical
+
   has_many :club_bird_records, dependent: :destroy
   has_many :bird_records, through: :club_bird_records
   has_many :birding_sessions, -> { distinct('birding_session_id') }, through: :bird_records
@@ -26,7 +28,7 @@ class Club < ApplicationRecord
   mount_uploader :cover_image, CoverImageUploader
   mount_uploader :logo, LogoUploader
 
-  scope :covering, -> (location) { where('ST_Intersects(recording_area, ST_GeographyFromText(?))', location) }
+  scope :covering, -> (lng, lat) { where('ST_Intersects(recording_area, ?)', create_point(lng, lat)) }
 
   def display_name
     has_short_name? ? short_name : name
