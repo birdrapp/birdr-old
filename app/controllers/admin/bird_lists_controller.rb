@@ -33,7 +33,6 @@ class Admin::BirdListsController < ApplicationController
   # PATCH/PUT /bird_lists/1
   def update
     @bird_list = BirdList.find(params[:id])
-
     if @bird_list.update(bird_list_params)
       redirect_to admin_bird_lists_url, notice: 'Bird list was successfully updated.'
     else
@@ -52,6 +51,6 @@ class Admin::BirdListsController < ApplicationController
   private
     # Only allow a trusted parameter "white list" through.
     def bird_list_params
-      params.require(:bird_list).permit(:name, :country_code)
+      params.require(:bird_list).permit(:name, :bounding_box)
     end
 end
