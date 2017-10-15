@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171014172532) do
+ActiveRecord::Schema.define(version: 20171015115558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,8 +23,10 @@ ActiveRecord::Schema.define(version: 20171014172532) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "resident", default: false
-    t.boolean "migratory", default: false
+    t.boolean "migrant", default: false
     t.boolean "vagrant", default: false
+    t.boolean "summer_visitor", default: false
+    t.boolean "winter_visitor", default: false
     t.index ["bird_id"], name: "index_bird_list_birds_on_bird_id"
     t.index ["bird_list_id"], name: "index_bird_list_birds_on_bird_list_id"
     t.index ["rarity_id"], name: "index_bird_list_birds_on_rarity_id"
@@ -32,9 +34,11 @@ ActiveRecord::Schema.define(version: 20171014172532) do
 
   create_table "bird_lists", force: :cascade do |t|
     t.string "name", null: false
-    t.string "country_code", limit: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.geography "bounding_box", limit: {:srid=>4326, :type=>"st_polygon", :geographic=>true}
+    t.bigint "club_id"
+    t.index ["club_id"], name: "index_bird_lists_on_club_id"
   end
 
   create_table "bird_records", force: :cascade do |t|
@@ -170,6 +174,7 @@ ActiveRecord::Schema.define(version: 20171014172532) do
   add_foreign_key "bird_list_birds", "bird_lists"
   add_foreign_key "bird_list_birds", "birds"
   add_foreign_key "bird_list_birds", "rarities"
+  add_foreign_key "bird_lists", "clubs"
   add_foreign_key "bird_records", "birding_sessions"
   add_foreign_key "bird_records", "birds"
   add_foreign_key "birding_sessions", "users"

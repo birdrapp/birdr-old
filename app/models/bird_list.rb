@@ -4,9 +4,10 @@
 #
 #  id           :integer          not null, primary key
 #  name         :string           not null
-#  country_code :string(2)        not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  bounding_box :geography({:srid polygon, 4326
+#  club_id      :integer
 #
 
 class BirdList < ApplicationRecord
