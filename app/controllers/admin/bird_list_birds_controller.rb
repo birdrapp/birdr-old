@@ -54,6 +54,6 @@ class Admin::BirdListBirdsController < ApplicationController
   private
     # Only allow a trusted parameter "white list" through.
     def bird_list_bird_params
-      params.require(:bird_list_bird).permit(:bird_id, :bird_list_id, :rarity_id, :resident, :migratory, :vagrant)
+      params.require(:bird_list_bird).permit(:bird_id, :bird_list_id, :rarity_id, :resident, :migrant, :summer_visitor, :winter_visitor, :vagrant)
     end
 end
