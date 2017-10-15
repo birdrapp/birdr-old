@@ -1,12 +1,10 @@
 <%= simple_form_for([:admin, @bird_list_bird]) do |f| %>
+  <input type="hidden" name="page" value="<%= @page %>">
   <%= f.error_notification %>
-
-    <%# <%= f.association :bird, required: false %>
-    <%# <%= f.association :bird_list, required: false %>
-    <%= f.association :rarity, required: true %>
-    <%= f.input :resident %>
-    <%= f.input :migratory %>
-    <%= f.input :vagrant %>
+  <%= f.association :rarity, required: true %>
+  <%= f.input :resident %>
+  <%= f.input :migratory %>
+  <%= f.input :vagrant %>
 
   <%= f.button :submit %>
 <% end %>

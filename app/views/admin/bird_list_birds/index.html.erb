@@ -19,7 +19,7 @@
         <tbody>
           <% @bird_list_birds.each do |bird_list_bird| %>
             <tr>
-              <td><%= bird_list_bird.bird %></td>
+              <td><%= bird_list_bird.bird.common_name %></td>
               <td><%= bird_list_bird.bird_list %></td>
               <td><%= bird_list_bird.rarity %></td>
               <td><%= bird_list_bird.resident? %></td>
@@ -27,7 +27,7 @@
               <td><%= bird_list_bird.vagrant? %></td>
               <td class="text-right">
               <%= link_to 'Show', [:admin, bird_list_bird], class: 'text-dark' %> |
-              <%= link_to 'Edit', [:edit, :admin, bird_list_bird], class: 'text-dark' %> |
+              <%= link_to 'Edit', [:edit, :admin, bird_list_bird, page: @page], class: 'text-dark' %> |
               <%= link_to 'Destroy', [:admin, bird_list_bird], method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-danger' %>
               </td>
             </tr>

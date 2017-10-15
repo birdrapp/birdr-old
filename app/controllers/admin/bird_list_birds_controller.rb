@@ -1,7 +1,8 @@
 class Admin::BirdListBirdsController < ApplicationController
   # GET /admin/bird_list_birds
   def index
-    @bird_list_birds = BirdListBird.includes(:bird, :rarity, :bird_list).ioc_order.page(params[:page])
+    @page = params[:page] || 1
+    @bird_list_birds = BirdListBird.includes(:bird, :rarity, :bird_list).ioc_order.page(@page)
   end
 
   # GET /admin/bird_list_birds/1
@@ -17,6 +18,7 @@ class Admin::BirdListBirdsController < ApplicationController
   # GET /admin/bird_list_birds/1/edit
   def edit
     @bird_list_bird = BirdListBird.find(params[:id])
+    @page = params[:page]
   end
 
   # POST /admin/bird_list_birds
@@ -33,9 +35,9 @@ class Admin::BirdListBirdsController < ApplicationController
   # PATCH/PUT /admin/bird_list_birds/1
   def update
     @bird_list_bird = BirdListBird.find(params[:id])
-
+    @page = params[:page]
     if @bird_list_bird.update(bird_list_bird_params)
-      redirect_to admin_bird_list_birds_url, notice: 'Bird list bird was successfully updated.'
+      redirect_to admin_bird_list_birds_url(page: @page), notice: 'Bird list bird was successfully updated.'
     else
       render :edit
     end
