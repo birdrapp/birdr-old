@@ -10,8 +10,8 @@
 #  updated_at     :datetime         not null
 #  cover_image    :string
 #  logo           :string
-#  recording_area :geometry({:srid= polygon, 0
 #  owner_id       :integer
+#  recording_area :geography({:srid polygon, 4326
 #
 
 class Club < ApplicationRecord
@@ -26,7 +26,7 @@ class Club < ApplicationRecord
   mount_uploader :cover_image, CoverImageUploader
   mount_uploader :logo, LogoUploader
 
-  scope :covering, -> (location) { where('ST_Contains(recording_area, ST_GeomFromText(?))', location) }
+  scope :covering, -> (location) { where('ST_Intersects(recording_area, ST_GeographyFromText(?))', location) }
 
   def display_name
     has_short_name? ? short_name : name

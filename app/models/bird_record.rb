@@ -26,7 +26,7 @@ class BirdRecord < ApplicationRecord
   scope :kilometres_from_record, -> (kilometres, location) { joins(:birding_session).where('ST_DWithin(bird_records.location, Geography(ST_MakePoint(?, ?)), ?)', location.lon, location.lat, kilometres * 1000) }
   scope :order_by_time, -> { order('bird_records.time NULLS FIRST, bird_records.id') }
   scope :with_bird, -> { includes(:bird) }
-  scope :within_area, -> (area) { joins(:birding_session).where('ST_Covers(?, COALESCE(bird_records.location, birding_sessions.location))', area) }
+  scope :within_area, -> (area) { joins(:birding_session).where('ST_Intersects(?, COALESCE(bird_records.location, birding_sessions.location))', area) }
 
   def bird_name
     bird.common_name
