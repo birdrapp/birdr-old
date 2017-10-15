@@ -2,20 +2,28 @@
 <%= render 'nav' %>
 
 <div class="container">
-  <table class="table table-stiped mt-4">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Member since</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @club.members.each do |member| %>
-      <tr>
-        <td><%= member.full_name %></td>
-        <td><%= member.member_since(@club).strftime("%d-%m-%Y") %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <% @club.members.each do |member| %>
+    <div class="members-list mt-2">
+      <div class="member d-flex align-items-center py-3">
+        <div class="member-image mr-3">
+          <%= user_avatar :medium, user: member %>
+        </div>
+        <div class="member-details mr-auto">
+          <p class="member-name my-0"><%= member.full_name %></p>
+          <p class="member-since my-0 text-muted">Member since <%= member.member_since(@club).strftime("%B %Y") %></p>
+        </div>
+        <div class="member-roles mx-3">
+          <%= role_names member %>
+        </div>
+        <div class="member-settings">
+          <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="member-dropdown-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= fa_icon 'cog' %>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="member-dropdown-button">
+            <a class="dropdown-item" href="#">Edit roles</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
