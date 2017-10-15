@@ -7,7 +7,6 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th>Country code</th>
             <th>Birds</th>
             <th></th>
           </tr>
@@ -17,7 +16,6 @@
           <% @bird_lists.each do |bird_list| %>
             <tr>
               <td><%= bird_list.name %></td>
-              <td><%= bird_list.country_code %></td>
               <td><%= bird_list.birds.count %></td>
               <td class="text-right">
               <%= link_to 'Show', [:admin, bird_list], class: 'text-dark' %> |
