@@ -9,7 +9,7 @@ class UpdateClubRecordsJob < ApplicationJob
     user_clubs = user.clubs.joined_before(birding_session.datetime)
 
     birding_session.bird_records.each do |record|
-      record.clubs = user_clubs.select { |club| club.recording_area.contains? record.location }
+      record.clubs = user_clubs.covering(record.location.lon, record.location.lat)
     end
   end
 end

@@ -40,7 +40,6 @@ gem 'country_select', '~> 3.1'
 gem 'forecast_io', '~> 2.0'
 gem 'resque', '~> 1.27'
 gem 'pundit', '~> 1.1.0'
-gem 'rgeo', '~> 0.6.0'
 gem 'countries', '~> 2.1.2'
 
 group :development, :test do

@@ -342,7 +342,6 @@ DEPENDENCIES
   rack-mini-profiler (~> 0.10)
   rails (~> 5.1.4)
   resque (~> 1.27)
-  rgeo (~> 0.6.0)
   rubocop (~> 0.49)
   sass-rails (~> 5.0)
   selenium-webdriver
