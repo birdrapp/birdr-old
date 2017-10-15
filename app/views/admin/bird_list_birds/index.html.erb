@@ -3,16 +3,17 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <table class="table table-responsive">
+      <table class="table table-responsive table-bordered table-condensed">
         <thead>
           <tr>
             <th>Bird</th>
-            <th>Bird list</th>
             <th>Rarity</th>
-            <th>Resident</th>
-            <th>Migratory</th>
-            <th>Vagrant</th>
-            <th></th>
+            <th class="text-right">Resident</th>
+            <th class="text-right">Summer</th>
+            <th class="text-right">Winter</th>
+            <th class="text-right">Migrant</th>
+            <th class="text-right">Vagrant</th>
+            <th class="text-right">Actions</th>
           </tr>
         </thead>
 
@@ -20,11 +21,12 @@
           <% @bird_list_birds.each do |bird_list_bird| %>
             <tr>
               <td><%= bird_list_bird.bird.common_name %></td>
-              <td><%= bird_list_bird.bird_list %></td>
               <td><%= bird_list_bird.rarity %></td>
-              <td><%= bird_list_bird.resident? %></td>
-              <td><%= bird_list_bird.migratory? %></td>
-              <td><%= bird_list_bird.vagrant? %></td>
+              <td class="text-right"><%= bird_list_bird.resident? ? '✓' : '✗' %></td>
+              <td class="text-right"><%= bird_list_bird.summer_visitor? ? '✓' : '✗' %></td>
+              <td class="text-right"><%= bird_list_bird.winter_visitor? ? '✓' : '✗' %></td>
+              <td class="text-right"><%= bird_list_bird.migrant? ? '✓' : '✗' %></td>
+              <td class="text-right"><%= bird_list_bird.vagrant? ? '✓' : '✗' %></td>
               <td class="text-right">
               <%= link_to 'Show', [:admin, bird_list_bird], class: 'text-dark' %> |
               <%= link_to 'Edit', [:edit, :admin, bird_list_bird, page: @page], class: 'text-dark' %> |
