@@ -5,6 +5,6 @@ module ClubsHelper
 
   def role_names user
     roles = user.roles(@club).map{ |r| r.role.capitalize }
-    roles.join(', ')
+    roles.to_sentence
   end
 end
