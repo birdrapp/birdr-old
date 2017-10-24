@@ -103,6 +103,14 @@ class ClubsController < ApplicationController
     authorize @club
   end
 
+  # POST /clubs/1/members/1/roles
+  def update_roles
+    @club = Club.find(params[:id])
+    authorize @club
+    redirect_to action: :members
+    puts roles_params
+  end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def club_params
@@ -110,5 +118,9 @@ class ClubsController < ApplicationController
         :name, :short_name, :description,
         :cover_image, :remove_cover_image, :logo, :remove_logo, :recording_area
       )
+    end
+
+    def roles_params
+      params.require(:roles).permit(:reporter, :admin)
     end
 end

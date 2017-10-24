@@ -1,7 +1,7 @@
 <div class="modal fade" id="roles-modal-<%= member.id %>" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form method="post" action="/">
+      <form method="post" action="<%= update_club_roles_path(@club.id, member.id) %>">
         <div class="modal-header">
           <h3 class="modal-title">Edit roles</h3>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -14,6 +14,7 @@
               <input
                 class="form-check-input"
                 type="checkbox"
+                id="roles_reporter"
                 name="roles[reporter]"
                 <%= 'checked' if member.has_role?(@club, 'reporter') %>
               >
@@ -27,12 +28,14 @@
                 class="form-check-input"
                 type="checkbox"
                 name="roles[admin]"
+                id="roles_admin"
                 <%= 'checked' if member.has_role?(@club, 'admin') %>
               >
               Admin
             </label>
             <small class="form-text text-muted">Admins can manage club members</small>
           </p>
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>

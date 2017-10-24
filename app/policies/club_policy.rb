@@ -39,6 +39,10 @@ class ClubPolicy < ApplicationPolicy
     owner?
   end
 
+  def update_roles?
+    manage_roles?
+  end
+
   private
 
   def member?
