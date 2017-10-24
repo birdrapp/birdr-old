@@ -21,9 +21,12 @@
             <%= fa_icon 'cog' %>
           </button>
           <div class="dropdown-menu" aria-labelledby="member-dropdown-button">
-            <a class="dropdown-item" href="#">Edit roles</a>
+            <button class="dropdown-item" data-target="#roles-modal-<%= member.id %>" data-toggle="modal">
+              Edit roles
+            </a>
           </div>
         </div>
+        <%= render 'roles_modal', member: member %>
         <% end %>
       </div>
     </div>

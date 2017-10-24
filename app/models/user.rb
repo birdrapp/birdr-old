@@ -58,4 +58,8 @@ class User < ApplicationRecord
   def roles club
     club_member_roles.where(club: club)
   end
+
+  def has_role?(club, role)
+    club_member_roles.exists?(club: club, role: role)
+  end
 end
