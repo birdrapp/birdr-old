@@ -106,9 +106,18 @@ class ClubsController < ApplicationController
   # POST /clubs/1/members/1/roles
   def update_roles
     @club = Club.find(params[:id])
+    user = User.find(params[:user_id])
     authorize @club
+    roles = user.roles(@club)
+    ['admin', 'reporter'].each do |role|
+      if roles_params[role] && !roles.exists?(role: role)
+        roles.create!(role: role)
+      end
+      if !roles_params[role] && roles.exists?(role: role)
+        roles.where(role: role).destroy_all
+      end
+    end
     redirect_to action: :members
-    puts roles_params
   end
 
   private
@@ -121,6 +130,6 @@ class ClubsController < ApplicationController
     end
 
     def roles_params
-      params.require(:roles).permit(:reporter, :admin)
+      params.permit(:roles).permit(:reporter, :admin)
     end
 end
