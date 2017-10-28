@@ -29,6 +29,7 @@ class User < ApplicationRecord
   end
   has_many :birding_sessions
   has_many :bird_records, :through => :birding_sessions
+  has_many :club_member_roles
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -52,5 +53,13 @@ class User < ApplicationRecord
 
   def to_s
     full_name
+  end
+
+  def roles club
+    club_member_roles.where(club: club)
+  end
+
+  def has_role?(club, role)
+    club_member_roles.exists?(club: club, role: role)
   end
 end

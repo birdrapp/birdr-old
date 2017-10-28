@@ -13,8 +13,18 @@
 class ClubMembership < ApplicationRecord
   belongs_to :user
   belongs_to :club
+  after_create :create_member_role
+  before_destroy :destroy_roles
 
   def to_s
     "#{user} in #{club}"
+  end
+
+  def destroy_roles
+    user.roles(club).destroy_all
+  end
+
+  def create_member_role
+    user.roles(club).create! role: 'member'
   end
 end

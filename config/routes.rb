@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post '/clubs/:id/leave', to: 'clubs#leave', as: 'leave_club'
   get '/clubs/:id/members', to: 'clubs#members', as: 'club_members'
   get '/clubs/:id/membership', to: 'clubs#membership', as: 'club_membership'
+  post '/clubs/:id/members/:user_id/roles', to: 'clubs#update_roles', as: 'update_club_roles'
 
   resources :photos, only: [:new, :create, :destroy]
 

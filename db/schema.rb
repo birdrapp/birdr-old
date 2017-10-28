@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171015123814) do
+ActiveRecord::Schema.define(version: 20171015134838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,16 @@ ActiveRecord::Schema.define(version: 20171015123814) do
     t.index ["bird_record_id"], name: "index_club_bird_records_on_bird_record_id"
     t.index ["club_id", "bird_record_id"], name: "index_club_bird_records_on_club_id_and_bird_record_id", unique: true
     t.index ["club_id"], name: "index_club_bird_records_on_club_id"
+  end
+
+  create_table "club_member_roles", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "club_id"
+    t.string "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_club_member_roles_on_club_id"
+    t.index ["user_id"], name: "index_club_member_roles_on_user_id"
   end
 
   create_table "club_memberships", force: :cascade do |t|
@@ -181,5 +191,7 @@ ActiveRecord::Schema.define(version: 20171015123814) do
   add_foreign_key "birding_sessions", "weather_reports"
   add_foreign_key "club_bird_records", "bird_records"
   add_foreign_key "club_bird_records", "clubs"
+  add_foreign_key "club_member_roles", "clubs"
+  add_foreign_key "club_member_roles", "users"
   add_foreign_key "clubs", "users", column: "owner_id"
 end

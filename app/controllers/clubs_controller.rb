@@ -104,6 +104,24 @@ class ClubsController < ApplicationController
     authorize @club
   end
 
+  # POST /clubs/1/members/1/roles
+  def update_roles
+    @club = Club.find(params[:id])
+    user = User.find(params[:user_id])
+    authorize @club
+    roles = user.roles(@club)
+    role_params = params['roles']
+    ['admin', 'reporter'].each do |role|
+      if role_params && role_params[role] && !roles.exists?(role: role)
+        roles.create!(role: role)
+      end
+      if (!role_params || !role_params[role]) && roles.exists?(role: role)
+        roles.where(role: role).destroy_all
+      end
+    end
+    redirect_to action: :members
+  end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def club_params

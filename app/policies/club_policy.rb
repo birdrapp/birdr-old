@@ -35,10 +35,18 @@ class ClubPolicy < ApplicationPolicy
     member?
   end
 
+  def manage_roles?
+    owner?
+  end
+
+  def update_roles?
+    manage_roles?
+  end
+
   private
 
   def member?
-    user.is_member_of? club
+    user && user.is_member_of?(club)
   end
 
   def owner?

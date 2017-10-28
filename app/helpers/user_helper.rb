@@ -9,7 +9,8 @@ module UserHelper
     # opts[:class] << ' rounded-circle'
     opts[:class] ||= ''
     opts[:class] << ' rounded-circle'
+    user = opts[:user] || current_user
 
-    gravatar_image_tag current_user.email, gravatar: { size: width }, alt: current_user.to_s, class: opts[:class].strip
+    gravatar_image_tag user.email, gravatar: { size: width }, alt: user.to_s, class: opts[:class].strip
   end
 end
