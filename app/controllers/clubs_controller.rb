@@ -109,11 +109,12 @@ class ClubsController < ApplicationController
     user = User.find(params[:user_id])
     authorize @club
     roles = user.roles(@club)
+    role_params = params['roles']
     ['admin', 'reporter'].each do |role|
-      if roles_params[role] && !roles.exists?(role: role)
+      if role_params && role_params[role] && !roles.exists?(role: role)
         roles.create!(role: role)
       end
-      if !roles_params[role] && roles.exists?(role: role)
+      if (!role_params || !role_params[role]) && roles.exists?(role: role)
         roles.where(role: role).destroy_all
       end
     end
@@ -127,9 +128,5 @@ class ClubsController < ApplicationController
         :name, :short_name, :description,
         :cover_image, :remove_cover_image, :logo, :remove_logo, :recording_area
       )
-    end
-
-    def roles_params
-      params.permit(:roles).permit(:reporter, :admin)
     end
 end
